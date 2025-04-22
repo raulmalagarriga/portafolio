@@ -1,11 +1,35 @@
 "use client"
 
-import { useCallback } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Particles from "react-tsparticles"
 import type { Container, Engine } from "tsparticles-engine"
 import { loadFull } from "tsparticles"
+import { useThemeColor } from "@/contexts/theme-context"
 
 export default function ParticlesBackground() {
+  const { themeColor } = useThemeColor()
+  const [particleColor, setParticleColor] = useState("#10b981") // Default green
+
+  useEffect(() => {
+    // Update particle color based on theme
+    switch (themeColor) {
+      case "green":
+        setParticleColor("#10b981")
+        break
+      case "blue":
+        setParticleColor("#3b82f6")
+        break
+      case "yellow":
+        setParticleColor("#f59e0b")
+        break
+      case "white":
+        setParticleColor("#e5e7eb")
+        break
+      default:
+        setParticleColor("#10b981")
+    }
+  }, [themeColor])
+
   const particlesInit = useCallback(async (engine: Engine) => {
     // This loads the full tsparticles package with all the features
     await loadFull(engine)
@@ -41,6 +65,7 @@ export default function ParticlesBackground() {
             onHover: {
               enable: false,
               mode: "repulse",
+              // distance: 100,
             },
             resize: true,
           },
@@ -56,10 +81,10 @@ export default function ParticlesBackground() {
         },
         particles: {
           color: {
-            value: "#10b981",
+            value: particleColor,
           },
           links: {
-            color: "#10b981",
+            color: particleColor,
             distance: 150,
             enable: true,
             opacity: 0.3,

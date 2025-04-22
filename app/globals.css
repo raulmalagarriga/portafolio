@@ -25,9 +25,42 @@
   --radius: 0.5rem;
 }
 
+/* Theme color variables */
+:root[data-theme-color="green"] {
+  --theme-color: #10b981;
+  --theme-color-rgb: 16, 185, 129;
+  --theme-color-light: #34d399;
+  --theme-color-dark: #059669;
+  --theme-color-muted: rgba(16, 185, 129, 0.2);
+}
+
+:root[data-theme-color="blue"] {
+  --theme-color: #3b82f6;
+  --theme-color-rgb: 59, 130, 246;
+  --theme-color-light: #60a5fa;
+  --theme-color-dark: #2563eb;
+  --theme-color-muted: rgba(59, 130, 246, 0.2);
+}
+
+:root[data-theme-color="yellow"] {
+  --theme-color: #f59e0b;
+  --theme-color-rgb: 245, 158, 11;
+  --theme-color-light: #fbbf24;
+  --theme-color-dark: #d97706;
+  --theme-color-muted: rgba(245, 158, 11, 0.2);
+}
+
+:root[data-theme-color="white"] {
+  --theme-color: #e5e7eb;
+  --theme-color-rgb: 229, 231, 235;
+  --theme-color-light: #f3f4f6;
+  --theme-color-dark: #d1d5db;
+  --theme-color-muted: rgba(229, 231, 235, 0.2);
+}
+
 body {
   background-color: black;
-  color: #10b981;
+  color: var(--theme-color, #10b981);
   font-family: "Courier New", monospace;
 }
 
@@ -54,10 +87,55 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #10b981;
+  background: var(--theme-color, #10b981);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #0d9668;
+  background: var(--theme-color-dark, #0d9668);
+}
+
+/* Theme-based text colors */
+.text-theme {
+  color: var(--theme-color);
+}
+
+.text-theme-light {
+  color: var(--theme-color-light);
+}
+
+.text-theme-dark {
+  color: var(--theme-color-dark);
+}
+
+.border-theme {
+  border-color: var(--theme-color);
+}
+
+.border-theme-30 {
+  border-color: rgba(var(--theme-color-rgb), 0.3);
+}
+
+.bg-theme {
+  background-color: var(--theme-color);
+}
+
+.bg-theme-10 {
+  background-color: rgba(var(--theme-color-rgb), 0.1);
+}
+
+.bg-theme-20 {
+  background-color: rgba(var(--theme-color-rgb), 0.2);
+}
+
+.hover\:bg-theme-10:hover {
+  background-color: rgba(var(--theme-color-rgb), 0.1);
+}
+
+.hover\:text-theme-light:hover {
+  color: var(--theme-color-light);
+}
+
+.hover\:border-theme-light:hover {
+  border-color: var(--theme-color-light);
 }

@@ -39,7 +39,7 @@ export default function ThemeSelector() {
         className="flex items-center gap-1 px-3 py-1 rounded border border-theme-30 hover:border-theme-light transition-colors"
       >
         <span className="hidden sm:inline">{t("theme.select")}:</span>
-        <span className="capitalize">{t(`theme.${themeColor}`)}</span>
+        <span >{t(`theme.${themeColor}`)}</span>
         <ChevronDown size={16} />
       </button>
 

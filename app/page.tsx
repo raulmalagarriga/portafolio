@@ -21,8 +21,8 @@ export default function Portfolio() {
   const [typingSpeed, setTypingSpeed] = useState(100)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  const staticText = "> Hello World. I am a "
-  const titles = ["Backend Developer.", "Software Developer.", "Software Architect."]
+  const staticText = t("hero.title");
+  const titles = [t("hero.title.backend"), t("hero.title.software"), t("hero.title.architec")]
   const typingRef = useRef<NodeJS.Timeout>()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
@@ -142,9 +142,8 @@ export default function Portfolio() {
       <header className="fixed top-0 w-full bg-black/90 backdrop-blur-sm border-b border-theme-30 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <div className="text-xl font-bold">
-            <span className="text-white">dev</span>
-            <span className="text-theme">@portfolio</span>
-            <span className="text-white">:~$</span>
+            <span className="text-theme">raulmalagarriga</span>
+            <span className="text-white">.dev</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -263,7 +262,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.languages")}</h3>
                 <ul className="space-y-2">
-                  {["JavaScript", "TypeScript", "Python", "Go", "Java"].map((skill, index) => (
+                  {["C#", "TypeScript", "Javascript"].map((skill, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <span className="text-theme">$</span> {skill}
                     </li>
@@ -273,7 +272,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.frameworks")}</h3>
                 <ul className="space-y-2">
-                  {["Node.js", "Express", "NestJS", "Django", "Spring Boot"].map((skill, index) => (
+                  {[".NET", "Entity Framework", "Node.js", "Express", "React", "React Native"].map((skill, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <span className="text-theme">$</span> {skill}
                     </li>
@@ -283,7 +282,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.databases")}</h3>
                 <ul className="space-y-2">
-                  {["PostgreSQL", "MongoDB", "MySQL", "Redis", "Elasticsearch"].map((skill, index) => (
+                  {["PostgreSQL", "MongoDB", "SQL Server", "Redis"].map((skill, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <span className="text-theme">$</span> {skill}
                     </li>
@@ -293,7 +292,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.cloud")}</h3>
                 <ul className="space-y-2">
-                  {["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"].map((skill, index) => (
+                  {["Ubuntu Server", "Docker", "Windows Server", "CI/CD"].map((skill, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <span className="text-theme">$</span> {skill}
                     </li>
@@ -313,7 +312,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.concepts")}</h3>
                 <ul className="space-y-2">
-                  {["RESTful APIs", "GraphQL", "Microservices", "Authentication", "Performance Optimization"].map(
+                  {["RESTful APIs", "JWT", "Microservices", "Authentication", "Performance Optimization"].map(
                     (skill, index) => (
                       <li key={index} className="flex items-center gap-2">
                         <span className="text-theme">$</span> {skill}
@@ -405,8 +404,8 @@ export default function Portfolio() {
                   url: "#",
                 },
                 {
-                  name: t("profiles.fiverr"),
-                  description: t("profiles.fiverr.desc"),
+                  name: t("profiles.blog"),
+                  description: t("profiles.blog.desc"),
                   icon: <ExternalLink className="h-6 w-6" />,
                   url: "#",
                 },
@@ -496,7 +495,7 @@ export default function Portfolio() {
       <footer className="border-t border-theme-30 py-8 relative z-10">
         <div className="container mx-auto px-4 text-center">
           <p className="text-gray-400">
-            <span className="text-theme">$</span> {t("footer.designed")} [Your Name]
+            <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
           </p>
           <p className="text-gray-500 text-sm mt-2">
             © {new Date().getFullYear()} {t("footer.rights")}

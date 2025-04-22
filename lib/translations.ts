@@ -9,6 +9,10 @@ export const translations = {
       home: "Home",
   
       // Hero
+      "hero.title": "> Hello World. I am a ",
+      "hero.title.backend": "Backend Developer.",
+      "hero.title.software": "Software Engineer.",
+      "hero.title.architec": "Software Architect.",
       "hero.intro": "I build robust, scalable backend systems and APIs that power modern applications.",
       "hero.explore": "Explore",
   
@@ -57,6 +61,8 @@ export const translations = {
       "profiles.linkedin.desc": "Connect with me professionally",
       "profiles.fiverr": "Fiverr",
       "profiles.fiverr.desc": "Hire me for freelance backend development",
+      "profiles.blog": "Blog",
+      "profiles.blog.desc": "Read my articles and tutorials",
       "profiles.resume": "Resume",
       "profiles.resume.desc": "Download my resume in PDF format",
   
@@ -78,10 +84,10 @@ export const translations = {
   
       // Theme selector
       "theme.select": "Theme",
-      "theme.green": "Green",
-      "theme.blue": "Blue",
-      "theme.yellow": "Yellow",
-      "theme.white": "White",
+      "theme.green": "hacker",
+      "theme.blue": "ocean",
+      "theme.yellow": "sunset",
+      "theme.white": "discreet",
   
       // Language selector
       "language.select": "Language",
@@ -98,6 +104,10 @@ export const translations = {
       home: "Inicio",
   
       // Hero
+      "hero.title": "> Hola Mundo. Soy un ",
+      "hero.title.backend": "Desarrollador Backend.",
+      "hero.title.software": "Ingeniero de Software.",
+      "hero.title.architec": "Arquitecto de Software.",
       "hero.intro": "Construyo sistemas backend robustos y escalables y APIs que impulsan aplicaciones modernas.",
       "hero.explore": "Explorar",
   
@@ -146,6 +156,8 @@ export const translations = {
       "profiles.linkedin.desc": "Conéctate conmigo profesionalmente",
       "profiles.fiverr": "Fiverr",
       "profiles.fiverr.desc": "Contrátame para desarrollo backend freelance",
+      "profiles.blog": "Blog",
+      "profiles.blog.desc": "Lee mis artículos y tutoriales",
       "profiles.resume": "Currículum",
       "profiles.resume.desc": "Descarga mi currículum en formato PDF",
   
@@ -167,10 +179,10 @@ export const translations = {
   
       // Theme selector
       "theme.select": "Tema",
-      "theme.green": "Verde",
-      "theme.blue": "Azul",
-      "theme.yellow": "Amarillo",
-      "theme.white": "Blanco",
+      "theme.green": "hacker",
+      "theme.blue": "oceano",
+      "theme.yellow": "atardecer",
+      "theme.white": "discreto",
   
       // Language selector
       "language.select": "Idioma",

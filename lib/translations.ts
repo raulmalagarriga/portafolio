@@ -35,19 +35,20 @@ export const translations = {
       // Projects
       "projects.title": "Projects",
       "projects.view": "View on GitHub",
+      "projects.comming": "Coming Soon!",
   
       // Project descriptions
       "projects.ecommerce.title": "E-Commerce API",
       "projects.ecommerce.desc":
         "A scalable RESTful API for e-commerce platforms with authentication, product management, and order processing.",
   
-      "projects.chat.title": "Real-time Chat Service",
+      "projects.chat.title": "BattleShip.",
       "projects.chat.desc":
-        "Microservice architecture for a real-time messaging platform with WebSocket integration and message persistence.",
+        "Classic multiplayer battleship game with integrated real-time chat.",
   
-      "projects.cms.title": "Content Management System",
-      "projects.cms.desc":
-        "Headless CMS with a flexible content model, role-based access control, and comprehensive API.",
+      "projects.pulse.title": "PULSE",
+      "projects.pulse.desc":
+        "Fitness app for client management and training plan management.",
   
       "projects.data.title": "Data Processing Pipeline",
       "projects.data.desc":
@@ -130,24 +131,25 @@ export const translations = {
       // Projects
       "projects.title": "Proyectos",
       "projects.view": "Ver en GitHub",
-  
+      "projects.comming": "¡Proximamente!",
       // Project descriptions
       "projects.ecommerce.title": "API de Comercio Electrónico",
       "projects.ecommerce.desc":
         "Una API RESTful escalable para plataformas de comercio electrónico con autenticación, gestión de productos y procesamiento de pedidos.",
   
-      "projects.chat.title": "Servicio de Chat en Tiempo Real",
+      "projects.chat.title": "BattleShip.",
       "projects.chat.desc":
-        "Arquitectura de microservicios para una plataforma de mensajería en tiempo real con integración WebSocket y persistencia de mensajes.",
+        "Clasico juego de battleship multijugador con chat integrado en tiempo real.",
   
-      "projects.cms.title": "Sistema de Gestión de Contenidos",
-      "projects.cms.desc":
-        "CMS headless con un modelo de contenido flexible, control de acceso basado en roles y API completa.",
+      "projects.pulse.title": "PULSE",
+      "projects.pulse.desc":
+        "Aplicacion fitness para gestion de clientes y manejo de planes de entrenamiento.",
   
       "projects.data.title": "Pipeline de Procesamiento de Datos",
       "projects.data.desc":
         "Sistema distribuido para procesar y analizar grandes conjuntos de datos con tolerancia a fallos y escalado horizontal.",
   
+
       // Profiles
       "profiles.title": "Perfiles",
       "profiles.github": "GitHub",

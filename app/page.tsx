@@ -272,7 +272,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.frameworks")}</h3>
                 <ul className="space-y-2">
-                  {[".NET", "Entity Framework", "Node.js", "Express", "React", "React Native"].map((skill, index) => (
+                  {[".NET", "Entity Framework", "Node.js", "Express", "Socket.io", "React", "React Native", "Next.js"].map((skill, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <span className="text-theme">$</span> {skill}
                     </li>
@@ -282,7 +282,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.databases")}</h3>
                 <ul className="space-y-2">
-                  {["PostgreSQL", "MongoDB", "SQL Server", "Redis"].map((skill, index) => (
+                  {["PostgreSQL", "SQL Server", "MongoDB", "Redis"].map((skill, index) => (
                     <li key={index} className="flex items-center gap-2">
                       <span className="text-theme">$</span> {skill}
                     </li>
@@ -312,7 +312,7 @@ export default function Portfolio() {
               <div className="border border-theme-30 p-4 rounded-md bg-black/80">
                 <h3 className="text-white text-lg font-semibold mb-3">{t("skills.concepts")}</h3>
                 <ul className="space-y-2">
-                  {["RESTful APIs", "JWT", "Microservices", "Authentication", "Performance Optimization"].map(
+                  {["RESTful APIs", "Microservices", "Authentication", "Performance Optimization"].map(
                     (skill, index) => (
                       <li key={index} className="flex items-center gap-2">
                         <span className="text-theme">$</span> {skill}
@@ -342,14 +342,14 @@ export default function Portfolio() {
                 {
                   name: t("projects.chat.title"),
                   description: t("projects.chat.desc"),
-                  tech: ["Go", "WebSockets", "Redis", "PostgreSQL"],
-                  github: "#",
+                  tech: ["Node.js", "Express", "Javascript", "Socket.io"],
+                  github: "https://github.com/raulmalagarriga/Battleship_game",
                 },
                 {
-                  name: t("projects.cms.title"),
-                  description: t("projects.cms.desc"),
-                  tech: ["Python", "Django", "PostgreSQL", "Docker"],
-                  github: "#",
+                  name: t("projects.pulse.title"),
+                  description: t("projects.pulse.desc"),
+                  tech: ["Node.js", "Express", "React Native", "MongoDB"],
+                  github: null,
                 },
                 {
                   name: t("projects.data.title"),
@@ -371,12 +371,18 @@ export default function Portfolio() {
                       </span>
                     ))}
                   </div>
-                  <Link
-                    href={project.github}
-                    className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
-                  >
-                    <Github className="h-4 w-4" /> {t("projects.view")}
-                  </Link>
+                  {project.github ? (
+                    <Link
+                      href={project.github}
+                      className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                    >
+                      <Github className="h-4 w-4" /> {t("projects.view")}
+                    </Link>
+                  ) : 
+                  (
+                    <p className="text-theme">{t("projects.comming")}</p>
+                  )
+                  }
                 </div>
               ))}
             </div>

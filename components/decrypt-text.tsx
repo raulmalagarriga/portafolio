@@ -10,6 +10,8 @@ interface DecryptTextProps {
   className?: string
   onComplete?: () => void
   isVisible?: boolean
+  preserveSpace?: boolean
+  animationColor?: string
 }
 
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+{}|:<>?~`-=[]\\;',./\""
@@ -22,6 +24,8 @@ export default function DecryptText({
   className = "",
   onComplete,
   isVisible = false,
+  preserveSpace = true,
+  animationColor = "",
 }: DecryptTextProps) {
   const [displayText, setDisplayText] = useState("")
   const [isDecrypting, setIsDecrypting] = useState(false)
@@ -30,13 +34,24 @@ export default function DecryptText({
   const hasStartedRef = useRef(false)
   const hasCompletedRef = useRef(false)
 
+  // Initialize with placeholder spaces to preserve layout
+  useEffect(() => {
+    if (preserveSpace && !displayText) {
+      setDisplayText(text.replace(/./g, " "))
+    }
+  }, [text, preserveSpace, displayText])
+
   // Reset animation when visibility changes
   useEffect(() => {
     if (isVisible && !hasStartedRef.current) {
       startAnimation()
     } else if (!isVisible && !hasCompletedRef.current) {
       // Reset if becomes invisible before completion
-      setDisplayText("")
+      if (preserveSpace) {
+        setDisplayText(text.replace(/./g, " "))
+      } else {
+        setDisplayText("")
+      }
       setIsDecrypting(false)
       hasStartedRef.current = false
       if (intervalRef.current) {
@@ -44,7 +59,7 @@ export default function DecryptText({
         intervalRef.current = null
       }
     }
-  }, [isVisible])
+  }, [isVisible, preserveSpace, text])
 
   // Start the animation
   const startAnimation = () => {
@@ -59,7 +74,7 @@ export default function DecryptText({
       setDisplayText(
         Array(text.length)
           .fill(0)
-          .map(() => characters.charAt(Math.floor(Math.random() * characters.length)))
+          .map((_, i) => (text[i] === " " ? " " : characters.charAt(Math.floor(Math.random() * characters.length))))
           .join(""),
       )
 
@@ -86,11 +101,21 @@ export default function DecryptText({
         newDisplayText += text[i]
       } else if (i === revealIndex) {
         // Character at the reveal index has a chance to be correct
-        newDisplayText +=
-          Math.random() < 0.5 ? text[i] : characters.charAt(Math.floor(Math.random() * characters.length))
+        // Always preserve spaces
+        if (text[i] === " ") {
+          newDisplayText += " "
+        } else {
+          newDisplayText +=
+            Math.random() < 0.5 ? text[i] : characters.charAt(Math.floor(Math.random() * characters.length))
+        }
       } else {
         // Characters after the reveal index are random
-        newDisplayText += characters.charAt(Math.floor(Math.random() * characters.length))
+        // Always preserve spaces
+        if (text[i] === " ") {
+          newDisplayText += " "
+        } else {
+          newDisplayText += characters.charAt(Math.floor(Math.random() * characters.length))
+        }
       }
     }
 
@@ -117,6 +142,8 @@ export default function DecryptText({
   }, [])
 
   return (
-    <span className={`font-mono ${isDecrypting ? "text-theme-light" : ""} ${className}`}>{displayText || text}</span>
+    <span className={`font-mono ${isDecrypting && animationColor ? animationColor : ""} ${className}`}>
+      {displayText || text}
+    </span>
   )
 }

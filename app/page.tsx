@@ -294,33 +294,58 @@ export default function Portfolio() {
         <section id="about" className="py-16 border-t border-theme-30" ref={aboutSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="text-white">01.</span>{" "}
+              <span className="text-white">01.</span>{" "}
               {aboutVisible ? (
-                <DecryptText text={t("about.title")} duration={1200} isVisible={true} />
-                ) : (
-                  t("about.title")
-                )}
+                <DecryptText
+                text={t("about.title")}
+                duration={1200}
+                isVisible={true}
+                animationColor="text-theme-light"
+              />
+              ) : (
+                t("about.title")
+              )}
             </h2>
-            <div className="flex flex-col md:flex-row gap-8 items-center">
+            <div className="flex flex-col md:flex-row gap-8 items-start">
               <div className="space-y-4 text-gray-300 md:w-2/3 order-2 md:order-1">
-                  <p
-                    className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{
-                      animationDelay: "200ms",
-                      animationFillMode: "forwards",
-                    }}
-                    >
-                    {t("about.p1")}
-                  </p>
-                  <p
-                    className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{
-                      animationDelay: "400ms",
-                      animationFillMode: "forwards",
-                    }}
-                  >
-                  {t("about.p2")}
-                </p>
+                <div
+                  className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"} min-h-[80px]`}
+                  style={{
+                    animationDelay: "200ms",
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {aboutVisible ? (
+                    <DecryptText
+                    text={t("about.p1")}
+                    startDelay={300}
+                    duration={1800}
+                    isVisible={true}
+                    className="text-gray-300"
+                  />
+                  ) : (
+                    t("about.p1")
+                  )}
+                </div>
+                <div
+                  className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"} min-h-[80px]`}
+                  style={{
+                    animationDelay: "400ms",
+                    animationFillMode: "forwards",
+                  }}
+                >
+                  {aboutVisible ? (
+                     <DecryptText
+                     text={t("about.p2")}
+                     startDelay={600}
+                     duration={1800}
+                     isVisible={true}
+                     className="text-gray-300"
+                   />
+                  ) : (
+                    t("about.p2")
+                  )}
+                </div>
               </div>
               <div className="md:w-1/3 flex justify-center order-1 md:order-2">
                 <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-theme-30">
@@ -338,7 +363,12 @@ export default function Portfolio() {
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">02.</span>{" "}
                 {skillsVisible ? (
-                  <DecryptText text={t("skills.title")} duration={1200} isVisible={true} />
+                  <DecryptText
+                  text={t("skills.title")}
+                  duration={1200}
+                  isVisible={true}
+                  animationColor="text-theme-light"
+                  />
                 ) : (
                   t("skills.title")
                 )}
@@ -353,6 +383,7 @@ export default function Portfolio() {
                 style={{
                   animationDelay: `${index * 150}ms`,
                   animationFillMode: "forwards",
+                  height: "100%",
                 }}
                 >
                   <h3 className="text-white text-lg font-semibold mb-3">{category.title}</h3>
@@ -385,7 +416,12 @@ export default function Portfolio() {
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="text-white">03.</span>{" "}
               {projectsVisible ? (
-                <DecryptText text={t("projects.title")} duration={1200} isVisible={true} />
+                <DecryptText
+                text={t("projects.title")}
+                duration={1200}
+                isVisible={true}
+                animationColor="text-theme-light"
+                />
               ) : (
                 t("projects.title")
               )}
@@ -408,7 +444,7 @@ export default function Portfolio() {
                   name: t("projects.pulse.title"),
                   description: t("projects.pulse.desc"),
                   tech: ["Node.js", "Express", "React Native", "MongoDB"],
-                  github: null,
+                  github: "#",
                 },
                 {
                   name: t("projects.data.title"),
@@ -419,10 +455,42 @@ export default function Portfolio() {
               ].map((project, index) => (
                 <div
                   key={index}
-                  className="border border-theme-30 p-5 rounded-md bg-black/80 hover:border-theme-light transition-colors"
-                >
-                  <h3 className="text-white text-xl font-semibold mb-2">{project.name}</h3>
-                  <p className="text-gray-300 mb-4">{project.description}</p>
+                  className={`border border-theme-30 p-5 rounded-md bg-black/80 hover:border-theme-light transition-colors opacity-0 ${
+                    projectsVisible ? "animate-fade-in-up" : ""
+                  }`}
+                  style={{
+                    animationDelay: `${index * 200}ms`,
+                    animationFillMode: "forwards",
+                    height: "100%",
+                  }}
+                 >
+                  <h3 className="text-white text-xl font-semibold mb-2 h-7">
+                    {projectsVisible ? (
+                      <DecryptText
+                      text={project.name}
+                      startDelay={index * 100}
+                      duration={1200}
+                      isVisible={true}
+                      className="text-white"
+                      animationColor="text-theme-light"
+                      />
+                    ) : (
+                      project.name
+                    )}
+                  </h3>
+                  <div className="min-h-[80px] mb-4">
+                    {projectsVisible ? (
+                      <DecryptText
+                        text={project.description}
+                        startDelay={index * 100 + 300}
+                        duration={1800}
+                        isVisible={true}
+                        className="text-gray-300"
+                      />
+                    ) : (
+                      <p className="text-gray-300">{project.description}</p>
+                    )}
+                  </div>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {project.tech.map((tech, techIndex) => (
                       <span key={techIndex} className="text-xs bg-theme-20 text-theme-light px-2 py-1 rounded">
@@ -430,18 +498,12 @@ export default function Portfolio() {
                       </span>
                     ))}
                   </div>
-                  {project.github ? (
-                    <Link
-                      href={project.github}
-                      className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
-                    >
-                      <Github className="h-4 w-4" /> {t("projects.view")}
-                    </Link>
-                  ) : 
-                  (
-                    <p className="text-theme">{t("projects.comming")}</p>
-                  )
-                  }
+                  <Link
+                    href={project.github}
+                    className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                  >
+                    <Github className="h-4 w-4" /> {t("projects.view")}
+                  </Link>
                 </div>
               ))}
             </div>
@@ -454,7 +516,12 @@ export default function Portfolio() {
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">04.</span>{" "}
                 {profilesVisible ? (
-                  <DecryptText text={t("profiles.title")} duration={1200} isVisible={true} />
+                  <DecryptText
+                  text={t("profiles.title")}
+                  duration={1200}
+                  isVisible={true}
+                  animationColor="text-theme-light"
+                  />
                 ) : (
                   t("profiles.title")
                 )}
@@ -491,11 +558,42 @@ export default function Portfolio() {
                   href={profile.url}
                   key={index}
                   download={profile.isDownload}
-                  className="border border-theme-30 p-5 rounded-md bg-black/80 hover:border-theme-light transition-colors flex flex-col items-center text-center"
+                  className={`border border-theme-30 p-5 rounded-md bg-black/80 hover:border-theme-light transition-colors flex flex-col items-center text-center opacity-0 ${
+                    profilesVisible ? "animate-fade-in-up" : ""
+                  }`}
+                  style={{
+                    animationDelay: `${index * 150}ms`,
+                    animationFillMode: "forwards",
+                    height: "100%",
+                  }}
                 >
                   <div className="bg-theme-10 p-4 rounded-full mb-4">{profile.icon}</div>
-                  <h3 className="text-white text-lg font-semibold mb-2">{profile.name}</h3>
-                  <p className="text-gray-300 text-sm">{profile.description}</p>
+                  <h3 className="text-white text-lg font-semibold mb-2 h-7">
+                    {profilesVisible ? (
+                      <DecryptText
+                      text={profile.name}
+                      startDelay={index * 100}
+                      duration={1000}
+                      isVisible={true}
+                      className="text-white"
+                      animationColor="text-theme-light"
+                      />
+                    ) : (
+                      profile.name
+                    )}
+                  </h3>
+                  <div className="min-h-[60px]">
+                    {profilesVisible ? (
+                      <DecryptText
+                        text={profile.description}
+                        startDelay={index * 100 + 200}
+                        duration={1500}
+                        isVisible={true}
+                      />
+                    ) : (
+                      <p className="text-gray-300 text-sm">{profile.description}</p>
+                    )}
+                  </div>
                 </Link>
               ))}
             </div>
@@ -508,7 +606,12 @@ export default function Portfolio() {
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">05.</span>{" "}
                 {contactVisible ? (
-                  <DecryptText text={t("contact.title")} duration={1200} isVisible={true} />
+                  <DecryptText
+                  text={t("contact.title")}
+                  duration={1200}
+                  isVisible={true}
+                  animationColor="text-theme-light"
+                  />
                 ) : (
                   t("contact.title")
                 )}

@@ -11,6 +11,7 @@ import ParticlesBackground from "@/components/particles-background"
 import ThemeSelector from "@/components/theme-selector"
 import LanguageSelector from "@/components/languaje-selector"
 import { useLanguage } from "@/contexts/language-context"
+import DecryptText from "@/components/decrypt-text"
 
 export default function Portfolio() {
   const { t } = useLanguage()
@@ -20,11 +21,13 @@ export default function Portfolio() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [typingSpeed, setTypingSpeed] = useState(100)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [skillsVisible, setSkillsVisible] = useState(false)
 
   const staticText = t("hero.title");
   const titles = [t("hero.title.backend"), t("hero.title.software"), t("hero.title.architec")]
   const typingRef = useRef<NodeJS.Timeout>()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const skillsSectionRef = useRef<HTMLDivElement>(null)
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -104,10 +107,16 @@ export default function Portfolio() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id)
+
+            // If skills section becomes visible, set skillsVisible to true
+            if (entry.target.id === "skills") {
+              setSkillsVisible(true)
+              console.log("Skills section is now active")
+            }
           }
         })
       },
-      { threshold: 0.5 },
+      { threshold: 0.2 },
     )
 
     const sections = document.querySelectorAll("section[id]")
@@ -130,7 +139,33 @@ export default function Portfolio() {
       setMobileMenuOpen(false) // Close mobile menu after selection
     }
   }
-
+  // Skill categories with their items
+  const skillCategories = [
+    {
+      title: t("skills.languages"),
+      items: ["C#", "TypeScript", "Javascript"],
+    },
+    {
+      title: t("skills.frameworks"),
+      items: [".NET", "Entity Framework", "Node.js", "Express", "Socket.io", "React", "React Native", "Next.js"],
+    },
+    {
+      title: t("skills.databases"),
+      items: ["PostgreSQL", "SQL Server", "MongoDB", "Redis"],
+    },
+    {
+      title: t("skills.cloud"),
+      items: ["Ubuntu Server", "Docker", "Windows Server", "CI/CD"],
+    },
+    {
+      title: t("skills.tools"),
+      items: ["Git", "Postman", "Swagger", "Jira", "VS Code"],
+    },
+    {
+      title: t("skills.concepts"),
+      items: ["RESTful APIs", "Microservices", "Authentication", "Performance Optimization"],
+    },
+  ]
   return (
     <div className="min-h-screen bg-black text-theme font-mono relative">
       {/* Particles Background */}
@@ -253,74 +288,34 @@ export default function Portfolio() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="py-16 border-t border-theme-30">
+        <section id="skills" className="py-16 border-t border-theme-30" ref={skillsSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">02.</span> {t("skills.title")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="border border-theme-30 p-4 rounded-md bg-black/80">
-                <h3 className="text-white text-lg font-semibold mb-3">{t("skills.languages")}</h3>
-                <ul className="space-y-2">
-                  {["C#", "TypeScript", "Javascript"].map((skill, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <span className="text-theme">$</span> {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="border border-theme-30 p-4 rounded-md bg-black/80">
-                <h3 className="text-white text-lg font-semibold mb-3">{t("skills.frameworks")}</h3>
-                <ul className="space-y-2">
-                  {[".NET", "Entity Framework", "Node.js", "Express", "Socket.io", "React", "React Native", "Next.js"].map((skill, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <span className="text-theme">$</span> {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="border border-theme-30 p-4 rounded-md bg-black/80">
-                <h3 className="text-white text-lg font-semibold mb-3">{t("skills.databases")}</h3>
-                <ul className="space-y-2">
-                  {["PostgreSQL", "SQL Server", "MongoDB", "Redis"].map((skill, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <span className="text-theme">$</span> {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="border border-theme-30 p-4 rounded-md bg-black/80">
-                <h3 className="text-white text-lg font-semibold mb-3">{t("skills.cloud")}</h3>
-                <ul className="space-y-2">
-                  {["Ubuntu Server", "Docker", "Windows Server", "CI/CD"].map((skill, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <span className="text-theme">$</span> {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="border border-theme-30 p-4 rounded-md bg-black/80">
-                <h3 className="text-white text-lg font-semibold mb-3">{t("skills.tools")}</h3>
-                <ul className="space-y-2">
-                  {["Git", "Postman", "Swagger", "Jira", "VS Code"].map((skill, index) => (
-                    <li key={index} className="flex items-center gap-2">
-                      <span className="text-theme">$</span> {skill}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="border border-theme-30 p-4 rounded-md bg-black/80">
-                <h3 className="text-white text-lg font-semibold mb-3">{t("skills.concepts")}</h3>
-                <ul className="space-y-2">
-                  {["RESTful APIs", "Microservices", "Authentication", "Performance Optimization"].map(
-                    (skill, index) => (
-                      <li key={index} className="flex items-center gap-2">
-                        <span className="text-theme">$</span> {skill}
+            {skillCategories.map((category, index) => (
+                <div key={index} className="border border-theme-30 p-4 rounded-md bg-black/80">
+                  <h3 className="text-white text-lg font-semibold mb-3">{category.title}</h3>
+                  <ul className="space-y-2">
+                    {category.items.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-center gap-2">
+                        <span className="text-theme">$</span>{" "}
+                        {skillsVisible ? (
+                          <DecryptText
+                            text={item}
+                            startDelay={itemIndex * 150 + index * 300}
+                            duration={1500}
+                            isVisible={true}
+                          />
+                        ) : (
+                          item
+                        )}
                       </li>
-                    ),
-                  )}
-                </ul>
-              </div>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
           </div>
         </section>

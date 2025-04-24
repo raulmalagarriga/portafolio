@@ -139,3 +139,18 @@ body {
 .hover\:border-theme-light:hover {
   border-color: var(--theme-color-light);
 }
+
+/* Animation for decrypt text */
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-flicker {
+  animation: flicker 0.5s ease-in-out infinite;
+}

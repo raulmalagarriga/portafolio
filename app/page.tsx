@@ -298,7 +298,7 @@ export default function Portfolio() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-16 border-t border-theme-30" ref={aboutSectionRef}>
+        <section id="about" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={aboutSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">01.</span>{" "}
@@ -418,7 +418,7 @@ export default function Portfolio() {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-16 border-t border-theme-30" ref={projectsSectionRef}>
+        <section id="projects" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={projectsSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="text-white">03.</span>{" "}
@@ -518,7 +518,7 @@ export default function Portfolio() {
         </section>
 
         {/* Profiles Section */}
-        <section id="profiles" className="py-16 border-t border-theme-30" ref={profilesSectionRef}>
+        <section id="profiles" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={profilesSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">04.</span>{" "}
@@ -608,7 +608,7 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-16 border-t border-theme-30" ref={contactSectionRef}>
+        <section id="contact" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={contactSectionRef}>
           <div className="max-w-2xl">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">05.</span>{" "}

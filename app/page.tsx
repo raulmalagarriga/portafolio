@@ -279,6 +279,13 @@ export default function Portfolio() {
               </h1>
             </div>
             <div className="animate-fade-in">
+                {/* <DecryptText
+                  text={t("hero.intro")}
+                  duration={1800}
+                  isVisible={true}
+                  // animationColor="text-theme-light"
+                  className="text-lg sm:text-xl text-gray-400 mb-8"
+                /> */}
               <p className="text-lg sm:text-xl text-gray-400 mb-8">{t("hero.intro")}</p>
               <Button
                 onClick={() => scrollToSection("about")}

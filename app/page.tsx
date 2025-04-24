@@ -21,13 +21,24 @@ export default function Portfolio() {
   const [isDeleting, setIsDeleting] = useState(false)
   const [typingSpeed, setTypingSpeed] = useState(100)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [skillsVisible, setSkillsVisible] = useState(false)
+   // Visibility states for each section
+   const [aboutVisible, setAboutVisible] = useState(false)
+   const [skillsVisible, setSkillsVisible] = useState(false)
+   const [projectsVisible, setProjectsVisible] = useState(false)
+   const [profilesVisible, setProfilesVisible] = useState(false)
+   const [contactVisible, setContactVisible] = useState(false)
 
   const staticText = t("hero.title");
   const titles = [t("hero.title.backend"), t("hero.title.software"), t("hero.title.architec")]
   const typingRef = useRef<NodeJS.Timeout>()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+
+  // Refs for each section
+  const aboutSectionRef = useRef<HTMLDivElement>(null)
   const skillsSectionRef = useRef<HTMLDivElement>(null)
+  const projectsSectionRef = useRef<HTMLDivElement>(null)
+  const profilesSectionRef = useRef<HTMLDivElement>(null)
+  const contactSectionRef = useRef<HTMLDivElement>(null)
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -108,10 +119,23 @@ export default function Portfolio() {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id)
 
-            // If skills section becomes visible, set skillsVisible to true
-            if (entry.target.id === "skills") {
-              setSkillsVisible(true)
-              console.log("Skills section is now active")
+            // Set visibility state based on which section is visible
+            switch (entry.target.id) {
+              case "about":
+                setAboutVisible(true)
+                break
+              case "skills":
+                setSkillsVisible(true)
+                break
+              case "projects":
+                setProjectsVisible(true)
+                break
+              case "profiles":
+                setProfilesVisible(true)
+                break
+              case "contact":
+                setContactVisible(true)
+                break
             }
           }
         })
@@ -267,15 +291,36 @@ export default function Portfolio() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-16 border-t border-theme-30">
+        <section id="about" className="py-16 border-t border-theme-30" ref={aboutSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">01.</span> {t("about.title")}
+            <span className="text-white">01.</span>{" "}
+              {aboutVisible ? (
+                <DecryptText text={t("about.title")} duration={1200} isVisible={true} />
+                ) : (
+                  t("about.title")
+                )}
             </h2>
             <div className="flex flex-col md:flex-row gap-8 items-center">
               <div className="space-y-4 text-gray-300 md:w-2/3 order-2 md:order-1">
-                <p>{t("about.p1")}</p>
-                <p>{t("about.p2")}</p>
+                  <p
+                    className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                    style={{
+                      animationDelay: "200ms",
+                      animationFillMode: "forwards",
+                    }}
+                    >
+                    {t("about.p1")}
+                  </p>
+                  <p
+                    className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                    style={{
+                      animationDelay: "400ms",
+                      animationFillMode: "forwards",
+                    }}
+                  >
+                  {t("about.p2")}
+                </p>
               </div>
               <div className="md:w-1/3 flex justify-center order-1 md:order-2">
                 <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-theme-30">
@@ -291,11 +336,25 @@ export default function Portfolio() {
         <section id="skills" className="py-16 border-t border-theme-30" ref={skillsSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">02.</span> {t("skills.title")}
+              <span className="text-white">02.</span>{" "}
+                {skillsVisible ? (
+                  <DecryptText text={t("skills.title")} duration={1200} isVisible={true} />
+                ) : (
+                  t("skills.title")
+                )}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {skillCategories.map((category, index) => (
-                <div key={index} className="border border-theme-30 p-4 rounded-md bg-black/80">
+                <div
+                key={index}
+                className={`border border-theme-30 p-4 rounded-md bg-black/80 opacity-0 ${
+                  skillsVisible ? "animate-fade-in-up" : ""
+                }`}
+                style={{
+                  animationDelay: `${index * 150}ms`,
+                  animationFillMode: "forwards",
+                }}
+                >
                   <h3 className="text-white text-lg font-semibold mb-3">{category.title}</h3>
                   <ul className="space-y-2">
                     {category.items.map((item, itemIndex) => (
@@ -304,8 +363,8 @@ export default function Portfolio() {
                         {skillsVisible ? (
                           <DecryptText
                             text={item}
-                            startDelay={itemIndex * 150 + index * 300}
-                            duration={1500}
+                            startDelay={itemIndex * 150 + 300}
+                            duration={2000}
                             isVisible={true}
                           />
                         ) : (
@@ -321,10 +380,15 @@ export default function Portfolio() {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-16 border-t border-theme-30">
+        <section id="projects" className="py-16 border-t border-theme-30" ref={projectsSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">03.</span> {t("projects.title")}
+            <span className="text-white">03.</span>{" "}
+              {projectsVisible ? (
+                <DecryptText text={t("projects.title")} duration={1200} isVisible={true} />
+              ) : (
+                t("projects.title")
+              )}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
@@ -385,10 +449,15 @@ export default function Portfolio() {
         </section>
 
         {/* Profiles Section */}
-        <section id="profiles" className="py-16 border-t border-theme-30">
+        <section id="profiles" className="py-16 border-t border-theme-30" ref={profilesSectionRef}>
           <div>
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">04.</span> {t("profiles.title")}
+              <span className="text-white">04.</span>{" "}
+                {profilesVisible ? (
+                  <DecryptText text={t("profiles.title")} duration={1200} isVisible={true} />
+                ) : (
+                  t("profiles.title")
+                )}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
               {[
@@ -434,10 +503,15 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="py-16 border-t border-theme-30">
+        <section id="contact" className="py-16 border-t border-theme-30" ref={contactSectionRef}>
           <div className="max-w-2xl">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">05.</span> {t("contact.title")}
+              <span className="text-white">05.</span>{" "}
+                {contactVisible ? (
+                  <DecryptText text={t("contact.title")} duration={1200} isVisible={true} />
+                ) : (
+                  t("contact.title")
+                )}
             </h2>
             <form className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

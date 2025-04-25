@@ -397,7 +397,7 @@ export default function Portfolio() {
 
         {/* About Section */}
         <section id="about" className="border-t border-theme-30">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 h-96 md:h-fit">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">{">."}</span>{" "}
               {aboutVisible ? (
@@ -517,7 +517,7 @@ export default function Portfolio() {
 
         {/* Projects Section */}
         <section id="projects" className="border-t border-theme-30">
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 h-96 md:h-fit">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="text-white">{">."}</span>{" "}
               {projectsVisible ? (

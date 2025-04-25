@@ -608,70 +608,89 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={contactSectionRef}>
+        <section id="contact" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30">
           <div className="max-w-2xl">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">05.</span>{" "}
-                {contactVisible ? (
-                  <DecryptText
+              {contactVisible ? (
+                <DecryptText
                   text={t("contact.title")}
                   duration={1200}
                   isVisible={true}
                   animationColor="text-theme-light"
-                  />
-                ) : (
-                  t("contact.title")
-                )}
+                />
+              ) : (
+                t("contact.title")
+              )}
             </h2>
-            <form className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-gray-300 mb-2">
-                    {t("contact.name")}
+            <div className={`${contactVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDuration: "1s" }}>
+              <form className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div
+                    className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                    style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
+                  >
+                    <label htmlFor="name" className="block text-gray-300 mb-2">
+                      {t("contact.name")}
+                    </label>
+                    <Input
+                      id="name"
+                      placeholder={t("contact.placeholder.name")}
+                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                    />
+                  </div>
+                  <div
+                    className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                    style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
+                  >
+                    <label htmlFor="email" className="block text-gray-300 mb-2">
+                      {t("contact.email")}
+                    </label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder={t("contact.placeholder.email")}
+                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                    />
+                  </div>
+                </div>
+                <div
+                  className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                  style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
+                >
+                  <label htmlFor="subject" className="block text-gray-300 mb-2">
+                    {t("contact.subject")}
                   </label>
                   <Input
-                    id="name"
-                    placeholder={t("contact.placeholder.name")}
+                    id="subject"
+                    placeholder={t("contact.placeholder.subject")}
                     className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
                   />
                 </div>
-                <div>
-                  <label htmlFor="email" className="block text-gray-300 mb-2">
-                    {t("contact.email")}
+                <div
+                  className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                  style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
+                >
+                  <label htmlFor="message" className="block text-gray-300 mb-2">
+                    {t("contact.message")}
                   </label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder={t("contact.placeholder.email")}
+                  <Textarea
+                    id="message"
+                    placeholder={t("contact.placeholder.message")}
+                    rows={6}
                     className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
                   />
                 </div>
-              </div>
-              <div>
-                <label htmlFor="subject" className="block text-gray-300 mb-2">
-                  {t("contact.subject")}
-                </label>
-                <Input
-                  id="subject"
-                  placeholder={t("contact.placeholder.subject")}
-                  className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
-                />
-              </div>
-              <div>
-                <label htmlFor="message" className="block text-gray-300 mb-2">
-                  {t("contact.message")}
-                </label>
-                <Textarea
-                  id="message"
-                  placeholder={t("contact.placeholder.message")}
-                  rows={6}
-                  className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
-                />
-              </div>
-              <Button type="submit" className="bg-theme text-black hover:bg-theme-light flex items-center gap-2">
-                {t("contact.send")} <Send className="h-4 w-4" />
-              </Button>
-            </form>
+                <div
+                  className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                  style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
+                >
+                  <Button type="submit" className="bg-theme text-black hover:bg-theme-light flex items-center gap-2">
+                    {t("contact.send")} <Send className="h-4 w-4" />
+                  </Button>
+                </div>
+              </form>
+            </div>
           </div>
         </section>
       </main>

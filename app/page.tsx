@@ -264,7 +264,7 @@ export default function Portfolio() {
     },
     {
       title: t("skills.frameworks"),
-      items: [".NET", "Entity Framework", "Node.js", "Express", "Socket.io", "React", "React Native", "Next.js"],
+      items: [".NET", "Entity Framework", "Node.js", "Express", "Socket.io", "React", "Next.js"],
     },
     {
       title: t("skills.databases"),
@@ -452,7 +452,7 @@ export default function Portfolio() {
                   )}
                 </div>
               </div>
-              <div className="md:w-1/3 flex justify-center order-1 md:order-2">
+              <div className="md:w-1/3 hidden md:flex justify-center order-1 md:order-2">
                 <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-theme-30">
                   <Image src="/images/profile-photo.png" alt="Profile Photo" fill className="object-cover" />
                   <div className="absolute inset-0 border-4 border-theme-10 rounded-full pointer-events-none"></div>
@@ -463,7 +463,7 @@ export default function Portfolio() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="border-t border-theme-30">
+        <section id="skills" className="hidden md:flex border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">02.</span>{" "}
@@ -795,20 +795,20 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
+          
+          {/* Footer */}
+          <footer className="border-t border-theme-30 py-2 mt-14 relative">
+            <div className="text-center">
+              <p className="text-gray-400">
+                <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
+              </p>
+              <p className="text-gray-500 text-sm mt-2">
+                © {new Date().getFullYear()} {t("footer.rights")}
+              </p>
+            </div>
+          </footer>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="border-t border-theme-30 py-8 relative z-10">
-        <div className="container mx-auto px-4 text-center">
-          <p className="text-gray-400">
-            <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
-          </p>
-          <p className="text-gray-500 text-sm mt-2">
-            © {new Date().getFullYear()} {t("footer.rights")}
-          </p>
-        </div>
-      </footer>
     </div>
   )
 }

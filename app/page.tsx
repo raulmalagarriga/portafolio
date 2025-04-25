@@ -399,7 +399,7 @@ export default function Portfolio() {
         <section id="about" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">01.</span>{" "}
+              <span className="text-white">{">."}</span>{" "}
               {aboutVisible ? (
                 <DecryptText
                 text={t("about.title")}
@@ -466,7 +466,7 @@ export default function Portfolio() {
         <section id="skills" className="hidden md:flex border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">02.</span>{" "}
+              <span className="text-white">{">."}</span>{" "}
                 {skillsVisible ? (
                   <DecryptText
                   text={t("skills.title")}
@@ -519,7 +519,7 @@ export default function Portfolio() {
         <section id="projects" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="text-white">03.</span>{" "}
+            <span className="text-white">{">."}</span>{" "}
               {projectsVisible ? (
                 <DecryptText
                 text={t("projects.title")}
@@ -619,7 +619,7 @@ export default function Portfolio() {
         <section id="profiles" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">04.</span>{" "}
+              <span className="text-white">{">."}</span>{" "}
                 {profilesVisible ? (
                   <DecryptText
                   text={t("profiles.title")}
@@ -710,7 +710,7 @@ export default function Portfolio() {
           <div className="container mx-auto px-4">
             <div className="max-w-2xl">
               <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <span className="text-white">05.</span>{" "}
+                <span className="text-white">{">."}</span>{" "}
                 {contactVisible ? (
                   <DecryptText
                     text={t("contact.title")}

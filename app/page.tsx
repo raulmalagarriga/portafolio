@@ -12,15 +12,18 @@ import ThemeSelector from "@/components/theme-selector"
 import LanguageSelector from "@/components/languaje-selector"
 import { useLanguage } from "@/contexts/language-context"
 import DecryptText from "@/components/decrypt-text"
+import ScrollIndicator from "@/components/scroll-indicator"
 
 export default function Portfolio() {
   const { t } = useLanguage()
-  const [activeSection, setActiveSection] = useState("")
+  const [activeSection, setActiveSection] = useState("hero")
   const [typedText, setTypedText] = useState("")
   const [currentTitle, setCurrentTitle] = useState(0)
   const [isDeleting, setIsDeleting] = useState(false)
   const [typingSpeed, setTypingSpeed] = useState(100)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [isScrolling, setIsScrolling] = useState(false)
+
    // Visibility states for each section
    const [aboutVisible, setAboutVisible] = useState(false)
    const [skillsVisible, setSkillsVisible] = useState(false)
@@ -32,6 +35,10 @@ export default function Portfolio() {
   const titles = [t("hero.title.backend"), t("hero.title.software"), t("hero.title.architec")]
   const typingRef = useRef<NodeJS.Timeout>()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
+
+  // Sections for navigation
+  const sections = ["hero", "about", "skills", "projects", "profiles", "contact"]
 
   // Refs for each section
   const aboutSectionRef = useRef<HTMLDivElement>(null)
@@ -111,16 +118,74 @@ export default function Portfolio() {
     }
   }, [typedText, isDeleting, currentTitle, typingSpeed, titles])
 
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isScrolling) return
+
+      const currentIndex = sections.indexOf(activeSection)
+
+      if (e.key === "ArrowDown" || e.key === "PageDown") {
+        e.preventDefault()
+        const nextIndex = Math.min(currentIndex + 1, sections.length - 1)
+        scrollToSection(sections[nextIndex])
+      } else if (e.key === "ArrowUp" || e.key === "PageUp") {
+        e.preventDefault()
+        const prevIndex = Math.max(currentIndex - 1, 0)
+        scrollToSection(sections[prevIndex])
+      } else if (e.key === "Home") {
+        e.preventDefault()
+        scrollToSection(sections[0])
+      } else if (e.key === "End") {
+        e.preventDefault()
+        scrollToSection(sections[sections.length - 1])
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [sections, activeSection, isScrolling])
+
+  // Detect active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(true)
+
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current)
+      }
+
+      scrollTimeout.current = setTimeout(() => {
+        setIsScrolling(false)
+      }, 100)
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true })
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current)
+      }
+    }
+  }, [])
+
   // Intersection observer for sections
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id)
+          const sectionId = entry.target.id
+
+          if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+            setActiveSection(sectionId)
 
             // Set visibility state based on which section is visible
-            switch (entry.target.id) {
+            switch (sectionId) {
               case "about":
                 setAboutVisible(true)
                 break
@@ -137,30 +202,58 @@ export default function Portfolio() {
                 setContactVisible(true)
                 break
             }
+          } else if (!entry.isIntersecting) {
+            // Reset visibility state when section is no longer visible
+            switch (sectionId) {
+              case "about":
+                setAboutVisible(false)
+                break
+              case "skills":
+                setSkillsVisible(false)
+                break
+              case "projects":
+                setProjectsVisible(false)
+                break
+              case "profiles":
+                setProfilesVisible(false)
+                break
+              case "contact":
+                setContactVisible(false)
+                break
+            }
           }
         })
       },
-      { threshold: 0.2 },
+      { threshold: [0.1, 0.5] }, // Track both entering and exiting viewport
     )
 
-    const sections = document.querySelectorAll("section[id]")
-    sections.forEach((section) => {
+    const sectionElements = sections.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    sectionElements.forEach((section) => {
       observer.observe(section)
     })
 
     return () => {
-      sections.forEach((section) => {
+      sectionElements.forEach((section) => {
         observer.unobserve(section)
       })
     }
-  }, [])
+  }, [sections])
 
   // Smooth scroll function
   const scrollToSection = (sectionId: string) => {
+    setIsScrolling(true)
     const section = document.getElementById(sectionId)
     if (section) {
       section.scrollIntoView({ behavior: "smooth" })
       setMobileMenuOpen(false) // Close mobile menu after selection
+
+      // Update active section immediately for better UX
+      setActiveSection(sectionId)
+
+      // Reset scrolling state after animation completes
+      setTimeout(() => {
+        setIsScrolling(false)
+      }, 1000)
     }
   }
   // Skill categories with their items
@@ -196,6 +289,9 @@ export default function Portfolio() {
       <div className="absolute inset-0 z-0">
         <ParticlesBackground />
       </div>
+
+      {/* Scroll Indicator */}
+      <ScrollIndicator sections={sections} activeSection={activeSection} onDotClick={scrollToSection} />
 
       {/* Header */}
       <header className="fixed top-0 w-full bg-black/90 backdrop-blur-sm border-b border-theme-30 z-50">
@@ -268,38 +364,40 @@ export default function Portfolio() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 pt-24 pb-16 relative z-10">
+      <main className="relative z-10">
         {/* Hero Section */}
-        <section id="hero" className="h-[80vh] flex flex-col justify-center">
-          <div className="max-w-3xl">
-            <div className="h-[80px] sm:h-[100px] md:h-[120px] mb-6">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-                {typedText}
-                <span className="animate-pulse">_</span>
-              </h1>
-            </div>
-            <div className="animate-fade-in">
-                {/* <DecryptText
-                  text={t("hero.intro")}
-                  duration={1800}
-                  isVisible={true}
-                  // animationColor="text-theme-light"
-                  className="text-lg sm:text-xl text-gray-400 mb-8"
-                /> */}
-              <p className="text-lg sm:text-xl text-gray-400 mb-8">{t("hero.intro")}</p>
-              <Button
-                onClick={() => scrollToSection("about")}
-                className="bg-theme text-black hover:bg-theme-light flex items-center gap-2"
-              >
-                {t("hero.explore")} <ArrowRight className="h-4 w-4" />
-              </Button>
+        <section id="hero">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl">
+              <div className="h-[80px] sm:h-[100px] md:h-[120px] mb-6">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+                  {typedText}
+                  <span className="animate-pulse">_</span>
+                </h1>
+              </div>
+              <div className="animate-fade-in">
+                  {/* <DecryptText
+                    text={t("hero.intro")}
+                    duration={1800}
+                    isVisible={true}
+                    // animationColor="text-theme-light"
+                    className="text-lg sm:text-xl text-gray-400 mb-8"
+                  /> */}
+                <p className="text-lg sm:text-xl text-gray-400 mb-8">{t("hero.intro")}</p>
+                <Button
+                  onClick={() => scrollToSection("about")}
+                  className="bg-theme text-black hover:bg-theme-light flex items-center gap-2"
+                >
+                  {t("hero.explore")} <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
           </div>
         </section>
 
         {/* About Section */}
-        <section id="about" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={aboutSectionRef}>
-          <div>
+        <section id="about" className="border-t border-theme-30">
+          <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">01.</span>{" "}
               {aboutVisible ? (
@@ -365,8 +463,8 @@ export default function Portfolio() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="py-16 border-t border-theme-30" ref={skillsSectionRef}>
-          <div>
+        <section id="skills" className="border-t border-theme-30">
+          <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">02.</span>{" "}
                 {skillsVisible ? (
@@ -418,8 +516,8 @@ export default function Portfolio() {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={projectsSectionRef}>
-          <div>
+        <section id="projects" className="border-t border-theme-30">
+          <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
             <span className="text-white">03.</span>{" "}
               {projectsVisible ? (
@@ -518,8 +616,8 @@ export default function Portfolio() {
         </section>
 
         {/* Profiles Section */}
-        <section id="profiles" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30" ref={profilesSectionRef}>
-          <div>
+        <section id="profiles" className="border-t border-theme-30">
+          <div className="container mx-auto px-4">
             <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
               <span className="text-white">04.</span>{" "}
                 {profilesVisible ? (
@@ -608,88 +706,93 @@ export default function Portfolio() {
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="min-h-screen flex flex-col justify-center py-16 border-t border-theme-30">
-          <div className="max-w-2xl">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">05.</span>{" "}
-              {contactVisible ? (
-                <DecryptText
-                  text={t("contact.title")}
-                  duration={1200}
-                  isVisible={true}
-                  animationColor="text-theme-light"
-                />
-              ) : (
-                t("contact.title")
-              )}
-            </h2>
-            <div className={`${contactVisible ? "animate-fade-in" : "opacity-0"}`} style={{ animationDuration: "1s" }}>
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <section id="contact" className="border-t border-theme-30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
+                <span className="text-white">05.</span>{" "}
+                {contactVisible ? (
+                  <DecryptText
+                    text={t("contact.title")}
+                    duration={1200}
+                    isVisible={true}
+                    animationColor="text-theme-light"
+                  />
+                ) : (
+                  t("contact.title")
+                )}
+              </h2>
+              <div
+                className={`${contactVisible ? "animate-fade-in" : "opacity-0"}`}
+                style={{ animationDuration: "1s" }}
+              >
+                <form className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div
+                      className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                      style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
+                    >
+                      <label htmlFor="name" className="block text-gray-300 mb-2">
+                        {t("contact.name")}
+                      </label>
+                      <Input
+                        id="name"
+                        placeholder={t("contact.placeholder.name")}
+                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                      />
+                    </div>
+                    <div
+                      className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                      style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
+                    >
+                      <label htmlFor="email" className="block text-gray-300 mb-2">
+                        {t("contact.email")}
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder={t("contact.placeholder.email")}
+                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                      />
+                    </div>
+                  </div>
                   <div
                     className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
+                    style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
                   >
-                    <label htmlFor="name" className="block text-gray-300 mb-2">
-                      {t("contact.name")}
+                    <label htmlFor="subject" className="block text-gray-300 mb-2">
+                      {t("contact.subject")}
                     </label>
                     <Input
-                      id="name"
-                      placeholder={t("contact.placeholder.name")}
+                      id="subject"
+                      placeholder={t("contact.placeholder.subject")}
                       className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
                     />
                   </div>
                   <div
                     className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
+                    style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
                   >
-                    <label htmlFor="email" className="block text-gray-300 mb-2">
-                      {t("contact.email")}
+                    <label htmlFor="message" className="block text-gray-300 mb-2">
+                      {t("contact.message")}
                     </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder={t("contact.placeholder.email")}
+                    <Textarea
+                      id="message"
+                      placeholder={t("contact.placeholder.message")}
+                      rows={6}
                       className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
                     />
                   </div>
-                </div>
-                <div
-                  className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                  style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
-                >
-                  <label htmlFor="subject" className="block text-gray-300 mb-2">
-                    {t("contact.subject")}
-                  </label>
-                  <Input
-                    id="subject"
-                    placeholder={t("contact.placeholder.subject")}
-                    className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
-                  />
-                </div>
-                <div
-                  className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                  style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
-                >
-                  <label htmlFor="message" className="block text-gray-300 mb-2">
-                    {t("contact.message")}
-                  </label>
-                  <Textarea
-                    id="message"
-                    placeholder={t("contact.placeholder.message")}
-                    rows={6}
-                    className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
-                  />
-                </div>
-                <div
-                  className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                  style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
-                >
-                  <Button type="submit" className="bg-theme text-black hover:bg-theme-light flex items-center gap-2">
-                    {t("contact.send")} <Send className="h-4 w-4" />
-                  </Button>
-                </div>
-              </form>
+                  <div
+                    className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
+                    style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
+                  >
+                    <Button type="submit" className="bg-theme text-black hover:bg-theme-light flex items-center gap-2">
+                      {t("contact.send")} <Send className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </section>

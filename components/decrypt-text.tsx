@@ -32,7 +32,7 @@ export default function DecryptText({
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
   const startTimeRef = useRef<number | null>(null)
   const hasStartedRef = useRef(false)
-  const hasCompletedRef = useRef(false)
+  // const hasCompletedRef = useRef(false)
 
   // Initialize with placeholder spaces to preserve layout
   useEffect(() => {
@@ -43,10 +43,12 @@ export default function DecryptText({
 
   // Reset animation when visibility changes
   useEffect(() => {
-    if (isVisible && !hasStartedRef.current) {
+    if (isVisible) {
+      // Always start animation when section becomes visible
+      hasStartedRef.current = false
       startAnimation()
-    } else if (!isVisible && !hasCompletedRef.current) {
-      // Reset if becomes invisible before completion
+    } else {
+      // Reset when section is no longer visible
       if (preserveSpace) {
         setDisplayText(text.replace(/./g, " "))
       } else {
@@ -125,7 +127,6 @@ export default function DecryptText({
     if (progress >= 1) {
       setDisplayText(text)
       setIsDecrypting(false)
-      hasCompletedRef.current = true
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
         intervalRef.current = null

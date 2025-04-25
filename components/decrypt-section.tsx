@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useEffect, useState } from "react"
-import DecryptText from "@/components/decrypt-text"
+import DecryptText from "./decrypt-text"
 
 interface DecryptSectionProps {
   items: string[]
@@ -20,23 +20,17 @@ export default function DecryptSection({
 }: DecryptSectionProps) {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLUListElement>(null)
-  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
-        if (entry.isIntersecting && !hasAnimated) {
+        if (entry.isIntersecting) {
           setIsVisible(true)
-          setHasAnimated(true)
-
-          // Add a debug message to console
-          console.log("Skills section is now visible, triggering animation")
-
-          // Once visible and animated, no need to observe anymore
-          if (sectionRef.current) {
-            observer.unobserve(sectionRef.current)
-          }
+          console.log("Section is now visible, triggering animation")
+        } else {
+          setIsVisible(false)
+          console.log("Section is no longer visible, resetting animation")
         }
       },
       {
@@ -54,7 +48,7 @@ export default function DecryptSection({
         observer.unobserve(sectionRef.current)
       }
     }
-  }, [hasAnimated])
+  }, [])
 
   return (
     <ul ref={sectionRef} className={`space-y-2 ${className}`}>

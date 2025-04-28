@@ -1,5 +1,7 @@
 "use client"
 
+"use client"
+
 import { useState, useEffect, useRef } from "react"
 import { ArrowRight, Github, Linkedin, ExternalLink, Send, Menu, X } from "lucide-react"
 import Link from "next/link"
@@ -24,28 +26,21 @@ export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
 
-   // Visibility states for each section
-   const [aboutVisible, setAboutVisible] = useState(false)
-   const [skillsVisible, setSkillsVisible] = useState(false)
-   const [projectsVisible, setProjectsVisible] = useState(false)
-   const [profilesVisible, setProfilesVisible] = useState(false)
-   const [contactVisible, setContactVisible] = useState(false)
+  // Visibility states for each section
+  const [aboutVisible, setAboutVisible] = useState(false)
+  const [skillsVisible, setSkillsVisible] = useState(false)
+  const [projectsVisible, setProjectsVisible] = useState(false)
+  const [profilesVisible, setProfilesVisible] = useState(false)
+  const [contactVisible, setContactVisible] = useState(false)
 
-  const staticText = t("hero.title");
-  const titles = [t("hero.title.backend"), t("hero.title.software"), t("hero.title.architec")]
+  const staticText = "> Hello World. I am a "
+  const titles = ["Backend Developer.", "Software Developer.", "Software Architect."]
   const typingRef = useRef<NodeJS.Timeout>()
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 
   // Sections for navigation
   const sections = ["hero", "about", "skills", "projects", "profiles", "contact"]
-
-  // Refs for each section
-  const aboutSectionRef = useRef<HTMLDivElement>(null)
-  const skillsSectionRef = useRef<HTMLDivElement>(null)
-  const projectsSectionRef = useRef<HTMLDivElement>(null)
-  const profilesSectionRef = useRef<HTMLDivElement>(null)
-  const contactSectionRef = useRef<HTMLDivElement>(null)
 
   // Close mobile menu when clicking outside
   useEffect(() => {
@@ -117,7 +112,6 @@ export default function Portfolio() {
       }
     }
   }, [typedText, isDeleting, currentTitle, typingSpeed, titles])
-
 
   // Keyboard navigation
   useEffect(() => {
@@ -256,23 +250,24 @@ export default function Portfolio() {
       }, 1000)
     }
   }
+
   // Skill categories with their items
   const skillCategories = [
     {
       title: t("skills.languages"),
-      items: ["C#", "TypeScript", "Javascript"],
+      items: ["JavaScript", "TypeScript", "Python", "Go", "Java"],
     },
     {
       title: t("skills.frameworks"),
-      items: [".NET", "Entity Framework", "Node.js", "Express", "Socket.io", "React", "Next.js"],
+      items: ["Node.js", "Express", "NestJS", "Django", "Spring Boot"],
     },
     {
       title: t("skills.databases"),
-      items: ["PostgreSQL", "SQL Server", "MongoDB", "Redis"],
+      items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Elasticsearch"],
     },
     {
       title: t("skills.cloud"),
-      items: ["Ubuntu Server", "Docker", "Windows Server", "CI/CD"],
+      items: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"],
     },
     {
       title: t("skills.tools"),
@@ -280,9 +275,10 @@ export default function Portfolio() {
     },
     {
       title: t("skills.concepts"),
-      items: ["RESTful APIs", "Microservices", "Authentication", "Performance Optimization"],
+      items: ["RESTful APIs", "GraphQL", "Microservices", "Authentication", "Performance Optimization"],
     },
   ]
+
   return (
     <div className="min-h-screen bg-black text-theme font-mono relative">
       {/* Particles Background */}
@@ -295,70 +291,73 @@ export default function Portfolio() {
 
       {/* Header */}
       <header className="fixed top-0 w-full bg-black/90 backdrop-blur-sm border-b border-theme-30 z-50">
-        <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-          <div className="text-xl font-bold">
-            <span className="text-theme">raulmalagarriga</span>
-            <span className="text-white">.dev</span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            {/* Theme and Language Selectors */}
-            <div className="hidden sm:flex items-center gap-3 mr-4">
-              <ThemeSelector />
-              <LanguageSelector />
+        <div className="container mx-auto px-4 py-3">
+          <div className="flex justify-between items-center">
+            <div className="text-lg sm:text-xl font-bold">
+              <span className="text-white">dev</span>
+              <span className="text-theme">@portfolio</span>
+              <span className="text-white">:~$</span>
             </div>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex space-x-6">
-              {["about", "skills", "projects", "profiles", "contact"].map((section) => (
+            <div className="flex items-center gap-4">
+              {/* Theme and Language Selectors */}
+              <div className="hidden sm:flex items-center gap-3 mr-4">
+                <ThemeSelector />
+                <LanguageSelector />
+              </div>
+
+              {/* Navigation */}
+              <nav className="hidden md:flex space-x-4 lg:space-x-6">
+                {["about", "skills", "projects", "profiles", "contact"].map((section) => (
+                  <button
+                    key={section}
+                    onClick={() => scrollToSection(section)}
+                    className={`capitalize hover:text-white transition-colors ${
+                      activeSection === section ? "text-white" : ""
+                    }`}
+                  >
+                    {t(section)}
+                  </button>
+                ))}
+              </nav>
+
+              {/* Mobile Menu Button */}
+              <button
+                className="md:hidden flex items-center justify-center w-10 h-10 rounded-md border border-theme-30 text-theme hover:bg-theme-10"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            <div
+              ref={mobileMenuRef}
+              className={`absolute top-full right-0 w-64 bg-black border border-theme-30 rounded-md shadow-lg py-2 px-1 md:hidden transition-all duration-200 ${
+                mobileMenuOpen
+                  ? "opacity-100 translate-y-0 pointer-events-auto"
+                  : "opacity-0 -translate-y-2 pointer-events-none"
+              }`}
+            >
+              {/* Mobile Theme and Language Selectors */}
+              <div className="flex items-center justify-between px-4 py-2 border-b border-theme-30 mb-2">
+                <ThemeSelector />
+                <LanguageSelector />
+              </div>
+
+              {/* Mobile Navigation */}
+              {["home", "about", "skills", "projects", "profiles", "contact"].map((section) => (
                 <button
                   key={section}
-                  onClick={() => scrollToSection(section)}
-                  className={`capitalize hover:text-white transition-colors ${
-                    activeSection === section ? "text-white" : ""
-                  }`}
+                  onClick={() => scrollToSection(section === "home" ? "hero" : section)}
+                  className="block w-full text-left px-4 py-2 capitalize hover:bg-theme-10 hover:text-white transition-colors rounded"
                 >
+                  <span className="text-theme mr-2">$</span>
                   {t(section)}
                 </button>
               ))}
-            </nav>
-
-            {/* Mobile Menu Button */}
-            <button
-              className="md:hidden flex items-center justify-center w-10 h-10 rounded-md border border-theme-30 text-theme hover:bg-theme-10"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-
-          {/* Mobile Menu Dropdown */}
-          <div
-            ref={mobileMenuRef}
-            className={`absolute top-full right-0 w-64 bg-black border border-theme-30 rounded-md shadow-lg py-2 px-1 md:hidden transition-all duration-200 ${
-              mobileMenuOpen
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-2 pointer-events-none"
-            }`}
-          >
-            {/* Mobile Theme and Language Selectors */}
-            <div className="flex items-center justify-between px-4 py-2 border-b border-theme-30 mb-2">
-              <ThemeSelector />
-              <LanguageSelector />
             </div>
-
-            {/* Mobile Navigation */}
-            {["home", "about", "skills", "projects", "profiles", "contact"].map((section) => (
-              <button
-                key={section}
-                onClick={() => scrollToSection(section === "home" ? "hero" : section)}
-                className="block w-full text-left px-4 py-2 capitalize hover:bg-theme-10 hover:text-white transition-colors rounded"
-              >
-                <span className="text-theme mr-2">$</span>
-                {t(section)}
-              </button>
-            ))}
           </div>
         </div>
       </header>
@@ -369,21 +368,14 @@ export default function Portfolio() {
         <section id="hero">
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
-              <div className="h-[80px] sm:h-[100px] md:h-[120px] mb-6">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
+              <div className="h-[60px] sm:h-[80px] md:h-[100px] mb-4 sm:mb-6">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
                   {typedText}
                   <span className="animate-pulse">_</span>
                 </h1>
               </div>
               <div className="animate-fade-in">
-                  {/* <DecryptText
-                    text={t("hero.intro")}
-                    duration={1800}
-                    isVisible={true}
-                    // animationColor="text-theme-light"
-                    className="text-lg sm:text-xl text-gray-400 mb-8"
-                  /> */}
-                <p className="text-lg sm:text-xl text-gray-400 mb-8">{t("hero.intro")}</p>
+                <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-6 sm:mb-8">{t("hero.intro")}</p>
                 <Button
                   onClick={() => scrollToSection("about")}
                   className="bg-theme text-black hover:bg-theme-light flex items-center gap-2"
@@ -397,24 +389,24 @@ export default function Portfolio() {
 
         {/* About Section */}
         <section id="about" className="border-t border-theme-30">
-          <div className="container mx-auto px-4 h-96 md:h-fit">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">{">."}</span>{" "}
+          <div className="container mx-auto px-4">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
+              <span className="text-white">01.</span>{" "}
               {aboutVisible ? (
                 <DecryptText
-                text={t("about.title")}
-                duration={1200}
-                isVisible={true}
-                animationColor="text-theme-light"
-              />
+                  text={t("about.title")}
+                  duration={1200}
+                  isVisible={true}
+                  animationColor="text-theme-light"
+                />
               ) : (
                 t("about.title")
               )}
             </h2>
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="space-y-4 text-gray-300 md:w-2/3 order-2 md:order-1">
+            <div className="section-content flex flex-col md:flex-row gap-4 md:gap-6 items-start">
+              <div className="space-y-3 text-gray-300 md:w-2/3 order-2 md:order-1">
                 <div
-                  className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"} min-h-[80px]`}
+                  className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"} min-h-[60px]`}
                   style={{
                     animationDelay: "200ms",
                     animationFillMode: "forwards",
@@ -422,38 +414,38 @@ export default function Portfolio() {
                 >
                   {aboutVisible ? (
                     <DecryptText
-                    text={t("about.p1")}
-                    startDelay={300}
-                    duration={1800}
-                    isVisible={true}
-                    className="text-gray-300"
-                  />
+                      text={t("about.p1")}
+                      startDelay={300}
+                      duration={1800}
+                      isVisible={true}
+                      className="text-gray-300 text-sm sm:text-base"
+                    />
                   ) : (
-                    t("about.p1")
+                    <p className="text-sm sm:text-base">{t("about.p1")}</p>
                   )}
                 </div>
                 <div
-                  className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"} min-h-[80px]`}
+                  className={`${aboutVisible ? "animate-fade-in-up" : "opacity-0"} min-h-[60px]`}
                   style={{
                     animationDelay: "400ms",
                     animationFillMode: "forwards",
                   }}
                 >
                   {aboutVisible ? (
-                     <DecryptText
-                     text={t("about.p2")}
-                     startDelay={600}
-                     duration={1800}
-                     isVisible={true}
-                     className="text-gray-300"
-                   />
+                    <DecryptText
+                      text={t("about.p2")}
+                      startDelay={600}
+                      duration={1800}
+                      isVisible={true}
+                      className="text-gray-300 text-sm sm:text-base"
+                    />
                   ) : (
-                    t("about.p2")
+                    <p className="text-sm sm:text-base">{t("about.p2")}</p>
                   )}
                 </div>
               </div>
-              <div className="md:w-1/3 hidden md:flex justify-center order-1 md:order-2">
-                <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-theme-30">
+              <div className="md:w-1/3 flex justify-center order-1 md:order-2">
+                <div className="profile-photo relative w-40 h-40 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-48 lg:h-48 overflow-hidden rounded-full border-2 border-theme-30">
                   <Image src="/images/profile-photo.png" alt="Profile Photo" fill className="object-cover" />
                   <div className="absolute inset-0 border-4 border-theme-10 rounded-full pointer-events-none"></div>
                 </div>
@@ -463,36 +455,36 @@ export default function Portfolio() {
         </section>
 
         {/* Skills Section */}
-        <section id="skills" className="hidden md:flex border-t border-theme-30">
+        <section id="skills" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">{">."}</span>{" "}
-                {skillsVisible ? (
-                  <DecryptText
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
+              <span className="text-white">02.</span>{" "}
+              {skillsVisible ? (
+                <DecryptText
                   text={t("skills.title")}
                   duration={1200}
                   isVisible={true}
                   animationColor="text-theme-light"
-                  />
-                ) : (
-                  t("skills.title")
-                )}
+                />
+              ) : (
+                t("skills.title")
+              )}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {skillCategories.map((category, index) => (
+            <div className="section-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+              {skillCategories.map((category, index) => (
                 <div
-                key={index}
-                className={`border border-theme-30 p-4 rounded-md bg-black/80 opacity-0 ${
-                  skillsVisible ? "animate-fade-in-up" : ""
-                }`}
-                style={{
-                  animationDelay: `${index * 150}ms`,
-                  animationFillMode: "forwards",
-                  height: "100%",
-                }}
+                  key={index}
+                  className={`border border-theme-30 p-3 rounded-md bg-black/80 opacity-0 hover-gradient-effect ${
+                    skillsVisible ? "animate-fade-in-up" : ""
+                  }`}
+                  style={{
+                    animationDelay: `${index * 150}ms`,
+                    animationFillMode: "forwards",
+                    height: "100%",
+                  }}
                 >
-                  <h3 className="text-white text-lg font-semibold mb-3">{category.title}</h3>
-                  <ul className="space-y-2">
+                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2">{category.title}</h3>
+                  <ul className="space-y-1 text-sm">
                     {category.items.map((item, itemIndex) => (
                       <li key={itemIndex} className="flex items-center gap-2">
                         <span className="text-theme">$</span>{" "}
@@ -500,7 +492,7 @@ export default function Portfolio() {
                           <DecryptText
                             text={item}
                             startDelay={itemIndex * 150 + 300}
-                            duration={2000}
+                            duration={1500}
                             isVisible={true}
                           />
                         ) : (
@@ -517,21 +509,21 @@ export default function Portfolio() {
 
         {/* Projects Section */}
         <section id="projects" className="border-t border-theme-30">
-          <div className="container mx-auto px-4 h-96 md:h-fit">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-            <span className="text-white">{">."}</span>{" "}
+          <div className="container mx-auto px-4">
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
+              <span className="text-white">03.</span>{" "}
               {projectsVisible ? (
                 <DecryptText
-                text={t("projects.title")}
-                duration={1200}
-                isVisible={true}
-                animationColor="text-theme-light"
+                  text={t("projects.title")}
+                  duration={1200}
+                  isVisible={true}
+                  animationColor="text-theme-light"
                 />
               ) : (
                 t("projects.title")
               )}
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               {[
                 {
                   name: t("projects.ecommerce.title"),
@@ -542,13 +534,13 @@ export default function Portfolio() {
                 {
                   name: t("projects.chat.title"),
                   description: t("projects.chat.desc"),
-                  tech: ["Node.js", "Express", "Javascript", "Socket.io"],
-                  github: "https://github.com/raulmalagarriga/Battleship_game",
+                  tech: ["Go", "WebSockets", "Redis", "PostgreSQL"],
+                  github: "#",
                 },
                 {
                   name: t("projects.pulse.title"),
                   description: t("projects.pulse.desc"),
-                  tech: ["Node.js", "Express", "React Native", "MongoDB"],
+                  tech: ["Python", "Django", "PostgreSQL", "Docker"],
                   github: "#",
                 },
                 {
@@ -560,7 +552,7 @@ export default function Portfolio() {
               ].map((project, index) => (
                 <div
                   key={index}
-                  className={`border border-theme-30 p-5 rounded-md bg-black/80 hover:border-theme-light transition-colors opacity-0 ${
+                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-gradient-effect ${
                     projectsVisible ? "animate-fade-in-up" : ""
                   }`}
                   style={{
@@ -568,35 +560,35 @@ export default function Portfolio() {
                     animationFillMode: "forwards",
                     height: "100%",
                   }}
-                 >
-                  <h3 className="text-white text-xl font-semibold mb-2 h-7">
+                >
+                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2">
                     {projectsVisible ? (
                       <DecryptText
-                      text={project.name}
-                      startDelay={index * 100}
-                      duration={1200}
-                      isVisible={true}
-                      className="text-white"
-                      animationColor="text-theme-light"
+                        text={project.name}
+                        startDelay={index * 100}
+                        duration={1200}
+                        isVisible={true}
+                        className="text-white"
+                        animationColor="text-theme-light"
                       />
                     ) : (
                       project.name
                     )}
                   </h3>
-                  <div className="min-h-[80px] mb-4">
+                  <div className="min-h-[60px] mb-3">
                     {projectsVisible ? (
                       <DecryptText
                         text={project.description}
                         startDelay={index * 100 + 300}
                         duration={1800}
                         isVisible={true}
-                        className="text-gray-300"
+                        className="text-gray-300 text-xs sm:text-sm"
                       />
                     ) : (
-                      <p className="text-gray-300">{project.description}</p>
+                      <p className="text-gray-300 text-xs sm:text-sm">{project.description}</p>
                     )}
                   </div>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-1 sm:gap-2 mb-3">
                     {project.tech.map((tech, techIndex) => (
                       <span key={techIndex} className="text-xs bg-theme-20 text-theme-light px-2 py-1 rounded">
                         {tech}
@@ -605,7 +597,7 @@ export default function Portfolio() {
                   </div>
                   <Link
                     href={project.github}
-                    className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                    className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
                   >
                     <Github className="h-4 w-4" /> {t("projects.view")}
                   </Link>
@@ -618,43 +610,43 @@ export default function Portfolio() {
         {/* Profiles Section */}
         <section id="profiles" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-              <span className="text-white">{">."}</span>{" "}
-                {profilesVisible ? (
-                  <DecryptText
+            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
+              <span className="text-white">04.</span>{" "}
+              {profilesVisible ? (
+                <DecryptText
                   text={t("profiles.title")}
                   duration={1200}
                   isVisible={true}
                   animationColor="text-theme-light"
-                  />
-                ) : (
-                  t("profiles.title")
-                )}
+                />
+              ) : (
+                t("profiles.title")
+              )}
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="section-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               {[
                 {
                   name: t("profiles.github"),
                   description: t("profiles.github.desc"),
-                  icon: <Github className="h-6 w-6" />,
+                  icon: <Github className="h-5 w-5 sm:h-6 sm:w-6" />,
                   url: "#",
                 },
                 {
                   name: t("profiles.linkedin"),
                   description: t("profiles.linkedin.desc"),
-                  icon: <Linkedin className="h-6 w-6" />,
+                  icon: <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />,
                   url: "#",
                 },
                 {
-                  name: t("profiles.blog"),
-                  description: t("profiles.blog.desc"),
-                  icon: <ExternalLink className="h-6 w-6" />,
+                  name: t("profiles.fiverr"),
+                  description: t("profiles.fiverr.desc"),
+                  icon: <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6" />,
                   url: "#",
                 },
                 {
                   name: t("profiles.resume"),
                   description: t("profiles.resume.desc"),
-                  icon: <ArrowRight className="h-6 w-6" />,
+                  icon: <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />,
                   url: "#",
                   isDownload: true,
                 },
@@ -663,7 +655,7 @@ export default function Portfolio() {
                   href={profile.url}
                   key={index}
                   download={profile.isDownload}
-                  className={`border border-theme-30 p-5 rounded-md bg-black/80 hover:border-theme-light transition-colors flex flex-col items-center text-center opacity-0 ${
+                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors flex flex-col items-center text-center opacity-0 hover-gradient-effect ${
                     profilesVisible ? "animate-fade-in-up" : ""
                   }`}
                   style={{
@@ -672,31 +664,32 @@ export default function Portfolio() {
                     height: "100%",
                   }}
                 >
-                  <div className="bg-theme-10 p-4 rounded-full mb-4">{profile.icon}</div>
-                  <h3 className="text-white text-lg font-semibold mb-2 h-7">
+                  <div className="bg-theme-10 p-3 rounded-full mb-3">{profile.icon}</div>
+                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2">
                     {profilesVisible ? (
                       <DecryptText
-                      text={profile.name}
-                      startDelay={index * 100}
-                      duration={1000}
-                      isVisible={true}
-                      className="text-white"
-                      animationColor="text-theme-light"
+                        text={profile.name}
+                        startDelay={index * 100}
+                        duration={1000}
+                        isVisible={true}
+                        className="text-white"
+                        animationColor="text-theme-light"
                       />
                     ) : (
                       profile.name
                     )}
                   </h3>
-                  <div className="min-h-[60px]">
+                  <div className="min-h-[40px] sm:min-h-[50px]">
                     {profilesVisible ? (
                       <DecryptText
                         text={profile.description}
                         startDelay={index * 100 + 200}
                         duration={1500}
                         isVisible={true}
+                        className="text-gray-300 text-xs sm:text-sm"
                       />
                     ) : (
-                      <p className="text-gray-300 text-sm">{profile.description}</p>
+                      <p className="text-gray-300 text-xs sm:text-sm">{profile.description}</p>
                     )}
                   </div>
                 </Link>
@@ -709,8 +702,8 @@ export default function Portfolio() {
         <section id="contact" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold mb-6 flex items-center gap-2">
-                <span className="text-white">{">."}</span>{" "}
+              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
+                <span className="text-white">05.</span>{" "}
                 {contactVisible ? (
                   <DecryptText
                     text={t("contact.title")}
@@ -723,36 +716,36 @@ export default function Portfolio() {
                 )}
               </h2>
               <div
-                className={`${contactVisible ? "animate-fade-in" : "opacity-0"}`}
+                className={`section-content ${contactVisible ? "animate-fade-in" : "opacity-0"}`}
                 style={{ animationDuration: "1s" }}
               >
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <form className="space-y-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div
                       className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
                       style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
                     >
-                      <label htmlFor="name" className="block text-gray-300 mb-2">
+                      <label htmlFor="name" className="block text-gray-300 mb-1 text-sm">
                         {t("contact.name")}
                       </label>
                       <Input
                         id="name"
                         placeholder={t("contact.placeholder.name")}
-                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
                       />
                     </div>
                     <div
                       className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
                       style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
                     >
-                      <label htmlFor="email" className="block text-gray-300 mb-2">
+                      <label htmlFor="email" className="block text-gray-300 mb-1 text-sm">
                         {t("contact.email")}
                       </label>
                       <Input
                         id="email"
                         type="email"
                         placeholder={t("contact.placeholder.email")}
-                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
                       />
                     </div>
                   </div>
@@ -760,34 +753,37 @@ export default function Portfolio() {
                     className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
                     style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
                   >
-                    <label htmlFor="subject" className="block text-gray-300 mb-2">
+                    <label htmlFor="subject" className="block text-gray-300 mb-1 text-sm">
                       {t("contact.subject")}
                     </label>
                     <Input
                       id="subject"
                       placeholder={t("contact.placeholder.subject")}
-                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
                     />
                   </div>
                   <div
                     className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
                     style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
                   >
-                    <label htmlFor="message" className="block text-gray-300 mb-2">
+                    <label htmlFor="message" className="block text-gray-300 mb-1 text-sm">
                       {t("contact.message")}
                     </label>
                     <Textarea
                       id="message"
                       placeholder={t("contact.placeholder.message")}
-                      rows={6}
-                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0"
+                      rows={4}
+                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
                     />
                   </div>
                   <div
                     className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
                     style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
                   >
-                    <Button type="submit" className="bg-theme text-black hover:bg-theme-light flex items-center gap-2">
+                    <Button
+                      type="submit"
+                      className="bg-theme text-black hover:bg-theme-light flex items-center gap-2 text-sm"
+                    >
                       {t("contact.send")} <Send className="h-4 w-4" />
                     </Button>
                   </div>
@@ -795,14 +791,14 @@ export default function Portfolio() {
               </div>
             </div>
           </div>
-          
+
           {/* Footer */}
-          <footer className="border-t border-theme-30 py-2 mt-14 relative">
+          <footer className="border-t border-theme-30 py-4 sm:py-6 mt-8 sm:mt-12 relative">
             <div className="text-center">
-              <p className="text-gray-400">
-                <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
+              <p className="text-gray-400 text-sm">
+                <span className="text-theme">$</span> {t("footer.designed")} [Your Name]
               </p>
-              <p className="text-gray-500 text-sm mt-2">
+              <p className="text-gray-500 text-xs mt-1">
                 © {new Date().getFullYear()} {t("footer.rights")}
               </p>
             </div>

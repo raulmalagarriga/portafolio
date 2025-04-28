@@ -70,8 +70,8 @@ body {
   font-family: "Courier New", monospace;
   height: 100%;
   overflow: auto;
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 
   /* Hide scrollbar for Chrome, Safari and Opera */
   &::-webkit-scrollbar {
@@ -90,7 +90,110 @@ section {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start; /* Start from top to ensure title is visible */
+  padding: 5rem 0 2rem; /* Add top padding for fixed header */
+}
+
+/* Hero section should remain centered */
+section#hero {
   justify-content: center;
+  padding-top: 0;
+}
+
+/* Ensure section titles are always visible */
+h2.section-title {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Adjust for smaller laptop screens */
+@media (max-height: 800px) {
+  section {
+    padding: 5rem 0 1rem; /* More top padding for header */
+    min-height: 100vh;
+    overflow-y: auto; /* Allow scrolling within sections if needed */
+  }
+
+  .section-content {
+    max-height: calc(100vh - 8rem); /* Ensure content fits in viewport */
+    overflow-y: auto; /* Allow scrolling within content if needed */
+    padding-bottom: 1rem;
+  }
+
+  /* Reduce spacing */
+  .space-y-4 {
+    margin-top: 0.5rem;
+  }
+
+  /* Smaller text for smaller screens */
+  h1,
+  h2,
+  h3 {
+    font-size: 90%;
+  }
+
+  p,
+  li,
+  .text-base {
+    font-size: 90%;
+  }
+
+  /* Smaller profile photo */
+  .profile-photo {
+    width: 8rem !important;
+    height: 8rem !important;
+  }
+
+  /* Reduce grid gaps */
+  .gap-6 {
+    gap: 1rem;
+  }
+
+  .gap-8 {
+    gap: 1.5rem;
+  }
+
+  /* Reduce padding in cards */
+  .p-4,
+  .p-5 {
+    padding: 0.75rem;
+  }
+
+  /* Reduce margins */
+  .mb-6 {
+    margin-bottom: 1rem;
+  }
+
+  .mb-8 {
+    margin-bottom: 1.5rem;
+  }
+
+  /* Smaller footer */
+  footer {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+    margin-top: 1rem !important;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  body {
+    scroll-snap-type: none; /* Disable snap scrolling on mobile */
+  }
+
+  section {
+    min-height: auto; /* Allow sections to be their natural height */
+    padding-top: 5rem; /* Add padding for the fixed header */
+    padding-bottom: 2rem; /* Add some bottom padding */
+    scroll-snap-align: none;
+  }
+
+  /* Ensure the hero section still takes up the full height */
+  #hero {
+    min-height: 100vh;
+  }
 }
 
 /* Add these animations for the fade-in effect */
@@ -243,4 +346,11 @@ section {
 .scroll-indicator-dot.active {
   background-color: var(--theme-color);
   transform: scale(1.3);
+}
+
+/* Hide scroll indicator on mobile */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    display: none;
+  }
 }

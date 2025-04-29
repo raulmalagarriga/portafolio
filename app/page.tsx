@@ -638,8 +638,8 @@ export default function Portfolio() {
                   url: "#",
                 },
                 {
-                  name: t("profiles.fiverr"),
-                  description: t("profiles.fiverr.desc"),
+                  name: t("profiles.blog"),
+                  description: t("profiles.blog.desc"),
                   icon: <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6" />,
                   url: "#",
                 },

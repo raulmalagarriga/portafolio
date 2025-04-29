@@ -13,16 +13,16 @@ export const translations = {
       "hero.title.backend": "Backend Developer.",
       "hero.title.software": "Software Engineer.",
       "hero.title.architec": "Software Architect.",
-      "hero.intro": "I build robust, scalable backend systems and APIs that power modern applications.",
+      "hero.intro": "Welcome to my portfolio. Got an idea? Let’s bring it to life with well-crafted technology, built to grow.",
       "hero.explore": "Explore",
   
       // About
       "about.title": "About Me",
       "about.p1":
-        "I'm a backend developer with a passion for building efficient, scalable, and maintainable systems. With expertise in server-side technologies, databases, and API development, I create the robust foundations that power modern applications.",
-      "about.p2":
-        "My approach combines technical excellence with problem-solving skills to deliver solutions that meet business requirements while maintaining high performance and security standards. I'm constantly exploring new technologies and methodologies to enhance my development toolkit.",
-  
+        "Hi! I'm Raúl Malagarriga, a software development professional with a strong focus on building reliable, efficient solutions aligned with each client's goals. I'm passionate about understanding how things work, designing clean structures, and creating systems that truly make an impact. I enjoy turning ideas into functional products, always with a focus on scalability, clarity, and long-term quality.",
+        "about.p2":
+        "I consider myself a problem-solver, detail-oriented, and highly collaborative. I value clear communication and proper documentation as essential tools for any project's success. My work goes beyond just writing code — I strive to understand challenges, propose smart solutions, and support every step of the process. My goal is always to bring real value through technology.",
+
       // Skills
       "skills.title": "Skills",
       "skills.languages": "Languages",
@@ -38,11 +38,11 @@ export const translations = {
       "projects.comming": "Coming Soon!",
   
       // Project descriptions
-      "projects.ecommerce.title": "E-Commerce API",
+      "projects.ecommerce.title": "Slive",
       "projects.ecommerce.desc":
-        "A scalable RESTful API for e-commerce platforms with authentication, product management, and order processing.",
+        "Cloud-based administrative system for managing businesses in the retail world.",
   
-      "projects.chat.title": "BattleShip.",
+      "projects.chat.title": "BattleShip Game",
       "projects.chat.desc":
         "Classic multiplayer battleship game with integrated real-time chat.",
   
@@ -50,9 +50,9 @@ export const translations = {
       "projects.pulse.desc":
         "Fitness app for client management and training plan management.",
   
-      "projects.data.title": "Data Processing Pipeline",
+      "projects.data.title": "Calendar App",
       "projects.data.desc":
-        "Distributed system for processing and analyzing large datasets with fault tolerance and horizontal scaling.",
+        "Interactive calendar for managing events and teamwork.",
   
       // Profiles
       "profiles.title": "Profiles",
@@ -109,15 +109,15 @@ export const translations = {
       "hero.title.backend": "Desarrollador Backend.",
       "hero.title.software": "Ingeniero de Software.",
       "hero.title.architec": "Arquitecto de Software.",
-      "hero.intro": "Construyo sistemas backend robustos y escalables y APIs que impulsan aplicaciones modernas.",
+      "hero.intro": "Bienvenido a mi portafolio. ¿Tienes una idea? Hagámosla realidad con tecnología bien pensada y preparada para crecer.",
       "hero.explore": "Explorar",
   
       // About
       "about.title": "Sobre Mí",
       "about.p1":
-        "Soy un desarrollador backend con pasión por construir sistemas eficientes, escalables y mantenibles. Con experiencia en tecnologías del lado del servidor, bases de datos y desarrollo de APIs, creo los cimientos robustos que impulsan las aplicaciones modernas.",
+        "¡Hola! Soy Raúl Malagarriga, un profesional del desarrollo de software con una fuerte orientación a la creación de soluciones sólidas, eficientes y alineadas con los objetivos del cliente. Me apasiona entender cómo funcionan las cosas, diseñar estructuras claras y construir sistemas que realmente marquen la diferencia. Disfruto transformar ideas en productos funcionales, manteniendo siempre un enfoque en la escalabilidad, el orden y la calidad del resultado final.",
       "about.p2":
-        "Mi enfoque combina excelencia técnica con habilidades para resolver problemas y entregar soluciones que cumplen con los requisitos del negocio mientras mantienen altos estándares de rendimiento y seguridad. Constantemente exploro nuevas tecnologías y metodologías para mejorar mi conjunto de herramientas de desarrollo.",
+        "Me considero una persona resolutiva, comprometida con los detalles y con una gran capacidad para trabajar en equipo. Valoro la comunicación clara y la documentación como herramientas clave para el éxito de cualquier proyecto. No solo me dedico a programar, también me involucro en entender el problema, proponer soluciones viables y acompañar su evolución. Mi meta siempre es aportar valor real a través de la tecnología.",
   
       // Skills
       "skills.title": "Habilidades",
@@ -133,11 +133,11 @@ export const translations = {
       "projects.view": "Ver en GitHub",
       "projects.comming": "¡Proximamente!",
       // Project descriptions
-      "projects.ecommerce.title": "API de Comercio Electrónico",
+      "projects.ecommerce.title": "Slive",
       "projects.ecommerce.desc":
-        "Una API RESTful escalable para plataformas de comercio electrónico con autenticación, gestión de productos y procesamiento de pedidos.",
+        "Sistema administrativo en la nube para gestionar empresas en el mundo del retail.",
   
-      "projects.chat.title": "BattleShip.",
+      "projects.chat.title": "BattleShip Game",
       "projects.chat.desc":
         "Clasico juego de battleship multijugador con chat integrado en tiempo real.",
   
@@ -145,9 +145,9 @@ export const translations = {
       "projects.pulse.desc":
         "Aplicacion fitness para gestion de clientes y manejo de planes de entrenamiento.",
   
-      "projects.data.title": "Pipeline de Procesamiento de Datos",
+      "projects.data.title": "Calendar App",
       "projects.data.desc":
-        "Sistema distribuido para procesar y analizar grandes conjuntos de datos con tolerancia a fallos y escalado horizontal.",
+        "Calendario interactivo para gestionar eventos y trabajo en equipo.",
   
 
       // Profiles
@@ -170,8 +170,8 @@ export const translations = {
       "contact.subject": "Asunto",
       "contact.message": "Mensaje",
       "contact.send": "Enviar Mensaje",
-      "contact.placeholder.name": "Juan Pérez",
-      "contact.placeholder.email": "juan@ejemplo.com",
+      "contact.placeholder.name": "Jose Pérez",
+      "contact.placeholder.email": "jose@ejemplo.com",
       "contact.placeholder.subject": "Consulta de Proyecto",
       "contact.placeholder.message": "Me gustaría discutir un proyecto...",
   

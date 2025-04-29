@@ -255,27 +255,27 @@ export default function Portfolio() {
   const skillCategories = [
     {
       title: t("skills.languages"),
-      items: ["JavaScript", "TypeScript", "Python", "Go", "Java"],
+      items: ["C#", "JavaScript", "TypeScript"],
     },
     {
       title: t("skills.frameworks"),
-      items: ["Node.js", "Express", "NestJS", "Django", "Spring Boot"],
+      items: [".NET", "Entity Framework", "Node.js", "Express"],
     },
     {
       title: t("skills.databases"),
-      items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Elasticsearch"],
+      items: ["PostgreSQL", "SQL Server", "MongoDB", "Redis"],
     },
     {
       title: t("skills.cloud"),
-      items: ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform"],
+      items: ["Ubuntu Server", "Docker", "Windows Server", "CI/CD"],
     },
     {
       title: t("skills.tools"),
-      items: ["Git", "Postman", "Swagger", "Jira", "VS Code"],
+      items: ["Git", "Postman", "Swagger", "Jira"],
     },
     {
       title: t("skills.concepts"),
-      items: ["RESTful APIs", "GraphQL", "Microservices", "Authentication", "Performance Optimization"],
+      items: ["RESTful APIs", "JWT", "Microservices", "Authentication"],
     },
   ]
 
@@ -294,9 +294,9 @@ export default function Portfolio() {
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
             <div className="text-lg sm:text-xl font-bold">
-              <span className="text-white">dev</span>
-              <span className="text-theme">@portfolio</span>
-              <span className="text-white">:~$</span>
+              {/* <span className="text-white">dev</span> */}
+              <span className="text-theme">raulmalagarriga</span>
+              <span className="text-white">.dev</span>
             </div>
 
             <div className="flex items-center gap-4">
@@ -391,7 +391,7 @@ export default function Portfolio() {
         <section id="about" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-              <span className="text-white">01.</span>{" "}
+              <span className="text-white">{">"}</span>{" "}
               {aboutVisible ? (
                 <DecryptText
                   text={t("about.title")}
@@ -444,8 +444,8 @@ export default function Portfolio() {
                   )}
                 </div>
               </div>
-              <div className="md:w-1/3 flex justify-center order-1 md:order-2">
-                <div className="profile-photo relative w-40 h-40 sm:w-48 sm:h-48 md:w-40 md:h-40 lg:w-48 lg:h-48 overflow-hidden rounded-full border-2 border-theme-30">
+              <div className="md:w-1/3 hidden md:flex justify-center order-1 md:order-2">
+                <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-theme-30">
                   <Image src="/images/profile-photo.png" alt="Profile Photo" fill className="object-cover" />
                   <div className="absolute inset-0 border-4 border-theme-10 rounded-full pointer-events-none"></div>
                 </div>
@@ -458,7 +458,7 @@ export default function Portfolio() {
         <section id="skills" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-              <span className="text-white">02.</span>{" "}
+              <span className="text-white">{">"}</span>{" "}
               {skillsVisible ? (
                 <DecryptText
                   text={t("skills.title")}
@@ -511,7 +511,7 @@ export default function Portfolio() {
         <section id="projects" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-              <span className="text-white">03.</span>{" "}
+              <span className="text-white">{">"}</span>{" "}
               {projectsVisible ? (
                 <DecryptText
                   text={t("projects.title")}
@@ -611,7 +611,7 @@ export default function Portfolio() {
         <section id="profiles" className="border-t border-theme-30">
           <div className="container mx-auto px-4">
             <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-              <span className="text-white">04.</span>{" "}
+              <span className="text-white">{">"}</span>{" "}
               {profilesVisible ? (
                 <DecryptText
                   text={t("profiles.title")}
@@ -703,7 +703,7 @@ export default function Portfolio() {
           <div className="container mx-auto px-4">
             <div className="max-w-2xl">
               <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-                <span className="text-white">05.</span>{" "}
+                <span className="text-white">{">"}</span>{" "}
                 {contactVisible ? (
                   <DecryptText
                     text={t("contact.title")}

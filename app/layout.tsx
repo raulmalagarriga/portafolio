@@ -9,8 +9,8 @@ import { LanguageProvider } from "@/contexts/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Backend Developer Portfolio",
-  description: "Portfolio showcasing backend development skills and projects",
+  title: "raulmalagarriga.dev",
+  description: "Raul Malagarriga portafolio",
 }
 
 export default function RootLayout({

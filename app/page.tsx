@@ -528,26 +528,26 @@ export default function Portfolio() {
                 {
                   name: t("projects.ecommerce.title"),
                   description: t("projects.ecommerce.desc"),
-                  tech: ["Node.js", "Express", "MongoDB", "JWT"],
-                  github: "#",
+                  tech: [".NET", "Next JS", "MongoDB", "PostgreSQL"],
+                  github: null,
                 },
                 {
                   name: t("projects.chat.title"),
                   description: t("projects.chat.desc"),
-                  tech: ["Go", "WebSockets", "Redis", "PostgreSQL"],
-                  github: "#",
+                  tech: ["NodeJS", "Javascript", "Express", "Socket.io"],
+                  github: "https://github.com/raulmalagarriga/Battleship_game",
                 },
                 {
                   name: t("projects.pulse.title"),
                   description: t("projects.pulse.desc"),
-                  tech: ["Python", "Django", "PostgreSQL", "Docker"],
-                  github: "#",
+                  tech: ["NodeJS", "Typescript", "MongoDB", "React native"],
+                  github: null,
                 },
                 {
                   name: t("projects.data.title"),
                   description: t("projects.data.desc"),
-                  tech: ["Java", "Kafka", "Elasticsearch", "AWS"],
-                  github: "#",
+                  tech: ["NodeJS", "Javascript", "Express", "MongoDB"],
+                  github: "https://github.com/raulmalagarriga/calendarApp-backend",
                 },
               ].map((project, index) => (
                 <div
@@ -595,12 +595,22 @@ export default function Portfolio() {
                       </span>
                     ))}
                   </div>
-                  <Link
-                    href={project.github}
-                    className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
-                  >
-                    <Github className="h-4 w-4" /> {t("projects.view")}
-                  </Link>
+                  {
+                    project.github ? 
+                    (
+                      <Link
+                        target="_blank"
+                        href={project.github}
+                        className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
+                        >
+                      <Github className="h-4 w-4" /> {t("projects.view")}
+                    </Link>
+                    ) 
+                    : 
+                    (
+                      <p>{t("projects.comming")}</p>   
+                    ) 
+                  }
                 </div>
               ))}
             </div>
@@ -629,31 +639,32 @@ export default function Portfolio() {
                   name: t("profiles.github"),
                   description: t("profiles.github.desc"),
                   icon: <Github className="h-5 w-5 sm:h-6 sm:w-6" />,
-                  url: "#",
+                  url: "https://github.com/raulmalagarriga",
                 },
                 {
                   name: t("profiles.linkedin"),
                   description: t("profiles.linkedin.desc"),
                   icon: <Linkedin className="h-5 w-5 sm:h-6 sm:w-6" />,
-                  url: "#",
+                  url: "https://www.linkedin.com/in/rjmalagarrigat/",
                 },
                 {
                   name: t("profiles.blog"),
                   description: t("profiles.blog.desc"),
                   icon: <ExternalLink className="h-5 w-5 sm:h-6 sm:w-6" />,
-                  url: "#",
+                  url: "https://medium.com/@rjmalagarrigat",
                 },
                 {
                   name: t("profiles.resume"),
                   description: t("profiles.resume.desc"),
                   icon: <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />,
-                  url: "#",
+                  url: "/media/Resume-RaulJMalagarriga.docx",
                   isDownload: true,
                 },
               ].map((profile, index) => (
                 <Link
                   href={profile.url}
                   key={index}
+                  target="_blank"
                   download={profile.isDownload}
                   className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors flex flex-col items-center text-center opacity-0 hover-gradient-effect ${
                     profilesVisible ? "animate-fade-in-up" : ""
@@ -796,7 +807,7 @@ export default function Portfolio() {
           <footer className="border-t border-theme-30 py-4 sm:py-6 mt-8 sm:mt-12 relative">
             <div className="text-center">
               <p className="text-gray-400 text-sm">
-                <span className="text-theme">$</span> {t("footer.designed")} [Your Name]
+                <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
               </p>
               <p className="text-gray-500 text-xs mt-1">
                 © {new Date().getFullYear()} {t("footer.rights")}

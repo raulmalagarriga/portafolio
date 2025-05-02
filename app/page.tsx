@@ -657,8 +657,8 @@ export default function Portfolio() {
                   name: t("profiles.resume"),
                   description: t("profiles.resume.desc"),
                   icon: <ArrowRight className="h-5 w-5 sm:h-6 sm:w-6" />,
-                  url: "/media/Resume-RaulJMalagarriga.docx",
-                  isDownload: true,
+                  url: "/Resume-RaulJMalagarriga.pdf",
+                  isDownload: "Resume-RaulJMalagarriga",
                 },
               ].map((profile, index) => (
                 <Link

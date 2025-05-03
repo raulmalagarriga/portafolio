@@ -15,6 +15,7 @@ import LanguageSelector from "@/components/languaje-selector"
 import { useLanguage } from "@/contexts/language-context"
 import DecryptText from "@/components/decrypt-text"
 import ScrollIndicator from "@/components/scroll-indicator"
+import ContactForm from "@/components/contact-form"
 
 export default function Portfolio() {
   const { t } = useLanguage()
@@ -711,7 +712,8 @@ export default function Portfolio() {
 
         {/* Contact Section */}
         <section id="contact" className="border-t border-theme-30">
-          <div className="container mx-auto px-4">
+          <ContactForm contactVisible={true} />
+          {/* <div className="container mx-auto px-4">
             <div className="max-w-2xl">
               <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
                 <span className="text-white">{">"}</span>{" "}
@@ -801,7 +803,7 @@ export default function Portfolio() {
                 </form>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* Footer */}
           <footer className="border-t border-theme-30 py-4 sm:py-6 mt-8 sm:mt-12 relative">

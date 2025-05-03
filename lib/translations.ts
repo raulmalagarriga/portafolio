@@ -78,6 +78,9 @@ export const translations = {
       "contact.placeholder.email": "john@example.com",
       "contact.placeholder.subject": "Project Inquiry",
       "contact.placeholder.message": "I'd like to discuss a project...",
+      "contact.sending": "Sending...",
+      "contact.success": "Sent!",
+      "contact.error": "Something went wrong :(",
   
       // Footer
       "footer.designed": "Designed and built by",
@@ -85,7 +88,7 @@ export const translations = {
   
       // Theme selector
       "theme.select": "Theme",
-      "theme.green": "hacker",
+      "theme.green": "console",
       "theme.blue": "ocean",
       "theme.yellow": "sunset",
       "theme.white": "discreet",
@@ -174,17 +177,19 @@ export const translations = {
       "contact.placeholder.email": "jose@ejemplo.com",
       "contact.placeholder.subject": "Consulta de Proyecto",
       "contact.placeholder.message": "Me gustaría discutir un proyecto...",
-  
+      "contact.sending": "Enviando...",
+      "contact.success": "¡Enviado!",
+      "contact.error": "Algo ha salido mal :(",
       // Footer
       "footer.designed": "Diseñado y construido por",
       "footer.rights": "Todos los derechos reservados.",
   
       // Theme selector
       "theme.select": "Tema",
-      "theme.green": "hacker",
-      "theme.blue": "oceano",
-      "theme.yellow": "atardecer",
-      "theme.white": "discreto",
+      "theme.green": "console",
+      "theme.blue": "ocean",
+      "theme.yellow": "sunset",
+      "theme.white": "discreet",
   
       // Language selector
       "language.select": "Idioma",

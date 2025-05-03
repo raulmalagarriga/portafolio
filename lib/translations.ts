@@ -11,7 +11,7 @@ export const translations = {
       // Hero
       "hero.title": "> Hello World. I am a ",
       "hero.title.backend": "Backend Developer.",
-      "hero.title.software": "Software Engineer.",
+      "hero.title.software": "Computer Engineer.",
       "hero.title.architec": "Software Architect.",
       "hero.intro": "Welcome to my portfolio. Got an idea? Let’s bring it to life with well-crafted technology, built to grow.",
       "hero.explore": "Explore",
@@ -110,7 +110,7 @@ export const translations = {
       // Hero
       "hero.title": "> Hola Mundo. Soy un ",
       "hero.title.backend": "Desarrollador Backend.",
-      "hero.title.software": "Ingeniero de Software.",
+      "hero.title.software": "Ingeniero en computación.",
       "hero.title.architec": "Arquitecto de Software.",
       "hero.intro": "Bienvenido a mi portafolio. ¿Tienes una idea? Hagámosla realidad con tecnología bien pensada y preparada para crecer.",
       "hero.explore": "Explorar",

@@ -370,13 +370,13 @@ export default function Portfolio() {
           <div className="container mx-auto px-4">
             <div className="max-w-3xl">
               <div className="h-[60px] sm:h-[80px] md:h-[100px] mb-4 sm:mb-6">
-                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold">
                   {typedText}
                   <span className="animate-pulse">_</span>
                 </h1>
               </div>
               <div className="animate-fade-in">
-                <p className="text-base sm:text-lg md:text-xl text-gray-400 mb-6 sm:mb-8">{t("hero.intro")}</p>
+                <p className="text-base sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8">{t("hero.intro")}</p>
                 <Button
                   onClick={() => scrollToSection("about")}
                   className="bg-theme text-black hover:bg-theme-light flex items-center gap-2"

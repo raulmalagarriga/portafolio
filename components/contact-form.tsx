@@ -54,17 +54,17 @@ const ContactForm: React.FC<ContactFormProps> = ({ contactVisible }) => {
     <div className="container mx-auto px-4">
       <div className="max-w-2xl">
         <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-          <span className="text-white">{">"}</span>{" "}
-          {contactVisible ? (
-            <DecryptText
-              text={t("contact.title")}
-              duration={1200}
-              isVisible={true}
-              animationColor="text-theme-light"
-            />
-          ) : (
-            t("contact.title")
-          )}
+            <span className="text-white">{">"}</span>{" "}
+            {contactVisible ? (
+              <DecryptText
+                text={t("contact.title")}
+                duration={1200}
+                isVisible={true}
+                animationColor="text-theme-light"
+              />
+            ) : (
+              t("contact.title")
+            )}
         </h2>
         <div
           className={`section-content ${contactVisible ? "animate-fade-in" : "opacity-0"}`}

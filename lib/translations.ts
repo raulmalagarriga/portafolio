@@ -36,6 +36,7 @@ export const translations = {
       "projects.title": "Projects",
       "projects.view": "View on GitHub",
       "projects.comming": "Coming Soon!",
+      "projects.visit": "Visit the project!",
   
       // Project descriptions
       "projects.ecommerce.title": "Slive",
@@ -53,6 +54,9 @@ export const translations = {
       "projects.data.title": "Calendar App",
       "projects.data.desc":
         "Interactive calendar for managing events and teamwork.",
+      
+      "projects.sentiment.title":"Sentiment Analyzer",
+      "projects.sentiment.desc": "API that determines the emotional tone of text, classifying it as positive, neutral, or negative, and assigns a polarity score",
   
       // Profiles
       "profiles.title": "Profiles",
@@ -135,6 +139,7 @@ export const translations = {
       "projects.title": "Proyectos",
       "projects.view": "Ver en GitHub",
       "projects.comming": "¡Proximamente!",
+      "projects.visit": "¡Visita el proyecto!",
       // Project descriptions
       "projects.ecommerce.title": "Slive",
       "projects.ecommerce.desc":
@@ -152,6 +157,8 @@ export const translations = {
       "projects.data.desc":
         "Calendario interactivo para gestionar eventos y trabajo en equipo.",
   
+        "projects.sentiment.title":"Sentiment Analyzer",
+        "projects.sentiment.desc": "API que determina el tono emocional del texto, clasificándolo como positivo, neutral o negativo, y le asigna una puntuación de polaridad.",
 
       // Profiles
       "profiles.title": "Perfiles",

@@ -256,11 +256,11 @@ export default function Portfolio() {
   const skillCategories = [
     {
       title: t("skills.languages"),
-      items: ["C#", "JavaScript", "TypeScript"],
+      items: ["C#", "JavaScript", "TypeScript", "Python"],
     },
     {
       title: t("skills.frameworks"),
-      items: [".NET", "Entity Framework", "Node.js", "Express"],
+      items: [".NET", "Entity Framework", "Node.js", "Express", "FastAPI"],
     },
     {
       title: t("skills.databases"),
@@ -533,6 +533,13 @@ export default function Portfolio() {
                   github: null,
                 },
                 {
+                  name: t("projects.sentiment.title"),
+                  description: t("projects.sentiment.desc"),
+                  tech: ["Python", "Next JS", "FastAPI"],
+                  github: "https://github.com/raulmalagarriga/sentimentAnalyzer",
+                  url: "https://happy-face-sentiment-analyzer.vercel.app/"
+                },
+                {
                   name: t("projects.chat.title"),
                   description: t("projects.chat.desc"),
                   tech: ["NodeJS", "Javascript", "Express", "Socket.io"],
@@ -596,22 +603,37 @@ export default function Portfolio() {
                       </span>
                     ))}
                   </div>
-                  {
-                    project.github ? 
-                    (
-                      <Link
-                        target="_blank"
-                        href={project.github}
-                        className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
+                  <div className="flex space-x-2">
+                    {
+                      project.github ? 
+                      (
+                        <Link
+                          target="_blank"
+                          href={project.github}
+                          className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
+                          >
+                        <Github className="h-4 w-4" /> {t("projects.view")}
+                      </Link>
+                      ) 
+                      : 
+                      (
+                        <p>{t("projects.comming")}</p>   
+                      ) 
+                    }
+                    {
+                      project.url ?
+                      (
+                        <Link target="_blank"
+                          href={project.url}
+                          className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
                         >
-                      <Github className="h-4 w-4" /> {t("projects.view")}
-                    </Link>
-                    ) 
-                    : 
-                    (
-                      <p>{t("projects.comming")}</p>   
-                    ) 
-                  }
+                          | {t("projects.visit")}
+                        </Link>
+                      ) 
+                      :
+                      (<></>)
+                    }
+                  </div>
                 </div>
               ))}
             </div>

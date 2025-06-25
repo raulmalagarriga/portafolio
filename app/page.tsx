@@ -43,6 +43,14 @@ export default function Portfolio() {
   // Sections for navigation
   const sections = ["hero", "about", "skills", "projects", "profiles", "contact"]
 
+  // Call Sentiment Analyzer API on page load
+  useEffect(() => {
+    fetch("https://sentimentanalyzer-y8tk.onrender.com/")
+      .then((res) => res.json())
+      .then((data) => console.log("Sentiment analyzer response:", data))
+      .catch((err) => console.error("Sentiment analyzer fetch error:", err))
+  }, [])
+
   // Close mobile menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {

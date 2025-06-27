@@ -44,8 +44,9 @@ export default function Portfolio() {
   const sections = ["hero", "about", "skills", "projects", "profiles", "contact"]
 
   // Call Sentiment Analyzer API on page load
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL ?? 'https://sentimentanalyzer-y8tk.onrender.com';
   useEffect(() => {
-    fetch("https://sentimentanalyzer-y8tk.onrender.com/")
+    fetch(baseUrl)
       .then((res) => res.json())
       .then((data) => console.log("Sentiment analyzer response:", data))
       .catch((err) => console.error("Sentiment analyzer fetch error:", err))

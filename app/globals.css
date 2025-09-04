@@ -94,6 +94,19 @@ section {
   padding: 5rem 0 2rem; /* Add top padding for fixed header */
 }
 
+/* Contact section shouldn't force full viewport height */
+section#contact {
+  min-height: auto;
+  padding-bottom: 1rem;
+}
+
+/* Smaller footer globally */
+footer {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  margin-top: 1rem;
+}
+
 /* Hero section should remain centered */
 section#hero {
   justify-content: center;
@@ -167,13 +180,6 @@ h2.section-title {
 
   .mb-8 {
     margin-bottom: 1.5rem;
-  }
-
-  /* Smaller footer */
-  footer {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    margin-top: 1rem !important;
   }
 }
 

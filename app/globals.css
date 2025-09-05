@@ -96,7 +96,7 @@ section {
 
 /* Center contact section without extra whitespace */
 section#contact {
-  min-height: calc(100vh - 4rem);
+  min-height: calc(100vh - 6rem);
   padding-top: 0;
   padding-bottom: 0;
   justify-content: center;

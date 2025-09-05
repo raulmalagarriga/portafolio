@@ -94,10 +94,12 @@ section {
   padding: 5rem 0 2rem; /* Add top padding for fixed header */
 }
 
-/* Contact section shouldn't force full viewport height */
+/* Center contact section without extra whitespace */
 section#contact {
-  min-height: auto;
+  min-height: calc(100vh - 1rem);
+  padding-top: 0;
   padding-bottom: 1rem;
+  justify-content: center;
 }
 
 /* Smaller footer globally */

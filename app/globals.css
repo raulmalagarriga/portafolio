@@ -96,17 +96,10 @@ section {
 
 /* Center contact section without extra whitespace */
 section#contact {
-  min-height: calc(100vh - 1rem);
+  min-height: calc(100vh - 4rem);
   padding-top: 0;
-  padding-bottom: 1rem;
+  padding-bottom: 0;
   justify-content: center;
-}
-
-/* Smaller footer globally */
-footer {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  margin-top: 1rem;
 }
 
 /* Hero section should remain centered */

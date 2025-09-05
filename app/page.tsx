@@ -744,110 +744,19 @@ export default function Portfolio() {
         {/* Contact Section */}
         <section id="contact" className="border-t border-theme-30">
           <ContactForm contactVisible={true} />
-          {/* <div className="container mx-auto px-4">
-            <div className="max-w-2xl">
-              <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-                <span className="text-white">{">"}</span>{" "}
-                {contactVisible ? (
-                  <DecryptText
-                    text={t("contact.title")}
-                    duration={1200}
-                    isVisible={true}
-                    animationColor="text-theme-light"
-                  />
-                ) : (
-                  t("contact.title")
-                )}
-              </h2>
-              <div
-                className={`section-content ${contactVisible ? "animate-fade-in" : "opacity-0"}`}
-                style={{ animationDuration: "1s" }}
-              >
-                <form className="space-y-3">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div
-                      className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                      style={{ animationDelay: "100ms", animationFillMode: "forwards" }}
-                    >
-                      <label htmlFor="name" className="block text-gray-300 mb-1 text-sm">
-                        {t("contact.name")}
-                      </label>
-                      <Input
-                        id="name"
-                        placeholder={t("contact.placeholder.name")}
-                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
-                      />
-                    </div>
-                    <div
-                      className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                      style={{ animationDelay: "200ms", animationFillMode: "forwards" }}
-                    >
-                      <label htmlFor="email" className="block text-gray-300 mb-1 text-sm">
-                        {t("contact.email")}
-                      </label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder={t("contact.placeholder.email")}
-                        className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
-                      />
-                    </div>
-                  </div>
-                  <div
-                    className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{ animationDelay: "300ms", animationFillMode: "forwards" }}
-                  >
-                    <label htmlFor="subject" className="block text-gray-300 mb-1 text-sm">
-                      {t("contact.subject")}
-                    </label>
-                    <Input
-                      id="subject"
-                      placeholder={t("contact.placeholder.subject")}
-                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
-                    />
-                  </div>
-                  <div
-                    className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{ animationDelay: "400ms", animationFillMode: "forwards" }}
-                  >
-                    <label htmlFor="message" className="block text-gray-300 mb-1 text-sm">
-                      {t("contact.message")}
-                    </label>
-                    <Textarea
-                      id="message"
-                      placeholder={t("contact.placeholder.message")}
-                      rows={4}
-                      className="bg-black/80 border-theme-30 text-white focus:border-theme-light focus:ring-0 text-sm"
-                    />
-                  </div>
-                  <div
-                    className={`${contactVisible ? "animate-fade-in-up" : "opacity-0"}`}
-                    style={{ animationDelay: "500ms", animationFillMode: "forwards" }}
-                  >
-                    <Button
-                      type="submit"
-                      className="bg-theme text-black hover:bg-theme-light flex items-center gap-2 text-sm"
-                    >
-                      {t("contact.send")} <Send className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div> */}
-
-          {/* Footer */}
-          <footer className="border-t border-theme-30 py-4 sm:py-6 mt-8 sm:mt-12 relative">
-            <div className="text-center">
-              <p className="text-gray-400 text-sm">
-                <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
-              </p>
-              <p className="text-gray-500 text-xs mt-1">
-                © {new Date().getFullYear()} {t("footer.rights")}
-              </p>
-            </div>
-          </footer>
         </section>
+
+        {/* Footer */}
+        <footer className="border-t border-theme-30 py-2 mt-4 relative">
+          <div className="text-center">
+            <p className="text-gray-400 text-sm">
+              <span className="text-theme">$</span> {t("footer.designed")} [Raul Malagarriga]
+            </p>
+            <p className="text-gray-500 text-xs mt-1">
+              © {new Date().getFullYear()} {t("footer.rights")}
+            </p>
+          </div>
+        </footer>
       </main>
     </div>
   )

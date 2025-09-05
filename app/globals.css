@@ -94,6 +94,14 @@ section {
   padding: 5rem 0 2rem; /* Add top padding for fixed header */
 }
 
+/* Center contact section without extra whitespace */
+section#contact {
+  min-height: calc(100vh - 4rem);
+  padding-top: 0;
+  padding-bottom: 0;
+  justify-content: center;
+}
+
 /* Hero section should remain centered */
 section#hero {
   justify-content: center;
@@ -167,13 +175,6 @@ h2.section-title {
 
   .mb-8 {
     margin-bottom: 1.5rem;
-  }
-
-  /* Smaller footer */
-  footer {
-    padding-top: 1rem !important;
-    padding-bottom: 1rem !important;
-    margin-top: 1rem !important;
   }
 }
 

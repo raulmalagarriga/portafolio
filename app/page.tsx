@@ -29,7 +29,6 @@ export default function Portfolio() {
 
   // Visibility states for each section
   const [aboutVisible, setAboutVisible] = useState(false)
-  const [skillsVisible, setSkillsVisible] = useState(false)
   const [projectsVisible, setProjectsVisible] = useState(false)
   const [profilesVisible, setProfilesVisible] = useState(false)
   const [contactVisible, setContactVisible] = useState(false)
@@ -41,7 +40,7 @@ export default function Portfolio() {
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 
   // Sections for navigation
-  const sections = ["hero", "about", "skills", "projects", "profiles", "contact"]
+  const sections = ["hero", "about", "projects", "profiles", "contact"]
 
   // Call Sentiment Analyzer API on page load
   const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL ?? 'https://sentimentanalyzer-y8tk.onrender.com';
@@ -193,9 +192,6 @@ export default function Portfolio() {
               case "about":
                 setAboutVisible(true)
                 break
-              case "skills":
-                setSkillsVisible(true)
-                break
               case "projects":
                 setProjectsVisible(true)
                 break
@@ -211,9 +207,6 @@ export default function Portfolio() {
             switch (sectionId) {
               case "about":
                 setAboutVisible(false)
-                break
-              case "skills":
-                setSkillsVisible(false)
                 break
               case "projects":
                 setProjectsVisible(false)
@@ -318,7 +311,7 @@ export default function Portfolio() {
 
               {/* Navigation */}
               <nav className="hidden md:flex space-x-4 lg:space-x-6">
-                {["about", "skills", "projects", "profiles", "contact"].map((section) => (
+                {["about", "projects", "profiles", "contact"].map((section) => (
                   <button
                     key={section}
                     onClick={() => scrollToSection(section)}
@@ -357,7 +350,7 @@ export default function Portfolio() {
               </div>
 
               {/* Mobile Navigation */}
-              {["home", "about", "skills", "projects", "profiles", "contact"].map((section) => (
+              {["home", "about", "projects", "profiles", "contact"].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section === "home" ? "hero" : section)}
@@ -461,58 +454,55 @@ export default function Portfolio() {
                 </div>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Skills Section */}
-        <section id="skills" className="border-t border-theme-30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
-              <span className="text-white">{">"}</span>{" "}
-              {skillsVisible ? (
-                <DecryptText
-                  text={t("skills.title")}
-                  duration={1200}
-                  isVisible={true}
-                  animationColor="text-theme-light"
-                />
-              ) : (
-                t("skills.title")
-              )}
-            </h2>
-            <div className="section-content grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-              {skillCategories.map((category, index) => (
-                <div
-                  key={index}
-                  className={`border border-theme-30 p-3 rounded-md bg-black/80 opacity-0 hover-gradient-effect ${
-                    skillsVisible ? "animate-fade-in-up" : ""
-                  }`}
-                  style={{
-                    animationDelay: `${index * 150}ms`,
-                    animationFillMode: "forwards",
-                    height: "100%",
-                  }}
-                >
-                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2">{category.title}</h3>
-                  <ul className="space-y-1 text-sm">
-                    {category.items.map((item, itemIndex) => (
-                      <li key={itemIndex} className="flex items-center gap-2">
-                        <span className="text-theme">$</span>{" "}
-                        {skillsVisible ? (
-                          <DecryptText
-                            text={item}
-                            startDelay={itemIndex * 150 + 300}
-                            duration={1500}
-                            isVisible={true}
-                          />
-                        ) : (
-                          item
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+            {/* Skills */}
+            <div className="mt-6">
+              <h3 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 flex items-center gap-2 section-title">
+                <span className="text-white">{">"}</span>{" "}
+                {aboutVisible ? (
+                  <DecryptText
+                    text={t("skills.title")}
+                    duration={1200}
+                    isVisible={true}
+                    animationColor="text-theme-light"
+                  />
+                ) : (
+                  t("skills.title")
+                )}
+              </h3>
+              <div className="section-content grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+                {skillCategories.map((category, index) => (
+                  <div
+                    key={index}
+                    className={`border border-theme-30 p-3 rounded-md bg-black/80 opacity-0 hover-holographic-effect ${
+                      aboutVisible ? "animate-fade-in-up" : ""
+                    }`}
+                    style={{
+                      animationDelay: `${index * 150}ms`,
+                      animationFillMode: "forwards",
+                      height: "100%",
+                    }}
+                  >
+                    <h4 className="text-white text-base sm:text-lg font-semibold mb-2">{category.title}</h4>
+                    <ul className="space-y-1 text-sm">
+                      {category.items.map((item, itemIndex) => (
+                        <li key={itemIndex} className="flex items-center gap-2">
+                          <span className="text-theme">$</span>{" "}
+                          {aboutVisible ? (
+                            <DecryptText
+                              text={item}
+                              startDelay={itemIndex * 150 + 300}
+                              duration={1500}
+                              isVisible={true}
+                            />
+                          ) : (
+                            item
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -569,9 +559,9 @@ export default function Portfolio() {
               ].map((project, index) => (
                 <div
                   key={index}
-                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-gradient-effect ${
-                    projectsVisible ? "animate-fade-in-up" : ""
-                  }`}
+                    className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-holographic-effect ${
+                      projectsVisible ? "animate-fade-in-up" : ""
+                    }`}
                   style={{
                     animationDelay: `${index * 200}ms`,
                     animationFillMode: "forwards",
@@ -698,9 +688,9 @@ export default function Portfolio() {
                   key={index}
                   target="_blank"
                   download={profile.isDownload}
-                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors flex flex-col items-center text-center opacity-0 hover-gradient-effect ${
-                    profilesVisible ? "animate-fade-in-up" : ""
-                  }`}
+                    className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors flex flex-col items-center text-center opacity-0 hover-holographic-effect ${
+                      profilesVisible ? "animate-fade-in-up" : ""
+                    }`}
                   style={{
                     animationDelay: `${index * 150}ms`,
                     animationFillMode: "forwards",

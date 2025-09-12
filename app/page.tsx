@@ -559,9 +559,9 @@ export default function Portfolio() {
               ].map((project, index) => (
                 <div
                   key={index}
-                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-gradient-effect ${
-                    projectsVisible ? "animate-fade-in-up" : ""
-                  }`}
+                    className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-holographic-effect ${
+                      projectsVisible ? "animate-fade-in-up" : ""
+                    }`}
                   style={{
                     animationDelay: `${index * 200}ms`,
                     animationFillMode: "forwards",
@@ -688,9 +688,9 @@ export default function Portfolio() {
                   key={index}
                   target="_blank"
                   download={profile.isDownload}
-                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors flex flex-col items-center text-center opacity-0 hover-gradient-effect ${
-                    profilesVisible ? "animate-fade-in-up" : ""
-                  }`}
+                    className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors flex flex-col items-center text-center opacity-0 hover-holographic-effect ${
+                      profilesVisible ? "animate-fade-in-up" : ""
+                    }`}
                   style={{
                     animationDelay: `${index * 150}ms`,
                     animationFillMode: "forwards",

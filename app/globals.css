@@ -280,36 +280,7 @@ h2.section-title {
   border-color: var(--theme-color-light);
 }
 
-/* Add these gradient hover effect styles after the existing hover styles */
-.hover-gradient-effect {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s ease;
-}
-
-.hover-gradient-effect::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(var(--theme-color-rgb), 0.05) 0%, rgba(var(--theme-color-rgb), 0.15) 100%);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: -1;
-}
-
-.hover-gradient-effect:hover::before {
-  opacity: 1;
-}
-
-.hover-gradient-effect:hover {
-  border-color: var(--theme-color-light);
-  box-shadow: 0 0 15px rgba(var(--theme-color-rgb), 0.15);
-}
-
-/* Holographic hover effect for skill cards */
+/* Holographic hover effect for interactive cards */
 .hover-holographic-effect {
   position: relative;
   overflow: hidden;

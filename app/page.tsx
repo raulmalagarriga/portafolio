@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react"
 import { ArrowRight, Github, Linkedin, ExternalLink, Send, Menu, X } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { Button } from "@/components/ui/button"
+import ExploreButton from "@/components/explore-button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import ParticlesBackground from "@/components/particles-background"
@@ -379,12 +379,9 @@ export default function Portfolio() {
               </div>
               <div className="animate-fade-in">
                 <p className="text-base sm:text-xl md:text-2xl text-gray-400 mb-6 sm:mb-8">{t("hero.intro")}</p>
-                <Button
-                  onClick={() => scrollToSection("about")}
-                  className="bg-theme text-black hover:bg-theme-light flex items-center gap-2"
-                >
+                <ExploreButton onClick={() => scrollToSection("about")}>
                   {t("hero.explore")} <ArrowRight className="h-4 w-4" />
-                </Button>
+                </ExploreButton>
               </div>
             </div>
           </div>

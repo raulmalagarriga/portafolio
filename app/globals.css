@@ -309,6 +309,42 @@ h2.section-title {
   box-shadow: 0 0 15px rgba(var(--theme-color-rgb), 0.15);
 }
 
+/* Holographic hover effect for skill cards */
+.hover-holographic-effect {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+
+.hover-holographic-effect::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    0deg,
+    transparent,
+    transparent 30%,
+    rgba(var(--theme-color-rgb), 0.3)
+  );
+  transform: rotate(-45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.hover-holographic-effect:hover {
+  transform: scale(1.05);
+  border-color: var(--theme-color-light);
+  box-shadow: 0 0 20px rgba(var(--theme-color-rgb), 0.5);
+}
+
+.hover-holographic-effect:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(100%);
+}
+
 /* Animation for decrypt text */
 @keyframes flicker {
   0%,

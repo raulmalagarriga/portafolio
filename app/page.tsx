@@ -473,7 +473,7 @@ export default function Portfolio() {
                 {skillCategories.map((category, index) => (
                   <div
                     key={index}
-                    className={`border border-theme-30 p-3 rounded-md bg-black/80 opacity-0 hover-gradient-effect ${
+                    className={`border border-theme-30 p-3 rounded-md bg-black/80 opacity-0 hover-holographic-effect ${
                       aboutVisible ? "animate-fade-in-up" : ""
                     }`}
                     style={{

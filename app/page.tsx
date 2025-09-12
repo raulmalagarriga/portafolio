@@ -445,9 +445,8 @@ export default function Portfolio() {
                 </div>
               </div>
               <div className="md:w-1/3 hidden md:flex justify-center order-1 md:order-2">
-                <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden rounded-full border-2 border-theme-30">
+                <div className="relative w-64 h-64 md:w-56 md:h-56 overflow-hidden border-2 border-black">
                   <Image src="/images/profile-photo.png" alt="Profile Photo" fill className="object-cover" />
-                  <div className="absolute inset-0 border-4 border-theme-10 rounded-full pointer-events-none"></div>
                 </div>
               </div>
             </div>

@@ -362,3 +362,131 @@ h2.section-title {
     display: none;
   }
 }
+
+/* Explore button styles */
+.explore-button {
+  all: unset;
+  position: relative;
+  display: inline-flex;
+  height: 3.5rem;
+  align-items: center;
+  border-radius: 9999px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: Segoe UI, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 640;
+  color: #1d1d1f;
+  letter-spacing: -0.06em;
+  cursor: pointer;
+}
+
+.explore-button-inner,
+.explore-button-inner-hover,
+.explore-button-inner-static {
+  pointer-events: none;
+  display: block;
+}
+
+.explore-button-inner {
+  position: relative;
+}
+
+.explore-button-inner-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(70%);
+}
+
+.explore-button-inner-static,
+.explore-button-inner-hover {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.explore-button-bg {
+  overflow: hidden;
+  border-radius: 2rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(1);
+  transition: transform 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+  border: 1px solid var(--theme-color);
+  background-color: var(--theme-color);
+}
+
+.explore-button-bg,
+.explore-button-bg-layer,
+.explore-button-bg-layers {
+  display: block;
+}
+
+.explore-button-bg-layers {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  top: -60%;
+  aspect-ratio: 1 / 1;
+  width: max(200%, 10rem);
+}
+
+.explore-button-bg-layer {
+  border-radius: 9999px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: scale(0);
+}
+
+.explore-button-bg-layer-1 {
+  background-color: var(--theme-color-light);
+}
+
+.explore-button-bg-layer-2 {
+  background-color: var(--theme-color);
+}
+
+.explore-button-bg-layer-3 {
+  background-color: var(--theme-color-dark);
+}
+
+.explore-button:hover .explore-button-inner-static {
+  opacity: 0;
+  transform: translateY(-70%);
+  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.3s linear;
+}
+
+.explore-button:hover .explore-button-inner-hover {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 1.4s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.explore-button:hover .explore-button-bg-layer {
+  transition: transform 1.3s cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 0.3s linear;
+}
+
+.explore-button:hover .explore-button-bg-layer-1 {
+  transform: scale(1);
+}
+
+.explore-button:hover .explore-button-bg-layer-2 {
+  transition-delay: 0.1s;
+  transform: scale(1);
+}
+
+.explore-button:hover .explore-button-bg-layer-3 {
+  transition-delay: 0.2s;
+  transform: scale(1);
+}

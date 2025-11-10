@@ -16,6 +16,11 @@ import { useLanguage } from "@/contexts/language-context"
 import DecryptText from "@/components/decrypt-text"
 import ScrollIndicator from "@/components/scroll-indicator"
 import ContactForm from "@/components/contact-form"
+import PULSE from "@/assets/PULSE.svg"
+import SLIVE from "@/assets/SLIVE.svg"
+import SentimentAnalyzer from "@/assets/sentiment.svg"
+import Battleship from "@/assets/battleship.svg"
+import Calendar from "@/assets/calendar3.svg"
 
 export default function Portfolio() {
   const { t } = useLanguage()
@@ -527,31 +532,46 @@ export default function Portfolio() {
                   tech: [".NET", "Next JS", "MongoDB", "PostgreSQL"],
                   url: "https://slive.ai/",
                   github: "",
+                  logo: SLIVE,
+                  width: 25,
+                  height: 25,
                 },
                 {
                   name: t("projects.sentiment.title"),
                   description: t("projects.sentiment.desc"),
                   tech: ["Python", "Next JS", "FastAPI"],
                   github: "https://github.com/raulmalagarriga/sentimentAnalyzer",
-                  url: "https://happy-face-sentiment-analyzer.vercel.app/"
+                  url: "https://happy-face-sentiment-analyzer.vercel.app/",
+                  logo: SentimentAnalyzer,
+                  width: 20,
+                  height: 20,
                 },
                 {
                   name: t("projects.chat.title"),
                   description: t("projects.chat.desc"),
                   tech: ["NodeJS", "Javascript", "Express", "Socket.io"],
                   github: "https://github.com/raulmalagarriga/Battleship_game",
+                  logo: Battleship,
+                  width: 20,
+                  height: 20,
                 },
                 {
                   name: t("projects.pulse.title"),
                   description: t("projects.pulse.desc"),
                   tech: ["NodeJS", "Typescript", "MongoDB", "React native"],
                   github: null,
+                  logo: PULSE,
+                  width: 15,
+                  height: 15,
                 },
                 {
                   name: t("projects.data.title"),
                   description: t("projects.data.desc"),
                   tech: ["NodeJS", "Javascript", "Express", "MongoDB"],
                   github: "https://github.com/raulmalagarriga/calendarApp-backend",
+                  logo: Calendar,
+                  width: 25,
+                  height: 25,
                 },
               ].map((project, index) => (
                 <div
@@ -565,7 +585,10 @@ export default function Portfolio() {
                     height: "100%",
                   }}
                 >
-                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2">
+                  <h3 className="text-white text-base sm:text-lg font-semibold mb-2 flex items-center gap-2">
+                    {project.logo && (
+                      <Image src={project.logo} alt="Project Logo" width={project.width} height={project.height} className="inline-block" />
+                    )}
                     {projectsVisible ? (
                       <DecryptText
                         text={project.name}

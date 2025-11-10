@@ -778,7 +778,7 @@ export default function Portfolio() {
               }}
             >
               <DialogContent
-                className="w-full max-w-[92vw] sm:max-w-3xl border border-theme-30 bg-black/95 text-gray-200 font-mono rounded-lg sm:rounded-xl p-4 sm:p-6 max-h-[85vh] overflow-y-auto"
+                className="w-full max-w-[92vw] sm:max-w-3xl border border-theme-30 bg-black/95 text-gray-200 font-mono rounded-lg sm:rounded-xl p-4 sm:p-6 max-h-[90vh] overflow-hidden"
               >
                 {selectedProject && (
                   <>
@@ -811,24 +811,6 @@ export default function Portfolio() {
                       </DialogDescription>
                     </DialogHeader>
                     <div className="space-y-5 text-sm sm:text-base leading-relaxed">
-                      {selectedProject.highlights.length > 0 && (
-                        <div className="hidden sm:block">
-                          <h4 className="text-xs uppercase tracking-wide text-theme-light">
-                            <DecryptText
-                              text={t("projects.modal.highlights")}
-                              duration={800}
-                              isVisible={isProjectModalVisible}
-                              className="uppercase tracking-wide text-theme-light text-xs"
-                              animationColor="text-theme-light"
-                            />
-                          </h4>
-                          <ul className="mt-2 space-y-2 list-disc list-inside text-gray-300">
-                            {selectedProject.highlights.map((highlight, index) => (
-                              <li key={`${selectedProject.key}-highlight-${index}`}>{highlight}</li>
-                            ))}
-                          </ul>
-                        </div>
-                      )}
                       {selectedProject.gallery.length > 0 && (
                         <div>
                           <h4 className="text-xs uppercase tracking-wide text-theme-light">
@@ -842,7 +824,7 @@ export default function Portfolio() {
                           </h4>
                           <div className="mt-3">
                             <div className="relative overflow-hidden rounded-md border border-theme-30 bg-black/70">
-                              <div className="relative aspect-[4/3] w-full">
+                              <div className="relative aspect-[3/2] w-full">
                                 {selectedProject.gallery.map((imageSrc, index) => (
                                   <Image
                                     key={`${selectedProject.key}-image-${index}`}
@@ -902,57 +884,6 @@ export default function Portfolio() {
                           </div>
                         </div>
                       )}
-                      <div className="hidden sm:block">
-                        <h4 className="text-xs uppercase tracking-wide text-theme-light">
-                          <DecryptText
-                            text={t("projects.modal.stack")}
-                            duration={800}
-                            isVisible={isProjectModalVisible}
-                            className="uppercase tracking-wide text-theme-light text-xs"
-                            animationColor="text-theme-light"
-                          />
-                        </h4>
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {selectedProject.tech.map((tech) => (
-                            <span key={`${selectedProject.key}-${tech}`} className="text-xs bg-theme-20 text-theme-light px-2 py-1 rounded">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                      <div className="hidden sm:block">
-                        <h4 className="text-xs uppercase tracking-wide text-theme-light">
-                          <DecryptText
-                            text={t("projects.modal.links")}
-                            duration={800}
-                            isVisible={isProjectModalVisible}
-                            className="uppercase tracking-wide text-theme-light text-xs"
-                            animationColor="text-theme-light"
-                          />
-                        </h4>
-                        <div className="mt-2 flex flex-wrap items-center gap-3 text-sm sm:text-base">
-                          {selectedProject.github ? (
-                            <Link
-                              target="_blank"
-                              href={selectedProject.github}
-                              className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
-                            >
-                              <Github className="h-4 w-4" /> {t("projects.view")}
-                            </Link>
-                          ) : selectedProject.github === null ? (
-                            <span className="text-xs text-gray-400">{t("projects.comming")}</span>
-                          ) : null}
-                          {selectedProject.url && (
-                            <Link
-                              target="_blank"
-                              href={selectedProject.url}
-                              className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
-                            >
-                              <ExternalLink className="h-4 w-4" /> {t("projects.visit")}
-                            </Link>
-                          )}
-                        </div>
-                      </div>
                     </div>
                     <DialogFooter className="pt-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
                       <DialogClose asChild>

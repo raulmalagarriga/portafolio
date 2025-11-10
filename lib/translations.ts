@@ -43,6 +43,9 @@ export const translations = {
       "projects.modal.stack": "Tech stack",
       "projects.modal.links": "Links",
       "projects.modal.close": "Close",
+      "projects.modal.previousImage": "Previous image",
+      "projects.modal.nextImage": "Next image",
+      "projects.modal.goToImage": "Go to image",
 
       // Project descriptions
       "projects.ecommerce.title": "Slive",
@@ -185,6 +188,9 @@ export const translations = {
       "projects.modal.stack": "Tecnologías",
       "projects.modal.links": "Enlaces",
       "projects.modal.close": "Cerrar",
+      "projects.modal.previousImage": "Imagen anterior",
+      "projects.modal.nextImage": "Imagen siguiente",
+      "projects.modal.goToImage": "Ir a la imagen",
       // Project descriptions
       "projects.ecommerce.title": "Slive",
       "projects.ecommerce.desc":

@@ -2,7 +2,17 @@
 
 import { useState, useEffect, useRef, useMemo } from "react"
 import type { KeyboardEvent } from "react"
-import { ArrowRight, Github, Linkedin, ExternalLink, Send, Menu, X } from "lucide-react"
+import {
+  ArrowRight,
+  Github,
+  Linkedin,
+  ExternalLink,
+  Send,
+  Menu,
+  X,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react"
 import Link from "next/link"
 import Image, { type StaticImageData } from "next/image"
 import ExploreButton from "@/components/explore-button"
@@ -137,6 +147,7 @@ export default function Portfolio() {
   const [isScrolling, setIsScrolling] = useState(false)
   const [projectModalOpen, setProjectModalOpen] = useState(false)
   const [selectedProject, setSelectedProject] = useState<Project | null>(null)
+  const [galleryIndex, setGalleryIndex] = useState(0)
 
   // Visibility states for each section
   const [aboutVisible, setAboutVisible] = useState(false)
@@ -427,6 +438,10 @@ export default function Portfolio() {
   }
 
   const isProjectModalVisible = projectModalOpen && !!selectedProject
+
+  useEffect(() => {
+    setGalleryIndex(0)
+  }, [selectedProject?.key])
 
   return (
     <div className="min-h-screen bg-black text-theme font-mono relative">
@@ -797,7 +812,7 @@ export default function Portfolio() {
                     </DialogHeader>
                     <div className="space-y-5 text-sm sm:text-base leading-relaxed">
                       {selectedProject.highlights.length > 0 && (
-                        <div>
+                        <div className="hidden sm:block">
                           <h4 className="text-xs uppercase tracking-wide text-theme-light">
                             <DecryptText
                               text={t("projects.modal.highlights")}
@@ -825,25 +840,69 @@ export default function Portfolio() {
                               animationColor="text-theme-light"
                             />
                           </h4>
-                          <div className="mt-2 -mx-1 flex gap-3 overflow-x-auto pb-2 px-1 sm:mx-0 sm:px-0 snap-x snap-mandatory">
-                            {selectedProject.gallery.map((imageSrc, index) => (
-                              <div
-                                key={`${selectedProject.key}-image-${index}`}
-                                className="relative h-40 w-[min(80vw,256px)] flex-shrink-0 overflow-hidden rounded-md border border-theme-30 bg-black/70 snap-start"
-                              >
-                                <Image
-                                  src={imageSrc}
-                                  alt={`${selectedProject.name} screenshot ${index + 1}`}
-                                  fill
-                                  className="object-cover"
-                                  sizes="256px"
-                                />
+                          <div className="mt-3">
+                            <div className="relative overflow-hidden rounded-md border border-theme-30 bg-black/70">
+                              <div className="relative aspect-[4/3] w-full">
+                                {selectedProject.gallery.map((imageSrc, index) => (
+                                  <Image
+                                    key={`${selectedProject.key}-image-${index}`}
+                                    src={imageSrc}
+                                    alt={`${selectedProject.name} screenshot ${index + 1}`}
+                                    fill
+                                    className={`object-cover transition-opacity duration-500 ${
+                                      index === galleryIndex ? "opacity-100" : "opacity-0"
+                                    }`}
+                                    sizes="(min-width: 640px) 512px, 90vw"
+                                    priority={index === galleryIndex}
+                                  />
+                                ))}
                               </div>
-                            ))}
+                              {selectedProject.gallery.length > 1 && (
+                                <>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setGalleryIndex((prev) =>
+                                        prev === 0 ? selectedProject.gallery.length - 1 : prev - 1
+                                      )
+                                    }
+                                    className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full border border-theme-30 bg-black/70 p-1 text-theme transition-colors hover:border-theme-light hover:text-theme-light"
+                                    aria-label={t("projects.modal.previousImage")}
+                                  >
+                                    <ChevronLeft className="h-4 w-4" />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() =>
+                                      setGalleryIndex((prev) =>
+                                        prev === selectedProject.gallery.length - 1 ? 0 : prev + 1
+                                      )
+                                    }
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full border border-theme-30 bg-black/70 p-1 text-theme transition-colors hover:border-theme-light hover:text-theme-light"
+                                    aria-label={t("projects.modal.nextImage")}
+                                  >
+                                    <ChevronRight className="h-4 w-4" />
+                                  </button>
+                                  <div className="absolute inset-x-0 bottom-2 flex justify-center gap-2">
+                                    {selectedProject.gallery.map((_, index) => (
+                                      <button
+                                        key={`${selectedProject.key}-dot-${index}`}
+                                        type="button"
+                                        onClick={() => setGalleryIndex(index)}
+                                        className={`h-2 w-2 rounded-full border border-theme-40 transition-colors ${
+                                          index === galleryIndex ? "bg-theme-30" : "bg-transparent"
+                                        }`}
+                                        aria-label={`${t("projects.modal.goToImage")} ${index + 1}`}
+                                      />
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                            </div>
                           </div>
                         </div>
                       )}
-                      <div>
+                      <div className="hidden sm:block">
                         <h4 className="text-xs uppercase tracking-wide text-theme-light">
                           <DecryptText
                             text={t("projects.modal.stack")}
@@ -861,7 +920,7 @@ export default function Portfolio() {
                           ))}
                         </div>
                       </div>
-                      <div>
+                      <div className="hidden sm:block">
                         <h4 className="text-xs uppercase tracking-wide text-theme-light">
                           <DecryptText
                             text={t("projects.modal.links")}

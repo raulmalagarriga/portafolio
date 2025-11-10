@@ -40,7 +40,7 @@ export default function Portfolio() {
 
   const staticText = "> Hello World. I am a "
   const titles = ["Backend Developer.", "Software Developer.", "Software Architect."]
-  const typingRef = useRef<NodeJS.Timeout>()
+  const typingRef = useRef<NodeJS.Timeout | null>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
 

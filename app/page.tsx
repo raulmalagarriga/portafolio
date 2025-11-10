@@ -778,11 +778,11 @@ export default function Portfolio() {
               }}
             >
               <DialogContent
-                className="w-full max-w-[92vw] sm:max-w-3xl border border-theme-30 bg-black/95 text-gray-200 font-mono rounded-lg sm:rounded-xl p-4 sm:p-6 max-h-[90vh] overflow-hidden"
+                className="w-full max-w-[92vw] sm:max-w-2xl border border-theme-30 bg-black/95 text-gray-200 font-mono rounded-lg sm:rounded-xl p-4 sm:p-6 max-h-[85vh] overflow-hidden"
               >
                 {selectedProject && (
-                  <>
-                    <DialogHeader className="space-y-3 text-center sm:text-left">
+                  <div className="flex h-full flex-col gap-4">
+                    <DialogHeader className="space-y-2 text-center sm:text-left">
                       <DialogTitle className="flex flex-col items-center gap-3 text-center text-white sm:flex-row sm:items-center sm:gap-3 sm:text-left">
                         {selectedProject.logo && (
                           <Image
@@ -810,7 +810,7 @@ export default function Portfolio() {
                         />
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="space-y-5 text-sm sm:text-base leading-relaxed">
+                    <div className="space-y-4 text-sm sm:text-base leading-relaxed">
                       {selectedProject.gallery.length > 0 && (
                         <div>
                           <h4 className="text-xs uppercase tracking-wide text-theme-light">
@@ -824,7 +824,7 @@ export default function Portfolio() {
                           </h4>
                           <div className="mt-3">
                             <div className="relative overflow-hidden rounded-md border border-theme-30 bg-black/70">
-                              <div className="relative aspect-[3/2] w-full">
+                              <div className="relative aspect-[16/9] w-full sm:aspect-[21/10]">
                                 {selectedProject.gallery.map((imageSrc, index) => (
                                   <Image
                                     key={`${selectedProject.key}-image-${index}`}
@@ -885,14 +885,14 @@ export default function Portfolio() {
                         </div>
                       )}
                     </div>
-                    <DialogFooter className="pt-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
+                    <DialogFooter className="mt-auto flex flex-col gap-2 pt-2 sm:flex-row sm:justify-end">
                       <DialogClose asChild>
                         <button className="w-full sm:w-auto border border-theme-30 px-4 py-2 rounded-md text-theme hover:text-theme-light hover:border-theme-light transition-colors">
                           {t("projects.modal.close")}
                         </button>
                       </DialogClose>
                     </DialogFooter>
-                  </>
+                  </div>
                 )}
               </DialogContent>
             </Dialog>

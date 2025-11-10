@@ -69,7 +69,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logo: SLIVE,
     logoWidth: 25,
     logoHeight: 25,
-    gallery: ["/placeholder.jpg", "/placeholder-logo.png"],
+    gallery: [PULSE, "./assets/slive/sliveMenu.png"],
     summaryKey: "projects.ecommerce.modal.summary",
     highlightKeys: [
       "projects.ecommerce.modal.highlight1",

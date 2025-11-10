@@ -762,11 +762,13 @@ export default function Portfolio() {
                 }
               }}
             >
-              <DialogContent className="max-w-3xl border border-theme-30 bg-black/95 text-gray-200 sm:rounded-lg font-mono">
+              <DialogContent
+                className="w-full max-w-[92vw] sm:max-w-3xl border border-theme-30 bg-black/95 text-gray-200 font-mono rounded-lg sm:rounded-xl p-4 sm:p-6 max-h-[85vh] overflow-y-auto"
+              >
                 {selectedProject && (
                   <>
-                    <DialogHeader>
-                      <DialogTitle className="flex items-center gap-3 text-white">
+                    <DialogHeader className="space-y-3 text-center sm:text-left">
+                      <DialogTitle className="flex flex-col items-center gap-3 text-center text-white sm:flex-row sm:items-center sm:gap-3 sm:text-left">
                         {selectedProject.logo && (
                           <Image
                             src={selectedProject.logo}
@@ -783,7 +785,7 @@ export default function Portfolio() {
                           animationColor="text-theme-light"
                         />
                       </DialogTitle>
-                      <DialogDescription asChild className="text-sm text-gray-300 leading-relaxed">
+                      <DialogDescription asChild className="text-sm sm:text-base text-gray-300 leading-relaxed">
                         <DecryptText
                           text={selectedProject.summary}
                           duration={1100}
@@ -793,7 +795,7 @@ export default function Portfolio() {
                         />
                       </DialogDescription>
                     </DialogHeader>
-                    <div className="space-y-5 text-sm">
+                    <div className="space-y-5 text-sm sm:text-base leading-relaxed">
                       {selectedProject.highlights.length > 0 && (
                         <div>
                           <h4 className="text-xs uppercase tracking-wide text-theme-light">
@@ -823,11 +825,11 @@ export default function Portfolio() {
                               animationColor="text-theme-light"
                             />
                           </h4>
-                          <div className="mt-2 flex gap-3 overflow-x-auto pb-2">
+                          <div className="mt-2 -mx-1 flex gap-3 overflow-x-auto pb-2 px-1 sm:mx-0 sm:px-0 snap-x snap-mandatory">
                             {selectedProject.gallery.map((imageSrc, index) => (
                               <div
                                 key={`${selectedProject.key}-image-${index}`}
-                                className="relative h-40 w-64 flex-shrink-0 overflow-hidden rounded-md border border-theme-30 bg-black/70"
+                                className="relative h-40 w-[min(80vw,256px)] flex-shrink-0 overflow-hidden rounded-md border border-theme-30 bg-black/70 snap-start"
                               >
                                 <Image
                                   src={imageSrc}
@@ -869,7 +871,7 @@ export default function Portfolio() {
                             animationColor="text-theme-light"
                           />
                         </h4>
-                        <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
+                        <div className="mt-2 flex flex-wrap items-center gap-3 text-sm sm:text-base">
                           {selectedProject.github ? (
                             <Link
                               target="_blank"
@@ -893,9 +895,9 @@ export default function Portfolio() {
                         </div>
                       </div>
                     </div>
-                    <DialogFooter className="pt-2">
+                    <DialogFooter className="pt-4 flex flex-col gap-2 sm:flex-row sm:justify-end">
                       <DialogClose asChild>
-                        <button className="border border-theme-30 px-4 py-2 rounded-md text-theme hover:text-theme-light hover:border-theme-light transition-colors">
+                        <button className="w-full sm:w-auto border border-theme-30 px-4 py-2 rounded-md text-theme hover:text-theme-light hover:border-theme-light transition-colors">
                           {t("projects.modal.close")}
                         </button>
                       </DialogClose>

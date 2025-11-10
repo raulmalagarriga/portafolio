@@ -1,11 +1,10 @@
 "use client"
 
-"use client"
-
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useMemo } from "react"
+import type { KeyboardEvent } from "react"
 import { ArrowRight, Github, Linkedin, ExternalLink, Send, Menu, X } from "lucide-react"
 import Link from "next/link"
-import Image from "next/image"
+import Image, { type StaticImageData } from "next/image"
 import ExploreButton from "@/components/explore-button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -16,14 +15,119 @@ import { useLanguage } from "@/contexts/language-context"
 import DecryptText from "@/components/decrypt-text"
 import ScrollIndicator from "@/components/scroll-indicator"
 import ContactForm from "@/components/contact-form"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog"
 import PULSE from "@/assets/PULSE.svg"
 import SLIVE from "@/assets/SLIVE.svg"
 import SentimentAnalyzer from "@/assets/sentiment.svg"
 import Battleship from "@/assets/battleship.svg"
 import Calendar from "@/assets/calendar3.svg"
 
+type ProjectDefinition = {
+  key: string
+  tech: string[]
+  url?: string
+  github?: string | null
+  logo?: StaticImageData
+  logoWidth?: number
+  logoHeight?: number
+  gallery: string[]
+  summaryKey: string
+  highlightKeys: string[]
+}
+
+type Project = ProjectDefinition & {
+  name: string
+  description: string
+  summary: string
+  highlights: string[]
+}
+
+const projectDefinitions: ProjectDefinition[] = [
+  {
+    key: "projects.ecommerce",
+    tech: [".NET", "Next JS", "MongoDB", "PostgreSQL"],
+    url: "https://slive.ai/",
+    github: "",
+    logo: SLIVE,
+    logoWidth: 25,
+    logoHeight: 25,
+    gallery: ["/placeholder.jpg", "/placeholder-logo.png"],
+    summaryKey: "projects.ecommerce.modal.summary",
+    highlightKeys: [
+      "projects.ecommerce.modal.highlight1",
+      "projects.ecommerce.modal.highlight2",
+      "projects.ecommerce.modal.highlight3",
+    ],
+  },
+  {
+    key: "projects.sentiment",
+    tech: ["Python", "Next JS", "FastAPI"],
+    github: "https://github.com/raulmalagarriga/sentimentAnalyzer",
+    url: "https://happy-face-sentiment-analyzer.vercel.app/",
+    logo: SentimentAnalyzer,
+    logoWidth: 20,
+    logoHeight: 20,
+    gallery: ["/placeholder-logo.png", "/placeholder.svg"],
+    summaryKey: "projects.sentiment.modal.summary",
+    highlightKeys: [
+      "projects.sentiment.modal.highlight1",
+      "projects.sentiment.modal.highlight2",
+    ],
+  },
+  {
+    key: "projects.chat",
+    tech: ["NodeJS", "Javascript", "Express", "Socket.io"],
+    github: "https://github.com/raulmalagarriga/Battleship_game",
+    logo: Battleship,
+    logoWidth: 20,
+    logoHeight: 20,
+    gallery: ["/placeholder.svg", "/placeholder-logo.svg"],
+    summaryKey: "projects.chat.modal.summary",
+    highlightKeys: [
+      "projects.chat.modal.highlight1",
+      "projects.chat.modal.highlight2",
+    ],
+  },
+  {
+    key: "projects.pulse",
+    tech: ["NodeJS", "Typescript", "MongoDB", "React native"],
+    github: null,
+    logo: PULSE,
+    logoWidth: 15,
+    logoHeight: 15,
+    gallery: ["/placeholder.jpg", "/placeholder.svg"],
+    summaryKey: "projects.pulse.modal.summary",
+    highlightKeys: [
+      "projects.pulse.modal.highlight1",
+      "projects.pulse.modal.highlight2",
+    ],
+  },
+  {
+    key: "projects.data",
+    tech: ["NodeJS", "Javascript", "Express", "MongoDB"],
+    github: "https://github.com/raulmalagarriga/calendarApp-backend",
+    logo: Calendar,
+    logoWidth: 25,
+    logoHeight: 25,
+    gallery: ["/placeholder.svg", "/placeholder-logo.png"],
+    summaryKey: "projects.data.modal.summary",
+    highlightKeys: [
+      "projects.data.modal.highlight1",
+      "projects.data.modal.highlight2",
+    ],
+  },
+]
+
 export default function Portfolio() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [activeSection, setActiveSection] = useState("hero")
   const [typedText, setTypedText] = useState("")
   const [currentTitle, setCurrentTitle] = useState(0)
@@ -31,6 +135,8 @@ export default function Portfolio() {
   const [typingSpeed, setTypingSpeed] = useState(100)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
+  const [projectModalOpen, setProjectModalOpen] = useState(false)
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null)
 
   // Visibility states for each section
   const [aboutVisible, setAboutVisible] = useState(false)
@@ -287,6 +393,41 @@ export default function Portfolio() {
     },
   ]
 
+  const projects: Project[] = useMemo(
+    () =>
+      projectDefinitions.map((project) => {
+        const titleKey = `${project.key}.title` as Parameters<typeof t>[0]
+        const descriptionKey = `${project.key}.desc` as Parameters<typeof t>[0]
+        const summary = t(project.summaryKey as Parameters<typeof t>[0])
+        const highlights = project.highlightKeys
+          .map((highlightKey) => t(highlightKey as Parameters<typeof t>[0]))
+          .filter((highlight) => highlight && highlight.trim().length > 0)
+
+        return {
+          ...project,
+          name: t(titleKey),
+          description: t(descriptionKey),
+          summary,
+          highlights,
+        }
+      }),
+    [language, t],
+  )
+
+  const handleProjectOpen = (project: Project) => {
+    setSelectedProject(project)
+    setProjectModalOpen(true)
+  }
+
+  const handleProjectCardKeyDown = (event: KeyboardEvent<HTMLDivElement>, project: Project) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault()
+      handleProjectOpen(project)
+    }
+  }
+
+  const isProjectModalVisible = projectModalOpen && !!selectedProject
+
   return (
     <div className="min-h-screen bg-black text-theme font-mono relative">
       {/* Particles Background */}
@@ -525,60 +666,17 @@ export default function Portfolio() {
               )}
             </h2>
             <div className="section-content grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
-              {[
-                {
-                  name: t("projects.ecommerce.title"),
-                  description: t("projects.ecommerce.desc"),
-                  tech: [".NET", "Next JS", "MongoDB", "PostgreSQL"],
-                  url: "https://slive.ai/",
-                  github: "",
-                  logo: SLIVE,
-                  width: 25,
-                  height: 25,
-                },
-                {
-                  name: t("projects.sentiment.title"),
-                  description: t("projects.sentiment.desc"),
-                  tech: ["Python", "Next JS", "FastAPI"],
-                  github: "https://github.com/raulmalagarriga/sentimentAnalyzer",
-                  url: "https://happy-face-sentiment-analyzer.vercel.app/",
-                  logo: SentimentAnalyzer,
-                  width: 20,
-                  height: 20,
-                },
-                {
-                  name: t("projects.chat.title"),
-                  description: t("projects.chat.desc"),
-                  tech: ["NodeJS", "Javascript", "Express", "Socket.io"],
-                  github: "https://github.com/raulmalagarriga/Battleship_game",
-                  logo: Battleship,
-                  width: 20,
-                  height: 20,
-                },
-                {
-                  name: t("projects.pulse.title"),
-                  description: t("projects.pulse.desc"),
-                  tech: ["NodeJS", "Typescript", "MongoDB", "React native"],
-                  github: null,
-                  logo: PULSE,
-                  width: 15,
-                  height: 15,
-                },
-                {
-                  name: t("projects.data.title"),
-                  description: t("projects.data.desc"),
-                  tech: ["NodeJS", "Javascript", "Express", "MongoDB"],
-                  github: "https://github.com/raulmalagarriga/calendarApp-backend",
-                  logo: Calendar,
-                  width: 25,
-                  height: 25,
-                },
-              ].map((project, index) => (
+              {projects.map((project, index) => (
                 <div
-                  key={index}
-                    className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-holographic-effect ${
-                      projectsVisible ? "animate-fade-in-up" : ""
-                    }`}
+                  key={project.key}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`${project.name} ${t("projects.modal.openDetails")}`}
+                  onClick={() => handleProjectOpen(project)}
+                  onKeyDown={(event) => handleProjectCardKeyDown(event, project)}
+                  className={`border border-theme-30 p-3 sm:p-4 rounded-md bg-black/80 transition-colors opacity-0 hover-holographic-effect cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-theme ${
+                    projectsVisible ? "animate-fade-in-up" : ""
+                  }`}
                   style={{
                     animationDelay: `${index * 200}ms`,
                     animationFillMode: "forwards",
@@ -587,7 +685,13 @@ export default function Portfolio() {
                 >
                   <h3 className="text-white text-base sm:text-lg font-semibold mb-2 flex items-center gap-2">
                     {project.logo && (
-                      <Image src={project.logo} alt="Project Logo" width={project.width} height={project.height} className="inline-block" />
+                      <Image
+                        src={project.logo}
+                        alt={`${project.name} logo`}
+                        width={project.logoWidth ?? 24}
+                        height={project.logoHeight ?? 24}
+                        className="inline-block"
+                      />
                     )}
                     {projectsVisible ? (
                       <DecryptText
@@ -616,52 +720,190 @@ export default function Portfolio() {
                     )}
                   </div>
                   <div className="flex flex-wrap gap-1 sm:gap-2 mb-3">
-                    {project.tech.map((tech, techIndex) => (
-                      <span key={techIndex} className="text-xs bg-theme-20 text-theme-light px-2 py-1 rounded">
+                    {project.tech.map((tech) => (
+                      <span key={tech} className="text-xs bg-theme-20 text-theme-light px-2 py-1 rounded">
                         {tech}
                       </span>
                     ))}
                   </div>
-                  <div className="flex space-x-2">
-                    {
-                      project.github ? 
-                      (
-                        <Link
-                          target="_blank"
-                          href={project.github}
-                          className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
-                          >
+                  <div className="flex flex-wrap items-center gap-3 text-sm">
+                    {project.github ? (
+                      <Link
+                        target="_blank"
+                        href={project.github}
+                        onClick={(event) => event.stopPropagation()}
+                        className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                      >
                         <Github className="h-4 w-4" /> {t("projects.view")}
                       </Link>
-                      ) 
-                      : 
-                      (
-                        project.github == "" ?
-                        <p></p> :
-                        <p>{t("projects.comming")}</p> 
-                      )
-                    }
-                    {
-                      project.url ?
-                      (
-                        <Link target="_blank"
-                          href={project.url}
-                          className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
-                        >
-                          {
-                            project.github == "" ?
-                            t("projects.visit") :
-                            "| " + t("projects.visit")
-                          }
-                        </Link>
-                      ) 
-                      :
-                      (<></>)
-                    }
+                    ) : project.github === null ? (
+                      <span className="text-xs text-gray-400">{t("projects.comming")}</span>
+                    ) : null}
+                    {project.url && (
+                      <Link
+                        target="_blank"
+                        href={project.url}
+                        onClick={(event) => event.stopPropagation()}
+                        className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                      >
+                        <ExternalLink className="h-4 w-4" /> {t("projects.visit")}
+                      </Link>
+                    )}
                   </div>
                 </div>
               ))}
             </div>
+            <Dialog
+              open={projectModalOpen}
+              onOpenChange={(open) => {
+                setProjectModalOpen(open)
+                if (!open) {
+                  setSelectedProject(null)
+                }
+              }}
+            >
+              <DialogContent className="max-w-3xl border border-theme-30 bg-black/95 text-gray-200 sm:rounded-lg font-mono">
+                {selectedProject && (
+                  <>
+                    <DialogHeader>
+                      <DialogTitle className="flex items-center gap-3 text-white">
+                        {selectedProject.logo && (
+                          <Image
+                            src={selectedProject.logo}
+                            alt={`${selectedProject.name} logo`}
+                            width={selectedProject.logoWidth ?? 24}
+                            height={selectedProject.logoHeight ?? 24}
+                          />
+                        )}
+                        <DecryptText
+                          text={selectedProject.name}
+                          duration={900}
+                          isVisible={isProjectModalVisible}
+                          className="text-lg sm:text-xl font-semibold"
+                          animationColor="text-theme-light"
+                        />
+                      </DialogTitle>
+                      <DialogDescription asChild className="text-sm text-gray-300 leading-relaxed">
+                        <DecryptText
+                          text={selectedProject.summary}
+                          duration={1100}
+                          isVisible={isProjectModalVisible}
+                          className="block"
+                          animationColor="text-theme-light"
+                        />
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-5 text-sm">
+                      {selectedProject.highlights.length > 0 && (
+                        <div>
+                          <h4 className="text-xs uppercase tracking-wide text-theme-light">
+                            <DecryptText
+                              text={t("projects.modal.highlights")}
+                              duration={800}
+                              isVisible={isProjectModalVisible}
+                              className="uppercase tracking-wide text-theme-light text-xs"
+                              animationColor="text-theme-light"
+                            />
+                          </h4>
+                          <ul className="mt-2 space-y-2 list-disc list-inside text-gray-300">
+                            {selectedProject.highlights.map((highlight, index) => (
+                              <li key={`${selectedProject.key}-highlight-${index}`}>{highlight}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {selectedProject.gallery.length > 0 && (
+                        <div>
+                          <h4 className="text-xs uppercase tracking-wide text-theme-light">
+                            <DecryptText
+                              text={t("projects.modal.gallery")}
+                              duration={800}
+                              isVisible={isProjectModalVisible}
+                              className="uppercase tracking-wide text-theme-light text-xs"
+                              animationColor="text-theme-light"
+                            />
+                          </h4>
+                          <div className="mt-2 flex gap-3 overflow-x-auto pb-2">
+                            {selectedProject.gallery.map((imageSrc, index) => (
+                              <div
+                                key={`${selectedProject.key}-image-${index}`}
+                                className="relative h-40 w-64 flex-shrink-0 overflow-hidden rounded-md border border-theme-30 bg-black/70"
+                              >
+                                <Image
+                                  src={imageSrc}
+                                  alt={`${selectedProject.name} screenshot ${index + 1}`}
+                                  fill
+                                  className="object-cover"
+                                  sizes="256px"
+                                />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                      <div>
+                        <h4 className="text-xs uppercase tracking-wide text-theme-light">
+                          <DecryptText
+                            text={t("projects.modal.stack")}
+                            duration={800}
+                            isVisible={isProjectModalVisible}
+                            className="uppercase tracking-wide text-theme-light text-xs"
+                            animationColor="text-theme-light"
+                          />
+                        </h4>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {selectedProject.tech.map((tech) => (
+                            <span key={`${selectedProject.key}-${tech}`} className="text-xs bg-theme-20 text-theme-light px-2 py-1 rounded">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <h4 className="text-xs uppercase tracking-wide text-theme-light">
+                          <DecryptText
+                            text={t("projects.modal.links")}
+                            duration={800}
+                            isVisible={isProjectModalVisible}
+                            className="uppercase tracking-wide text-theme-light text-xs"
+                            animationColor="text-theme-light"
+                          />
+                        </h4>
+                        <div className="mt-2 flex flex-wrap items-center gap-3 text-sm">
+                          {selectedProject.github ? (
+                            <Link
+                              target="_blank"
+                              href={selectedProject.github}
+                              className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                            >
+                              <Github className="h-4 w-4" /> {t("projects.view")}
+                            </Link>
+                          ) : selectedProject.github === null ? (
+                            <span className="text-xs text-gray-400">{t("projects.comming")}</span>
+                          ) : null}
+                          {selectedProject.url && (
+                            <Link
+                              target="_blank"
+                              href={selectedProject.url}
+                              className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors"
+                            >
+                              <ExternalLink className="h-4 w-4" /> {t("projects.visit")}
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <DialogFooter className="pt-2">
+                      <DialogClose asChild>
+                        <button className="border border-theme-30 px-4 py-2 rounded-md text-theme hover:text-theme-light hover:border-theme-light transition-colors">
+                          {t("projects.modal.close")}
+                        </button>
+                      </DialogClose>
+                    </DialogFooter>
+                  </>
+                )}
+              </DialogContent>
+            </Dialog>
           </div>
         </section>
 

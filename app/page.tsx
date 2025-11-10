@@ -525,7 +525,8 @@ export default function Portfolio() {
                   name: t("projects.ecommerce.title"),
                   description: t("projects.ecommerce.desc"),
                   tech: [".NET", "Next JS", "MongoDB", "PostgreSQL"],
-                  github: null,
+                  url: "https://slive.ai/",
+                  github: "",
                 },
                 {
                   name: t("projects.sentiment.title"),
@@ -612,8 +613,10 @@ export default function Portfolio() {
                       ) 
                       : 
                       (
-                        <p>{t("projects.comming")}</p>   
-                      ) 
+                        project.github == "" ?
+                        <p></p> :
+                        <p>{t("projects.comming")}</p> 
+                      )
                     }
                     {
                       project.url ?
@@ -622,7 +625,11 @@ export default function Portfolio() {
                           href={project.url}
                           className="flex items-center gap-2 text-theme hover:text-theme-light transition-colors text-sm"
                         >
-                          | {t("projects.visit")}
+                          {
+                            project.github == "" ?
+                            t("projects.visit") :
+                            "| " + t("projects.visit")
+                          }
                         </Link>
                       ) 
                       :

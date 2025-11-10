@@ -41,7 +41,7 @@ export const translations = {
       // Project descriptions
       "projects.ecommerce.title": "Slive",
       "projects.ecommerce.desc":
-        "Cloud-based administrative system for managing businesses in the retail world.",
+        "Comprehensive cloud-based administrative system for retail, featuring sales, inventory management, and a POS. Incorporates proprietary AI for predictive analytics and strategic business guidance.",
   
       "projects.chat.title": "BattleShip Game",
       "projects.chat.desc":
@@ -49,7 +49,7 @@ export const translations = {
   
       "projects.pulse.title": "PULSE",
       "projects.pulse.desc":
-        "Fitness app for client management and training plan management.",
+        "Mobile application for personal trainers, automating client management, payments, and progress metrics. Features an AI-powered workout plan generator for instant and precise client personalization.",
   
       "projects.data.title": "Calendar App",
       "projects.data.desc":
@@ -143,7 +143,7 @@ export const translations = {
       // Project descriptions
       "projects.ecommerce.title": "Slive",
       "projects.ecommerce.desc":
-        "Sistema administrativo en la nube para gestionar empresas en el mundo del retail.",
+        "Sistema administrativo integral basado en la nube para el retail, con gestión de ventas, inventario y un POS. Incluye una IA propietaria para análisis predictivo y asesoramiento estratégico del negocio.",
   
       "projects.chat.title": "BattleShip Game",
       "projects.chat.desc":
@@ -151,7 +151,7 @@ export const translations = {
   
       "projects.pulse.title": "PULSE",
       "projects.pulse.desc":
-        "Aplicacion fitness para gestion de clientes y manejo de planes de entrenamiento.",
+        "Aplicación móvil integral para entrenadores personales, automatizando la gestión de clientes, pagos y métricas de progreso. Incorpora un generador de planes de entrenamiento potenciado por IA para personalización instantánea y precisa.",
   
       "projects.data.title": "Calendar App",
       "projects.data.desc":

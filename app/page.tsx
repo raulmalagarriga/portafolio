@@ -34,11 +34,23 @@ import {
   DialogTitle,
   DialogClose,
 } from "@/components/ui/dialog"
+// Images and logos
 import PULSE from "@/assets/PULSE.svg"
 import SLIVE from "@/assets/SLIVE.svg"
 import SentimentAnalyzer from "@/assets/sentiment.svg"
 import Battleship from "@/assets/battleship.svg"
 import Calendar from "@/assets/calendar3.svg"
+import SliveMenu from "@/assets/slive/sliveMenu.png"
+import SliveChat from "@/assets/slive/sliveChat.png"
+import SliveInterfaz from "@/assets/slive/SLIVE2.png"
+import SentimentNeutral from "@/assets/sentiment/SentimentNeutral.png"
+import SentimentHappy from "@/assets/sentiment/SentimentHappy.png"
+import WaitingBattleship from "@/assets/battleship/Waiting.png"
+import PlayingBattleship from "@/assets/battleship/Playing.png"
+import LandingPulse1 from "@/assets/pulse/landing.png"
+import LandingPulse2 from "@/assets/pulse/landing2.png"
+import InterfazPulse from "@/assets/pulse/pulseinterfaz.png"
+
 
 type ProjectDefinition = {
   key: string
@@ -69,7 +81,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logo: SLIVE,
     logoWidth: 25,
     logoHeight: 25,
-    gallery: [PULSE, "./assets/slive/sliveMenu.png"],
+    gallery: [SliveMenu.src, SliveChat.src, SliveInterfaz.src],
     summaryKey: "projects.ecommerce.modal.summary",
     highlightKeys: [
       "projects.ecommerce.modal.highlight1",
@@ -85,7 +97,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logo: SentimentAnalyzer,
     logoWidth: 20,
     logoHeight: 20,
-    gallery: ["/placeholder-logo.png", "/placeholder.svg"],
+    gallery: [SentimentNeutral.src, SentimentHappy.src],
     summaryKey: "projects.sentiment.modal.summary",
     highlightKeys: [
       "projects.sentiment.modal.highlight1",
@@ -99,7 +111,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logo: Battleship,
     logoWidth: 20,
     logoHeight: 20,
-    gallery: ["/placeholder.svg", "/placeholder-logo.svg"],
+    gallery: [PlayingBattleship.src, WaitingBattleship.src],
     summaryKey: "projects.chat.modal.summary",
     highlightKeys: [
       "projects.chat.modal.highlight1",
@@ -113,7 +125,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logo: PULSE,
     logoWidth: 15,
     logoHeight: 15,
-    gallery: ["/placeholder.jpg", "/placeholder.svg"],
+    gallery: [LandingPulse1.src, LandingPulse2.src, InterfazPulse.src],
     summaryKey: "projects.pulse.modal.summary",
     highlightKeys: [
       "projects.pulse.modal.highlight1",

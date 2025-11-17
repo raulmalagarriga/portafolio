@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useEffect, useRef, useMemo } from "react"
-import type { KeyboardEvent } from "react"
 import {
   ArrowRight,
   Github,
@@ -139,6 +138,14 @@ export default function Portfolio() {
 
   // Sections for navigation
   const sections = ["hero", "about", "projects", "profiles", "contact"]
+  const navigationSections = ["about", "projects", "profiles", "contact"] as const
+  const mobileNavigationSections = [
+    "home",
+    "about",
+    "projects",
+    "profiles",
+    "contact",
+  ] as const
 
   // Call Sentiment Analyzer API on page load
   const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL ?? 'https://sentimentanalyzer-y8tk.onrender.com';
@@ -444,7 +451,7 @@ export default function Portfolio() {
 
               {/* Navigation */}
               <nav className="hidden md:flex space-x-4 lg:space-x-6">
-                {["about", "projects", "profiles", "contact"].map((section) => (
+                {navigationSections.map((section) => (
                   <button
                     key={section}
                     onClick={() => scrollToSection(section)}
@@ -483,7 +490,7 @@ export default function Portfolio() {
               </div>
 
               {/* Mobile Navigation */}
-              {["home", "about", "projects", "profiles", "contact"].map((section) => (
+              {mobileNavigationSections.map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section === "home" ? "hero" : section)}

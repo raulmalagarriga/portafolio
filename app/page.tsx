@@ -16,8 +16,6 @@ import {
 import Link from "next/link"
 import Image, { type StaticImageData } from "next/image"
 import ExploreButton from "@/components/explore-button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import ParticlesBackground from "@/components/particles-background"
 import ThemeSelector from "@/components/theme-selector"
 import LanguageSelector from "@/components/languaje-selector"
@@ -39,7 +37,6 @@ import PULSE from "@/assets/PULSE.svg"
 import SLIVE from "@/assets/SLIVE.svg"
 import SentimentAnalyzer from "@/assets/sentiment.svg"
 import Battleship from "@/assets/battleship.svg"
-import Calendar from "@/assets/calendar3.svg"
 import SliveMenu from "@/assets/slive/sliveMenu.png"
 import SliveChat from "@/assets/slive/sliveChat.png"
 import SliveInterfaz from "@/assets/slive/SLIVE2.png"
@@ -62,14 +59,12 @@ type ProjectDefinition = {
   logoHeight?: number
   gallery: string[]
   summaryKey: string
-  highlightKeys: string[]
 }
 
 type Project = ProjectDefinition & {
   name: string
   description: string
   summary: string
-  highlights: string[]
 }
 
 const projectDefinitions: ProjectDefinition[] = [
@@ -82,12 +77,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logoWidth: 25,
     logoHeight: 25,
     gallery: [SliveMenu.src, SliveChat.src, SliveInterfaz.src],
-    summaryKey: "projects.ecommerce.modal.summary",
-    highlightKeys: [
-      "projects.ecommerce.modal.highlight1",
-      "projects.ecommerce.modal.highlight2",
-      "projects.ecommerce.modal.highlight3",
-    ],
+    summaryKey: "projects.ecommerce.desc",
   },
   {
     key: "projects.sentiment",
@@ -98,11 +88,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logoWidth: 20,
     logoHeight: 20,
     gallery: [SentimentNeutral.src, SentimentHappy.src],
-    summaryKey: "projects.sentiment.modal.summary",
-    highlightKeys: [
-      "projects.sentiment.modal.highlight1",
-      "projects.sentiment.modal.highlight2",
-    ],
+    summaryKey: "projects.sentiment.desc",
   },
   {
     key: "projects.chat",
@@ -112,11 +98,7 @@ const projectDefinitions: ProjectDefinition[] = [
     logoWidth: 20,
     logoHeight: 20,
     gallery: [PlayingBattleship.src, WaitingBattleship.src],
-    summaryKey: "projects.chat.modal.summary",
-    highlightKeys: [
-      "projects.chat.modal.highlight1",
-      "projects.chat.modal.highlight2",
-    ],
+    summaryKey: "projects.chat.desc",
   },
   {
     key: "projects.pulse",
@@ -126,26 +108,8 @@ const projectDefinitions: ProjectDefinition[] = [
     logoWidth: 15,
     logoHeight: 15,
     gallery: [LandingPulse1.src, LandingPulse2.src, InterfazPulse.src],
-    summaryKey: "projects.pulse.modal.summary",
-    highlightKeys: [
-      "projects.pulse.modal.highlight1",
-      "projects.pulse.modal.highlight2",
-    ],
-  },
-  {
-    key: "projects.data",
-    tech: ["NodeJS", "Javascript", "Express", "MongoDB"],
-    github: "https://github.com/raulmalagarriga/calendarApp-backend",
-    logo: Calendar,
-    logoWidth: 25,
-    logoHeight: 25,
-    gallery: ["/placeholder.svg", "/placeholder-logo.png"],
-    summaryKey: "projects.data.modal.summary",
-    highlightKeys: [
-      "projects.data.modal.highlight1",
-      "projects.data.modal.highlight2",
-    ],
-  },
+    summaryKey: "projects.pulse.desc",
+  }
 ]
 
 export default function Portfolio() {
@@ -422,16 +386,12 @@ export default function Portfolio() {
         const titleKey = `${project.key}.title` as Parameters<typeof t>[0]
         const descriptionKey = `${project.key}.desc` as Parameters<typeof t>[0]
         const summary = t(project.summaryKey as Parameters<typeof t>[0])
-        const highlights = project.highlightKeys
-          .map((highlightKey) => t(highlightKey as Parameters<typeof t>[0]))
-          .filter((highlight) => highlight && highlight.trim().length > 0)
 
         return {
           ...project,
           name: t(titleKey),
           description: t(descriptionKey),
           summary,
-          highlights,
         }
       }),
     [language, t],

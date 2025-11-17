@@ -53,52 +53,30 @@ export const translations = {
         "Comprehensive cloud-based administrative system for retail, featuring sales, inventory management, and a POS. Incorporates proprietary AI for predictive analytics and strategic business guidance.",
       "projects.ecommerce.modal.summary":
         "Enterprise-grade retail management suite orchestrating point-of-sale, inventory, CRM, and analytics from a unified cloud console.",
-      "projects.ecommerce.modal.highlight1":
-        "Designed multi-tenant modules that isolate store data while sharing secure core services.",
-      "projects.ecommerce.modal.highlight2":
-        "Delivered predictive dashboards that surface sales and stock insights using proprietary AI models.",
-      "projects.ecommerce.modal.highlight3":
-        "Automated invoicing, catalog imports, and operational alerts to streamline daily workflows.",
 
       "projects.chat.title": "BattleShip Game",
       "projects.chat.desc":
         "Classic multiplayer battleship game with integrated real-time chat.",
       "projects.chat.modal.summary":
         "Multiplayer Battleship experience featuring synchronized gameplay, chat, and match state persistence.",
-      "projects.chat.modal.highlight1":
-        "WebSocket architecture keeps ship placement, turns, and chat updates in sync across players.",
-      "projects.chat.modal.highlight2":
-        "Express services handle lobby creation, matchmaking, and reconnection resilience.",
 
       "projects.pulse.title": "PULSE",
       "projects.pulse.desc":
         "Mobile application for personal trainers, automating client management, payments, and progress metrics. Features an AI-powered workout plan generator for instant and precise client personalization.",
       "projects.pulse.modal.summary":
         "Mobile-first platform empowering personal trainers to manage clients, programs, and billing effortlessly.",
-      "projects.pulse.modal.highlight1":
-        "Node.js API centralizes scheduling, payments, and progress metrics for every client.",
-      "projects.pulse.modal.highlight2":
-        "React Native app delivers AI-assisted workout plans tailored to evolving fitness goals.",
 
       "projects.data.title": "Calendar App",
       "projects.data.desc":
         "Interactive calendar for managing events and teamwork.",
       "projects.data.modal.summary":
         "Team-oriented calendar service for coordinating events, reminders, and shared availability.",
-      "projects.data.modal.highlight1":
-        "RESTful API built with Node.js and MongoDB for collaborative event management.",
-      "projects.data.modal.highlight2":
-        "Implements JWT-secured endpoints with role-based permissions for teams.",
 
       "projects.sentiment.title": "Sentiment Analyzer",
       "projects.sentiment.desc":
         "API that determines the emotional tone of text, classifying it as positive, neutral, or negative, and assigns a polarity score",
       "projects.sentiment.modal.summary":
         "Full-stack sentiment analysis toolkit that scores customer feedback in real time through an intuitive dashboard.",
-      "projects.sentiment.modal.highlight1":
-        "FastAPI backend exposes REST endpoints with NLP pipelines for accurate sentiment scoring.",
-      "projects.sentiment.modal.highlight2":
-        "Next.js interface visualizes polarity trends and confidence metrics for quick interpretation.",
   
       // Profiles
       "profiles.title": "Profiles",
@@ -197,52 +175,33 @@ export const translations = {
         "Sistema administrativo integral basado en la nube para el retail, con gestión de ventas, inventario y un POS. Incluye una IA propietaria para análisis predictivo y asesoramiento estratégico del negocio.",
       "projects.ecommerce.modal.summary":
         "Suite de gestión minorista de nivel empresarial que unifica POS, inventario, CRM y analítica en una consola en la nube.",
-      "projects.ecommerce.modal.highlight1":
-        "Diseñé módulos multi-tenant que aíslan los datos de cada tienda y comparten servicios centrales seguros.",
-      "projects.ecommerce.modal.highlight2":
-        "Entregué tableros predictivos que muestran tendencias de ventas y stock con modelos de IA propios.",
-      "projects.ecommerce.modal.highlight3":
-        "Automaticé facturación, importación de catálogos y alertas operativas para agilizar las tareas diarias.",
+
 
       "projects.chat.title": "BattleShip Game",
       "projects.chat.desc":
         "Clasico juego de battleship multijugador con chat integrado en tiempo real.",
       "projects.chat.modal.summary":
         "Experiencia multijugador con partidas sincronizadas, chat integrado y persistencia del estado del juego.",
-      "projects.chat.modal.highlight1":
-        "Arquitectura con WebSockets que sincroniza movimientos, disparos y mensajes entre los jugadores.",
-      "projects.chat.modal.highlight2":
-        "Servicios en Express gestionan la creación de salas, emparejamiento y reconexiones seguras.",
+
 
       "projects.pulse.title": "PULSE",
       "projects.pulse.desc":
         "Aplicación móvil integral para entrenadores personales, automatizando la gestión de clientes, pagos y métricas de progreso. Incorpora un generador de planes de entrenamiento potenciado por IA para personalización instantánea y precisa.",
       "projects.pulse.modal.summary":
         "Plataforma mobile-first que ayuda a entrenadores personales a administrar clientes, rutinas y cobros sin fricción.",
-      "projects.pulse.modal.highlight1":
-        "API en Node.js que centraliza agenda, pagos y métricas de progreso por cliente.",
-      "projects.pulse.modal.highlight2":
-        "App en React Native que entrega planes asistidos por IA adaptados a cada objetivo fitness.",
 
       "projects.data.title": "Calendar App",
       "projects.data.desc":
         "Calendario interactivo para gestionar eventos y trabajo en equipo.",
       "projects.data.modal.summary":
         "Servicio de calendario orientado a equipos para coordinar eventos, recordatorios y disponibilidad compartida.",
-      "projects.data.modal.highlight1":
-        "API REST en Node.js y MongoDB para gestionar eventos colaborativos.",
-      "projects.data.modal.highlight2":
-        "Endpoints protegidos con JWT y permisos por rol para cada equipo.",
+
 
       "projects.sentiment.title": "Sentiment Analyzer",
       "projects.sentiment.desc":
         "API que determina el tono emocional del texto, clasificándolo como positivo, neutral o negativo, y le asigna una puntuación de polaridad.",
       "projects.sentiment.modal.summary":
         "Herramienta full-stack que analiza comentarios en tiempo real y muestra los resultados en un panel intuitivo.",
-      "projects.sentiment.modal.highlight1":
-        "Backend en FastAPI que expone endpoints REST con pipelines de NLP para un puntaje preciso.",
-      "projects.sentiment.modal.highlight2":
-        "Interfaz en Next.js que visualiza tendencias de polaridad y niveles de confianza.",
 
       // Profiles
       "profiles.title": "Perfiles",

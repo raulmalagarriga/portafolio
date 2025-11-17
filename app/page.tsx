@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useMemo } from "react"
+import type { KeyboardEvent as ReactKeyboardEvent } from "react"
 import {
   ArrowRight,
   Github,
@@ -409,7 +410,7 @@ export default function Portfolio() {
     setProjectModalOpen(true)
   }
 
-  const handleProjectCardKeyDown = (event: KeyboardEvent<HTMLDivElement>, project: Project) => {
+  const handleProjectCardKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>, project: Project) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault()
       handleProjectOpen(project)

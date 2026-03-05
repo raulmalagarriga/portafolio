@@ -70,7 +70,7 @@ type Project = ProjectDefinition & {
 const projectDefinitions: ProjectDefinition[] = [
   {
     key: "projects.ecommerce",
-    tech: [".NET", "Next JS", "MongoDB", "PostgreSQL"],
+    tech: [".NET", "Next JS", "MongoDB", "PostgreSQL", "Redis", "Docker"],
     url: "https://slive.ai/",
     github: "",
     logo: SLIVE,
@@ -102,8 +102,9 @@ const projectDefinitions: ProjectDefinition[] = [
   },
   {
     key: "projects.pulse",
-    tech: ["NodeJS", "Typescript", "MongoDB", "React native"],
-    github: null,
+    tech: ["NodeJS", "Typescript", "MongoDB", "React native", "Next JS", "Docker"],
+    // github: null,
+    url: "https://www.pulsefit.app/en",
     logo: PULSE,
     logoWidth: 15,
     logoHeight: 15,
@@ -132,7 +133,7 @@ export default function Portfolio() {
   const [contactVisible, setContactVisible] = useState(false)
 
   const staticText = "> Hello World. I am a "
-  const titles = ["Backend Developer.", "Software Developer.", "Software Architect."]
+  const titles = ["Fullstack Developer.", "Software Developer.", "Software Architect."]
   const typingRef = useRef<NodeJS.Timeout | null>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
   const scrollTimeout = useRef<NodeJS.Timeout | null>(null)
@@ -363,28 +364,28 @@ export default function Portfolio() {
   // Skill categories with their items
   const skillCategories = [
     {
-      title: t("skills.languages"),
-      items: ["C#", "JavaScript", "TypeScript", "Python"],
+      title: t("skills.frontend"),
+      items: ["React JS", "Next JS", "Tailwind CSS", "Typescript"],
     },
     {
-      title: t("skills.frameworks"),
-      items: [".NET", "Entity Framework", "Node.js", "Express", "FastAPI"],
+      title: t("skills.backend"),
+      items: [".NET", "Entity Framework", "Node.js", "Nest JS", "Express", "FastAPI"],
     },
     {
       title: t("skills.databases"),
-      items: ["PostgreSQL", "SQL Server", "MongoDB", "Redis"],
+      items: ["PostgreSQL", "SQL Server", "MongoDB", "Redis", "Supabase", "ChromaDB"],
     },
     {
       title: t("skills.cloud"),
-      items: ["Ubuntu Server", "Docker", "Windows Server", "CI/CD"],
+      items: ["Ubuntu Server", "Docker", "Windows Server", "CI/CD", "GitHub Actions", "Google Cloud Platform"],
     },
     {
       title: t("skills.tools"),
-      items: ["Git", "Postman", "Swagger", "Jira"],
+      items: ["Git", "Postman", "Swagger", "Jira", "Claude Code", "Codex", "Mistral"],
     },
     {
       title: t("skills.concepts"),
-      items: ["RESTful APIs", "JWT", "Microservices", "Authentication"],
+      items: ["Multi-tenancy", "Clean Architecture", "API Gateway", "Event-Driven Architecture", "Microservices", "Caching Strategies"],
     },
   ]
 
@@ -586,8 +587,10 @@ export default function Portfolio() {
                 </div>
               </div>
               <div className="md:w-1/3 hidden md:flex justify-center order-1 md:order-2">
-                <div className="relative w-80 h-80 md:w-64 md:h-64 overflow-hidden border-6 border-black">
-                  <Image src="/images/profile-photo.png" alt="Profile Photo" fill className="object-cover" />
+                <div className="profile-hexagon-glow">
+                  <div className="profile-hexagon relative w-64 h-64 overflow-hidden">
+                    <Image src="/images/profile-photo.png" alt="Profile Photo" fill className="object-cover" />
+                  </div>
                 </div>
               </div>
             </div>

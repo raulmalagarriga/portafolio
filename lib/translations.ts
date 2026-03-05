@@ -31,6 +31,8 @@ export const translations = {
       "skills.cloud": "Cloud & DevOps",
       "skills.tools": "Tools",
       "skills.concepts": "Concepts",
+      "skills.frontend": "Frontend",
+      "skills.backend": "Backend",
   
       // Projects
       "projects.title": "Projects",
@@ -154,6 +156,8 @@ export const translations = {
       "skills.cloud": "Cloud & DevOps",
       "skills.tools": "Herramientas",
       "skills.concepts": "Conceptos",
+      "skills.frontend": "Frontend",
+      "skills.backend": "Backend",
   
       // Projects
       "projects.title": "Proyectos",

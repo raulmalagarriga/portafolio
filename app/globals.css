@@ -148,9 +148,9 @@ h2.section-title {
   }
 
   /* Smaller profile photo */
-  .profile-photo {
-    width: 8rem !important;
-    height: 8rem !important;
+  .profile-hexagon {
+    width: 10rem !important;
+    height: 10rem !important;
   }
 
   /* Reduce grid gaps */
@@ -489,4 +489,25 @@ h2.section-title {
 .explore-button:hover .explore-button-bg-layer-3 {
   transition-delay: 0.2s;
   transform: scale(1);
+}
+
+/* Profile hexagon image */
+.profile-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: transform 0.4s ease;
+}
+
+.profile-hexagon-glow {
+  filter: drop-shadow(0 0 8px rgba(var(--theme-color-rgb), 0.3));
+  transition: filter 0.4s ease, transform 0.4s ease;
+}
+
+.profile-hexagon-glow:hover {
+  filter: drop-shadow(0 0 20px rgba(var(--theme-color-rgb), 0.6));
+  transform: scale(1.05);
+}
+
+.profile-hexagon-glow:hover .profile-hexagon img {
+  filter: brightness(1.1);
+  transition: filter 0.4s ease;
 }

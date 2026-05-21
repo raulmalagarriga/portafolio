@@ -8,9 +8,134 @@ import { Analytics } from "@vercel/analytics/react"
 import BgLayers from "@/components/terminal/bg-layers"
 import ScrollProgress from "@/components/terminal/scroll-progress"
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+
 export const metadata: Metadata = {
-  title: "raulmalagarriga.dev — Modern Terminal",
-  description: "Raul Malagarriga — Fullstack developer · Software architect · Computer engineer",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Raul Malagarriga — Fullstack Developer & Software Architect",
+    template: "%s · Raul Malagarriga",
+  },
+  description:
+    "Portafolio de Raul Malagarriga (rjmalagarrigat) — Ingeniero en Computación, Fullstack Developer y Software Architect. Diseño backends confiables, frontends cohesivos y sistemas reflexivos. Maracaibo, Venezuela.",
+  applicationName: "raulmalagarriga.dev",
+  authors: [{ name: "Raul Malagarriga", url: siteUrl }],
+  creator: "Raul Malagarriga",
+  publisher: "Raul Malagarriga",
+  keywords: [
+    "Raul Malagarriga",
+    "Raúl Malagarriga",
+    "raul malagarriga",
+    "raulmalagarriga",
+    "rjmalagarrigat",
+    "Raul Malagarriga Software",
+    "Raul Malagarriga developer",
+    "Raul Malagarriga portafolio",
+    "Raul Malagarriga portfolio",
+    "Ingeniero Raul Malagarriga",
+    "Raul Malagarriga ingeniero",
+    "Raul Malagarriga ingeniero en computación",
+    "Raul Malagarriga fullstack",
+    "Raul Malagarriga arquitecto de software",
+    "Engineer Raul Malagarriga",
+    "Raul Malagarriga Engineer",
+    "Raul Malagarriga Computer Engineer",
+    "Raul Malagarriga Software Engineer",
+    "Raul Malagarriga Fullstack Developer",
+    "Raul Malagarriga Software Architect",
+    "Software Engineer Raul Malagarriga",
+    "Fullstack Developer Raul Malagarriga",
+    "fullstack developer Venezuela",
+    "software architect Maracaibo",
+    "computer engineer Venezuela",
+    "desarrollador venezuela",
+    "ingeniero software venezuela",
+  ],
+  alternates: {
+    canonical: "/",
+    languages: { "en-US": "/", "es-ES": "/" },
+  },
+  openGraph: {
+    type: "profile",
+    locale: "en_US",
+    alternateLocale: ["es_ES"],
+    url: "/",
+    siteName: "Raul Malagarriga — Portfolio",
+    title: "Raul Malagarriga — Fullstack Developer & Software Architect",
+    description:
+      "Ingeniero en Computación · Fullstack Developer · Software Architect. Backends confiables, frontends cohesivos, sistemas que llegan a producción y siguen funcionando.",
+    firstName: "Raul",
+    lastName: "Malagarriga",
+    username: "rjmalagarrigat",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Raul Malagarriga — Fullstack Developer & Software Architect",
+    description:
+      "Ingeniero · Fullstack · Software Architect. Backends, frontends y sistemas reflexivos.",
+    creator: "@rjmalagarrigat",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  icons: { icon: "/favicon.ico", shortcut: "/favicon.ico", apple: "/favicon.ico" },
+  category: "technology",
+}
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Raul Malagarriga",
+  alternateName: [
+    "Raúl Malagarriga",
+    "raulmalagarriga",
+    "rjmalagarrigat",
+    "Ingeniero Raul Malagarriga",
+    "Engineer Raul Malagarriga",
+    "Raul Malagarriga Software",
+    "Raul Malagarriga Software Engineer",
+    "Raul Malagarriga Software Architect",
+    "Raul Malagarriga Fullstack Developer",
+    "Raul Malagarriga Computer Engineer",
+  ],
+  jobTitle: "Fullstack Developer · Software Architect · Computer Engineer",
+  description:
+    "Ingeniero en Computación que diseña backends confiables, frontends cohesivos y sistemas reflexivos.",
+  url: siteUrl,
+  image: `${siteUrl}/opengraph-image`,
+  email: "mailto:rjmalagarrigat@gmail.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Maracaibo",
+    addressRegion: "Zulia",
+    addressCountry: "VE",
+  },
+  sameAs: [
+    "https://github.com/raulmalagarriga",
+    "https://www.linkedin.com/in/rjmalagarrigat/",
+    "https://medium.com/@rjmalagarrigat",
+  ],
+  knowsAbout: [
+    ".NET",
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Node.js",
+    "Nest.js",
+    "FastAPI",
+    "PostgreSQL",
+    "MongoDB",
+    "Redis",
+    "Docker",
+    "Clean Architecture",
+    "Multi-tenancy",
+    "Event-Driven Architecture",
+    "Microservices",
+  ],
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,6 +162,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Analytics />
           </ThemeColorProvider>
         </ThemeProvider>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </body>
     </html>
   )

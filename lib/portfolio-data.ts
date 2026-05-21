@@ -146,19 +146,3 @@ export const LINKS: LinkDef[] = [
 ]
 
 export const PROFILE_PHOTO = ProfilePhoto
-
-// Deterministic pseudo-random heatmap (so it doesn't flicker on rerender)
-export function makeHeatmap(weeks = 26, daysPerWeek = 7, seed = 7): number[] {
-  let s = seed
-  const rnd = () => {
-    s = (s * 9301 + 49297) % 233280
-    return s / 233280
-  }
-  const arr: number[] = []
-  for (let i = 0; i < weeks * daysPerWeek; i++) {
-    const v = rnd()
-    const level = v < 0.45 ? 0 : v < 0.7 ? 1 : v < 0.86 ? 2 : v < 0.96 ? 3 : 4
-    arr.push(level)
-  }
-  return arr
-}

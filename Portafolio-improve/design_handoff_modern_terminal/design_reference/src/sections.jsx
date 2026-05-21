@@ -42,6 +42,7 @@ const HeroSection = ({ onExplore }) => (
 
 // ────────────────────────────────────────────────────────────────────────────
 const AboutSection = () => {
+  const heat = window.__heat || (window.__heat = makeHeatmap(26, 7, 7));
   return (
     <section id="about" className="section">
       <span className="sect-ghost" aria-hidden>02</span>
@@ -50,104 +51,101 @@ const AboutSection = () => {
           <SectionHeader num="02" file="about.tsx" title="About me" sub="A look at who I am and how I work" />
         </Reveal>
 
-        <div className="about-2col">
-          <Reveal variant="left" delay={80} sweep>
-            <Pane title={<>~/about/<b>bio.md</b></>} meta="read-only" hoverable>
-              <p className="bio-lead">
-                I'm <span className="acc">Raúl Malagarriga</span> — I design <span style={{ color: "var(--ink)" }}>reliable backends</span>,
-                <span style={{ color: "var(--ink)" }}> cohesive frontends</span>, and <span style={{ color: "var(--ink)" }}>thoughtful systems</span> that ship
-                and keep working.
-              </p>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 18 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "minmax(0,1fr)", gap: 18 }}>
+            <div className="about-grid" style={{ display: "grid", gap: 18, gridTemplateColumns: "1fr" }}>
+              <Reveal variant="left" delay={80} sweep>
+                <Pane title={<>~/about/<b>bio.md</b></>} meta="read-only" hoverable>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 22, alignItems: "center" }}>
+                    <div className="bio-row" style={{ display: "grid", gridTemplateColumns: "1fr", gap: 24 }}>
+                      <div>
+                        <p style={{ margin: 0, color: "var(--ink-mute)", fontSize: 13.5, lineHeight: 1.7 }}>
+                          Hi! I'm <span style={{ color: "var(--ink)", fontWeight: 600 }}>Raúl Malagarriga</span>, a software development
+                          professional with a strong focus on building reliable, efficient solutions aligned with each client's goals.
+                          I'm passionate about understanding how things work, designing clean structures, and creating systems that
+                          truly make an impact.
+                        </p>
+                        <p style={{ marginTop: 14, color: "var(--ink-mute)", fontSize: 13.5, lineHeight: 1.7 }}>
+                          I consider myself a problem-solver, detail-oriented, and highly collaborative. I value clear communication
+                          and proper documentation as essential tools for any project's success. My goal is always to bring real value
+                          through technology.
+                        </p>
 
-              <div className="label" style={{ marginTop: 4, marginBottom: 10 }}>
-                <span className="b">$</span> how I work
-              </div>
-              <div className="principles">
-                <span className="principle"><span className="glyph">◆</span> Clean architecture</span>
-                <span className="principle"><span className="glyph">◆</span> Multi-tenancy</span>
-                <span className="principle"><span className="glyph">◆</span> Event-driven</span>
-                <span className="principle"><span className="glyph">★</span> Clarity over cleverness</span>
-                <span className="principle"><span className="glyph">⌘</span> Docs as I go</span>
-              </div>
-            </Pane>
-          </Reveal>
-
-          <Reveal variant="right" delay={140} sweep>
-            <Pane title={<>~/about/<b>profile</b></>} meta="hex" hoverable>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, alignItems: "center" }}>
-                <div style={{ display: "flex", justifyContent: "center" }}>
-                  <div className="hex-wrap" style={{ width: 170, height: 196 }}>
-                    <div className="hex-orbit"></div>
-                    <div className="hex-ring">
-                      <div className="hex-inner">
-                        <img src="assets/profile-photo.png" alt="Raúl Malagarriga" />
+                        <div style={{ marginTop: 22 }}>
+                          <div className="label" style={{ marginBottom: 10 }}>
+                            <span className="b">$</span> git log --activity --last=26w
+                          </div>
+                          <div className="heatmap" aria-hidden>
+                            {heat.map((lvl, idx) => (
+                              <div key={idx} className={`heat-cell ${lvl ? "l" + lvl : ""}`} />
+                            ))}
+                          </div>
+                          <div style={{ display: "flex", gap: 10, marginTop: 8, fontSize: 10.5, color: "var(--ink-dim)", alignItems: "center" }}>
+                            <span>less</span>
+                            <span className="heat-cell" style={{ width: 12, height: 12, display: "inline-block" }}></span>
+                            <span className="heat-cell l1" style={{ width: 12, height: 12, display: "inline-block" }}></span>
+                            <span className="heat-cell l2" style={{ width: 12, height: 12, display: "inline-block" }}></span>
+                            <span className="heat-cell l3" style={{ width: 12, height: 12, display: "inline-block" }}></span>
+                            <span className="heat-cell l4" style={{ width: 12, height: 12, display: "inline-block" }}></span>
+                            <span>more</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 12 }}>
-                  <KV k="role"    v="Fullstack · Architect" />
-                  <KV k="based"   v="Caracas · UTC−4" />
-                  <KV k="exp"     v="5+ years" />
-                  <KV k="status"  v={<span><span style={{ color: "var(--acc)" }}>●</span> available</span>} />
-                  <KV k="contact" v="rjmalagarrigat@gmail.com" />
-                </div>
-              </div>
-            </Pane>
-          </Reveal>
-        </div>
+                </Pane>
+              </Reveal>
 
-        <Reveal variant="up" delay={120}>
-          <div style={{ marginTop: 18 }}>
-            <Pane title={<>~/about/<b>stats.json</b></>} meta="summary" hoverable>
-              <div className="stat-strip">
-                <div className="stat-cell">
-                  <div className="k">years shipping</div>
-                  <div className="v">5<span className="acc">+</span></div>
-                  <div className="sub">in production · across stacks</div>
-                </div>
-                <div className="stat-cell">
-                  <div className="k">projects</div>
-                  <div className="v">24</div>
-                  <div className="sub">end-to-end · backend → ui</div>
-                </div>
-                <div className="stat-cell">
-                  <div className="k">core stack</div>
-                  <div className="v">12<span className="small">techs</span></div>
-                  <div className="sub">.NET · TS · Postgres · Docker</div>
-                </div>
-                <div className="stat-cell">
-                  <div className="k">reply</div>
-                  <div className="v">&lt;24<span className="small">h</span></div>
-                  <div className="sub">caracas · open now</div>
-                </div>
-              </div>
-            </Pane>
-          </div>
-        </Reveal>
-
-        <Reveal variant="up" delay={160}>
-          <div style={{ marginTop: 22 }}>
-            <div className="label" style={{ marginBottom: 12 }}><span className="b">$</span> ls ./skills</div>
-            <div className="skill-grid">
-              {SKILLS.map((cat, i) => (
-                <Reveal key={cat.title} variant="rise" delay={80 + i * 70}>
-                  <Pane hoverable className="skill-card-wrap">
-                    <div className="skill-card">
-                      <div className="icon">{cat.letter}</div>
-                      <h4>{cat.title}</h4>
-                      <ul>
-                        {cat.items.map((s) => (
-                          <li key={s}><span className="b">›</span> <ScrambleText text={s} trigger="hover" duration={500} /></li>
-                        ))}
-                      </ul>
+              <Reveal variant="right" delay={140} sweep>
+                <Pane title={<>~/about/<b>profile</b></>} meta="hex" hoverable>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, alignItems: "center" }}>
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <div className="hex-wrap">
+                        <div className="hex-orbit"></div>
+                        <div className="hex-ring">
+                          <div className="hex-inner">
+                            <img src="assets/profile-photo.png" alt="Raúl Malagarriga" />
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </Pane>
-                </Reveal>
-              ))}
+                    <div style={{ display: "flex", flexDirection: "column", gap: 10, fontSize: 12.5 }}>
+                      <KV k="name"     v="Raúl Malagarriga" />
+                      <KV k="role"     v="Fullstack / Architect" />
+                      <KV k="exp"      v="5+ years building production systems" />
+                      <KV k="focus"    v="reliability · scale · clarity" />
+                      <KV k="status"   v={<span><span style={{ color: "var(--acc)" }}>●</span> available</span>} />
+                      <KV k="contact"  v="rjmalagarrigat@gmail.com" />
+                    </div>
+                  </div>
+                </Pane>
+              </Reveal>
             </div>
           </div>
-        </Reveal>
+
+          <Reveal variant="up" delay={160}>
+            <div style={{ marginTop: 6 }}>
+              <div className="label" style={{ marginBottom: 12 }}><span className="b">$</span> ls ./skills</div>
+              <div className="skill-grid">
+                {SKILLS.map((cat, i) => (
+                  <Reveal key={cat.title} variant="rise" delay={80 + i * 70}>
+                    <Pane hoverable className="skill-card-wrap">
+                      <div className="skill-card">
+                        <div className="icon">{cat.letter}</div>
+                        <h4>{cat.title}</h4>
+                        <ul>
+                          {cat.items.map((s) => (
+                            <li key={s}><span className="b">›</span> <ScrambleText text={s} trigger="hover" duration={500} /></li>
+                          ))}
+                        </ul>
+                      </div>
+                    </Pane>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

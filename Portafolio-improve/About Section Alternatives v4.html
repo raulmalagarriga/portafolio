@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — horizontal alternatives (replace heatmap)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#06070a;
+    --ink:#d6dbe2; --ink-mute:#8d96a4; --ink-dim:#5a626f;
+    --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.10);
+    --acc:#4ade80; --acc-2:#86efac; --acc-rgb:74,222,128; --acc-glow:rgba(74,222,128,.22);
+    --warn:#fbbf24; --info:#38bdf8; --magenta:#e879f9; --rose:#fb7185; --violet:#a78bfa;
+    --font: "JetBrains Mono", ui-monospace, SF Mono, Menlo, monospace;
+  }
+  body{ background: var(--bg); margin:0; color:var(--ink); font-family:var(--font); }
+  *{ box-sizing:border-box; }
+
+  /* shared label like the user's example */
+  .lbl{ font-size:10.5px; color:var(--ink-mute); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; display:flex; gap:8px; align-items:baseline; }
+  .lbl .b{ color: var(--acc); font-weight:600; }
+  .frame{
+    border:1px solid var(--line); border-radius:8px;
+    background: linear-gradient(180deg, rgba(20,22,29,.4), rgba(15,17,22,.2));
+    padding: 18px 20px;
+    position:relative;
+  }
+
+  /* ─────────────────────── S. metro line — career as subway */
+  .metro{ position: relative; padding: 24px 12px 8px; }
+  .metro svg{ width:100%; display:block; }
+  .metro-stops{ display:flex; justify-content: space-between; padding: 0 8px; margin-top:-2px; }
+  .metro-stop{ flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; }
+  .metro-stop .label{ font-size:11px; color:var(--ink); text-align:center; letter-spacing:.01em; }
+  .metro-stop .year{ font-size:9.5px; color:var(--ink-dim); letter-spacing:.08em; }
+  .metro-stop.now .label{ color:var(--acc); font-weight:600; }
+  .metro-stop.now .year{ color:var(--acc-2); }
+  .metro-foot{ display:flex; gap:14px; margin-top:8px; padding-top:10px; border-top:1px dashed var(--line-2); font-size:11px; color:var(--ink-mute); }
+  .metro-foot b{ color:var(--ink); font-weight:500; }
+
+  /* ─────────────────────── T. stat strip — 4 huge metrics */
+  .stats{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 0; align-items:stretch; }
+  .stats .cell{
+    padding: 6px 22px; border-left: 1px dashed var(--line-2);
+    display:flex; flex-direction:column; gap:4px; position:relative;
+  }
+  .stats .cell:first-child{ border-left:0; padding-left:0; }
+  .stats .k{ font-size:10.5px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.1em; }
+  .stats .v{
+    font-size: clamp(34px, 4vw, 52px); color:var(--ink); font-weight:600; letter-spacing:-.03em; line-height: 1; margin-top:4px;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats .v .acc{ color: var(--acc); }
+  .stats .v .small{ font-size: .55em; color: var(--ink-mute); margin-left: 2px; letter-spacing: -.01em; }
+  .stats .sub{ font-size:11px; color:var(--ink-mute); margin-top:8px; line-height:1.45; }
+
+  /* ─────────────────────── U. constellation strip */
+  .constel{ position:relative; }
+  .constel svg{ width:100%; height: 200px; display:block; }
+  .constel .ring{ fill: none; stroke: rgba(var(--acc-rgb),.4); stroke-dasharray: 2 4; }
+  .constel .line{ stroke: rgba(var(--acc-rgb),.25); stroke-width: .8; }
+  .constel .line.bright{ stroke: rgba(var(--acc-rgb),.6); }
+  .constel .label{ fill: var(--ink); font-family: var(--font); font-size: 11px; font-weight: 500; }
+  .constel .label.dim{ fill: var(--ink-mute); font-weight: 400; }
+  .constel-foot{ display:flex; justify-content:space-between; font-size:11px; color:var(--ink-mute); margin-top:6px; padding: 0 4px; }
+  .constel-foot b{ color: var(--acc); font-weight:500; }
+
+  /* ─────────────────────── V. status board — split-flap */
+  .board{ display:flex; flex-direction:column; gap: 0; }
+  .board .head{ display:grid; grid-template-columns: 80px 1fr 110px 90px; gap:14px; padding: 0 2px 8px; border-bottom:1px solid var(--line-2); font-size:10px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.1em; }
+  .board .row{ display:grid; grid-template-columns: 80px 1fr 110px 90px; gap:14px; padding: 9px 2px; border-bottom: 1px dashed var(--line); align-items:center; }
+  .board .row:last-child{ border-bottom:0; }
+  .board .time{ color:var(--acc); font-weight:600; font-size:12.5px; letter-spacing:.04em; font-variant-numeric:tabular-nums; }
+  .board .what{ color:var(--ink); font-size:13.5px; font-weight:500; letter-spacing:-.005em; }
+  .board .gate{ color:var(--warn); font-size:11.5px; letter-spacing:.06em; }
+  .board .status{ font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+  .board .status.live{ color:var(--acc); }
+  .board .status.boarding{ color:var(--warn); }
+  .board .status.scheduled{ color:var(--ink-mute); }
+  .board .status.live::before{ content:"● "; }
+
+  /* ─────────────────────── W. marquee tags */
+  .marquee-wrap{ position:relative; overflow:hidden; padding: 24px 0 12px; }
+  .marquee-wrap::before, .marquee-wrap::after{
+    content:""; position:absolute; top:0; bottom:0; width: 80px; pointer-events:none; z-index:2;
+  }
+  .marquee-wrap::before{ left:0; background: linear-gradient(to right, var(--bg), transparent); }
+  .marquee-wrap::after{ right:0; background: linear-gradient(to left, var(--bg), transparent); }
+  .marquee{ display:flex; gap: 12px; width: max-content; animation: scroll 32s linear infinite; }
+  .marquee.row2{ animation-direction: reverse; animation-duration: 38s; margin-top: 10px; }
+  @keyframes scroll{ to{ transform: translateX(-50%); } }
+  .mtag{
+    display:inline-flex; align-items:center; gap:8px;
+    padding: 9px 16px; border-radius: 999px;
+    border:1px solid var(--line-2); background: rgba(255,255,255,.025);
+    color:var(--ink-mute); font-size: 13px; letter-spacing:.01em; white-space:nowrap;
+  }
+  .mtag.hot{ color:var(--acc-2); border-color: rgba(var(--acc-rgb),.4); background: rgba(var(--acc-rgb),.06); }
+  .mtag .dot{ width:5px; height:5px; border-radius:50%; background: var(--ink-dim); }
+  .mtag.hot .dot{ background: var(--acc); box-shadow: 0 0 6px var(--acc-glow); }
+  .marq-foot{ font-size: 11px; color: var(--ink-mute); margin-top: 14px; padding-top:10px; border-top: 1px dashed var(--line-2); display:flex; justify-content: space-between; }
+  .marq-foot b{ color: var(--ink); font-weight:500; }
+
+  /* ─────────────────────── X. EKG / pulse line */
+  .ekg{ position:relative; }
+  .ekg .head{ display:flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .ekg .head .nm{ font-size: 13px; color: var(--ink); }
+  .ekg .head .nm b{ color: var(--acc); }
+  .ekg .head .bpm{ font-size:11px; color:var(--ink-mute); }
+  .ekg .head .bpm b{ color: var(--ink); font-variant-numeric: tabular-nums; }
+  .ekg svg{ width:100%; height: 110px; display:block; }
+  .ekg .pulse{
+    fill: none; stroke: var(--acc); stroke-width: 1.5;
+    filter: drop-shadow(0 0 6px var(--acc-glow));
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .ekg .grid{ stroke: rgba(var(--acc-rgb),.08); stroke-width:.5; }
+  .ekg-points{ display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line-2); }
+  .ekg-pt{ display:flex; flex-direction: column; gap: 2px; }
+  .ekg-pt .k{ font-size: 10px; color: var(--ink-dim); text-transform:uppercase; letter-spacing: .08em; }
+  .ekg-pt .v{ font-size: 13px; color: var(--ink); }
+  .ekg-pt .v .a{ color: var(--acc); }
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    // ─────────────────────── S. metro line
+    const Metro = () => {
+      const stops = [
+        { y: "2019", l: "first commit" },
+        { y: "2021", l: "backend foundations" },
+        { y: "2023", l: "fullstack shipping" },
+        { y: "2024", l: "architect mindset" },
+        { y: "2025", l: "ai · ml integrations" },
+        { y: "now",  l: "you are here", now: true },
+      ];
+      const N = stops.length;
+      const padX = 30;
+      return (
+        <div className="frame">
+          <div className="lbl"><span className="b">$</span> career --line</div>
+          <div className="metro">
+            <svg viewBox="0 0 1100 50" preserveAspectRatio="none" style={{ height: 44 }}>
+              <line x1={padX} y1="25" x2={1100 - padX} y2="25" stroke="rgba(var(--acc-rgb),.35)" strokeWidth="5" strokeLinecap="round" />
+              <line x1={padX} y1="25" x2={1100 - padX} y2="25" stroke="var(--acc)" strokeWidth="1.5" strokeDasharray="3 5" />
+              {stops.map((s, i) => {
+                const x = padX + ((1100 - padX * 2) * i) / (N - 1);
+                return (
+                  <g key={i}>
+                    <circle cx={x} cy="25" r={s.now ? 10 : 6.5} fill="#06070a" stroke={s.now ? "var(--acc)" : "rgba(var(--acc-rgb),.7)"} strokeWidth={s.now ? 2.5 : 1.5} />
+                    {s.now && <circle cx={x} cy="25" r="3.5" fill="var(--acc)" filter="drop-shadow(0 0 8px var(--acc))" />}
+                  </g>
+                );
+              })}
+            </svg>
+            <div className="metro-stops">
+              {stops.map((s, i) => (
+                <div key={i} className={`metro-stop ${s.now ? "now" : ""}`}>
+                  <div className="label">{s.l}</div>
+                  <div className="year">{s.y}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="metro-foot">
+            <span><b>5+</b> years</span>
+            <span><b>1</b> direction</span>
+            <span><b>always</b> shipping</span>
+            <span style={{ marginLeft:"auto", color: "var(--acc)" }}>● next stop · your project</span>
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────── T. stat strip
+    const Stats = () => (
+      <div className="frame">
+        <div className="lbl"><span className="b">$</span> stats --summary</div>
+        <div className="stats">
+          <div className="cell">
+            <div className="k">years shipping</div>
+            <div className="v">5<span className="acc">+</span></div>
+            <div className="sub">in production · across stacks</div>
+          </div>
+          <div className="cell">
+            <div className="k">projects</div>
+            <div className="v">24</div>
+            <div className="sub">end-to-end · backend → ui</div>
+          </div>
+          <div className="cell">
+            <div className="k">core stack</div>
+            <div className="v">12<span className="small">techs</span></div>
+            <div className="sub">.net · ts · postgres · docker</div>
+          </div>
+          <div className="cell">
+            <div className="k">reply</div>
+            <div className="v">&lt;24<span className="small">h</span></div>
+            <div className="sub">caracas · utc−4 · open now</div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── U. constellation strip
+    const Constellation = () => {
+      const W = 1100, H = 200;
+      // node positions roughly horizontal
+      const nodes = [
+        { id:"be",     x:120,  y:60,  label:"backend" },
+        { id:"db",     x:230,  y:140, label:"data" },
+        { id:"infra",  x:350,  y:50,  label:"infra" },
+        { id:"core",   x:550,  y:100, label:"raul",     big:true },
+        { id:"fe",     x:710,  y:155, label:"frontend" },
+        { id:"ai",     x:830,  y:60,  label:"ai · ml" },
+        { id:"arch",   x:960,  y:140, label:"architect", acc:true },
+      ];
+      const edges = [
+        ["core","be"],["core","db"],["core","infra"],["core","fe"],["core","ai"],["core","arch"],
+        ["be","db"],["db","infra"],["fe","ai"],["ai","arch"]
+      ];
+      const map = Object.fromEntries(nodes.map(n => [n.id, n]));
+      return (
+        <div className="frame">
+          <div className="lbl"><span className="b">$</span> domains --map</div>
+          <div className="constel">
+            <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+              {edges.map(([a,b], i) => {
+                const na = map[a], nb = map[b];
+                return <line key={i} className={a === "core" || b === "core" ? "line bright" : "line"} x1={na.x} y1={na.y} x2={nb.x} y2={nb.y} />;
+              })}
+              <circle className="ring" cx="550" cy="100" r="60" />
+              <circle className="ring" cx="550" cy="100" r="95" />
+              {nodes.map((n) => (
+                <g key={n.id}>
+                  {n.big && <circle cx={n.x} cy={n.y} r="18" fill="none" stroke="var(--acc)" strokeWidth=".6" opacity=".3" />}
+                  <circle cx={n.x} cy={n.y} r={n.big ? 5.5 : n.acc ? 4.5 : 3.5}
+                    fill={n.acc ? "var(--warn)" : "var(--acc)"}
+                    style={n.big || n.acc ? { filter:"drop-shadow(0 0 6px var(--acc-glow))" } : {}}
+                  />
+                  <text x={n.x + 10} y={n.y + 4} className={n.big ? "label" : "label dim"} fontSize={n.big ? 13 : 11}>{n.label}</text>
+                </g>
+              ))}
+            </svg>
+          </div>
+          <div className="constel-foot">
+            <span>7 connected domains · <b>raul</b> at center</span>
+            <span style={{ color:"var(--warn)" }}>★ architect — passive overlay</span>
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────── V. status board
+    const Board = () => (
+      <div className="frame">
+        <div className="lbl"><span className="b">$</span> board --departures</div>
+        <div className="board">
+          <div className="head">
+            <span>when</span>
+            <span>what</span>
+            <span>gate</span>
+            <span>status</span>
+          </div>
+          <div className="row">
+            <span className="time">NOW</span>
+            <span className="what">building reliable backends · scaling systems</span>
+            <span className="gate">stack&nbsp;A1</span>
+            <span className="status live">live</span>
+          </div>
+          <div className="row">
+            <span className="time">NEXT</span>
+            <span className="what">your project · &lt;24h kickoff window</span>
+            <span className="gate">stack&nbsp;B2</span>
+            <span className="status boarding">boarding</span>
+          </div>
+          <div className="row">
+            <span className="time">Q3</span>
+            <span className="what">ai · ml integrations · agent orchestration</span>
+            <span className="gate">stack&nbsp;C7</span>
+            <span className="status scheduled">scheduled</span>
+          </div>
+          <div className="row">
+            <span className="time">2027</span>
+            <span className="what">distributed systems · event-driven at scale</span>
+            <span className="gate">stack&nbsp;D9</span>
+            <span className="status scheduled">scheduled</span>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── W. marquee tags
+    const Marquee = () => {
+      const stack = [
+        { t:".NET", hot:true }, { t:"C#", hot:true }, { t:"TypeScript", hot:true }, { t:"Next.js", hot:true },
+        { t:"React" }, { t:"React Native" }, { t:"Node" }, { t:"NestJS", hot:true }, { t:"Express" },
+        { t:"FastAPI" }, { t:"Python" }, { t:"Go" }, { t:"Tailwind", hot:true },
+        { t:"PostgreSQL", hot:true }, { t:"SQL Server" }, { t:"MongoDB", hot:true }, { t:"Redis" }, { t:"ChromaDB" },
+        { t:"Docker", hot:true }, { t:"GCP" }, { t:"CI/CD" }, { t:"GitHub Actions" }, { t:"Ubuntu Server" },
+      ];
+      // duplicate for seamless scroll
+      const doubled = [...stack, ...stack];
+      return (
+        <div className="frame">
+          <div className="lbl"><span className="b">$</span> stack --rolling</div>
+          <div className="marquee-wrap">
+            <div className="marquee">
+              {doubled.map((s, i) => (
+                <span key={i} className={`mtag ${s.hot ? "hot" : ""}`}>
+                  <span className="dot"></span>{s.t}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div className="marq-foot">
+            <span><b>23</b> tools · <b style={{ color: "var(--acc)" }}>● daily drivers</b> highlighted</span>
+            <span>scroll never stops · neither do I</span>
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────── X. EKG / pulse
+    const EKG = () => {
+      const W = 1100, H = 110;
+      // single repeating EKG-ish pattern
+      const beat = (x0) => {
+        const x = (n) => x0 + n;
+        return `L ${x(0)} ${H/2} L ${x(40)} ${H/2} L ${x(46)} ${H/2 - 6} L ${x(52)} ${H/2 + 10} L ${x(58)} ${H/2 - 38} L ${x(64)} ${H/2 + 16} L ${x(70)} ${H/2 - 4} L ${x(80)} ${H/2}`;
+      };
+      let d = `M 0 ${H/2} `;
+      for (let i = 0; i < 13; i++) d += beat(i * 90) + " ";
+      d += `L ${W} ${H/2}`;
+      // vertical grid lines
+      const grid = [];
+      for (let x = 0; x < W; x += 22) grid.push(<line key={"v"+x} className="grid" x1={x} y1={0} x2={x} y2={H} />);
+      for (let y = 0; y < H; y += 18) grid.push(<line key={"h"+y} className="grid" x1={0} y1={y} x2={W} y2={y} />);
+
+      return (
+        <div className="frame">
+          <div className="ekg">
+            <div className="head">
+              <div className="nm"><b>$</b> vitals · <span style={{ color:"var(--ink)" }}>alive &amp; shipping</span></div>
+              <div className="bpm"><b>BPM 72</b> · steady · uptime <b>5+ yrs</b></div>
+            </div>
+            <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none">
+              {grid}
+              <path className="pulse" d={d} />
+            </svg>
+            <div className="ekg-points">
+              <div className="ekg-pt"><span className="k">role</span><span className="v">fullstack <span className="a">·</span> architect</span></div>
+              <div className="ekg-pt"><span className="k">stack</span><span className="v">.net <span className="a">·</span> ts <span className="a">·</span> postgres <span className="a">·</span> docker</span></div>
+              <div className="ekg-pt"><span className="k">based</span><span className="v">caracas <span className="a">·</span> utc−4</span></div>
+              <div className="ekg-pt"><span className="k">status</span><span className="v"><span className="a">●</span> open for work</span></div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────── canvas
+    function App() {
+      return (
+        <DesignCanvas defaultZoom={0.55}>
+          <DCSection
+            id="alts4"
+            title="Replace the activity heatmap — horizontal concepts"
+            subtitle="All ~1200×210 banners that drop in below your bio."
+          >
+            <DCArtboard id="S" label="S · metro line — career as a horizontal subway" width={1200} height={210}>
+              <div style={{ padding: 0, background: "var(--bg)", height: "100%" }}><Metro /></div>
+            </DCArtboard>
+            <DCArtboard id="T" label="T · stat strip — 4 huge metrics, no charts" width={1200} height={210}>
+              <div style={{ padding: 0, background: "var(--bg)", height: "100%" }}><Stats /></div>
+            </DCArtboard>
+            <DCArtboard id="U" label="U · constellation — domains connected as star map" width={1200} height={290}>
+              <div style={{ padding: 0, background: "var(--bg)", height: "100%" }}><Constellation /></div>
+            </DCArtboard>
+            <DCArtboard id="V" label="V · status board — airport-style departure rows" width={1200} height={290}>
+              <div style={{ padding: 0, background: "var(--bg)", height: "100%" }}><Board /></div>
+            </DCArtboard>
+            <DCArtboard id="W" label="W · marquee — infinite scrolling stack pills" width={1200} height={210}>
+              <div style={{ padding: 0, background: "var(--bg)", height: "100%" }}><Marquee /></div>
+            </DCArtboard>
+            <DCArtboard id="X" label="X · pulse / EKG — single line, alive & shipping" width={1200} height={290}>
+              <div style={{ padding: 0, background: "var(--bg)", height: "100%" }}><EKG /></div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

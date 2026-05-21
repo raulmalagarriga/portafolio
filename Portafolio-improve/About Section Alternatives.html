@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — alternatives</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0b0e;
+    --ink:#d6dbe2; --ink-mute:#8d96a4; --ink-dim:#5a626f;
+    --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.10);
+    --acc:#4ade80; --acc-2:#86efac; --acc-rgb:74,222,128; --acc-glow:rgba(74,222,128,.22);
+    --warn:#fbbf24; --info:#38bdf8; --magenta:#e879f9;
+    --font: "JetBrains Mono", ui-monospace, SF Mono, Menlo, monospace;
+  }
+  body{ background:#06070a; margin:0; color:var(--ink); font-family:var(--font); }
+  *{ box-sizing:border-box; }
+
+  /* Pane chrome */
+  .pane{
+    background: linear-gradient(180deg, rgba(20,22,29,.85), rgba(15,17,22,.85));
+    border:1px solid var(--line); border-radius:10px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -30px rgba(0,0,0,.7);
+    overflow:hidden;
+  }
+  .pane-head{ display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)); }
+  .tl{ display:flex; gap:7px; }
+  .tl span{ width:11px; height:11px; border-radius:50%; box-shadow: 0 0 0 .5px rgba(0,0,0,.35) inset; }
+  .tl span:nth-child(1){ background:#ff5f57; }
+  .tl span:nth-child(2){ background:#febc2e; }
+  .tl span:nth-child(3){ background:#28c840; }
+  .pane-title{ font-size:11.5px; color:var(--ink-mute); letter-spacing:.04em; }
+  .pane-title b{ color:var(--ink); font-weight:500; }
+  .pane-meta{ margin-left:auto; font-size:10.5px; color:var(--ink-dim); letter-spacing:.05em; text-transform:uppercase; }
+  .pane-body{ padding:18px 20px; }
+  .label{ font-size:10.5px; color:var(--ink-mute); text-transform:uppercase; letter-spacing:.08em; }
+  .label .b{ color:var(--acc); }
+
+  /* ────────────────────── A. htop skills monitor */
+  .htop{ display:flex; flex-direction:column; gap:9px; font-size:12px; }
+  .htop-head{ display:flex; gap:10px; color:var(--ink-dim); font-size:10.5px; padding-bottom:6px; border-bottom:1px dashed var(--line-2); letter-spacing:.06em; }
+  .htop-row{ display:grid; grid-template-columns: 110px 1fr 56px 56px; gap:10px; align-items:center; }
+  .htop-row .nm{ color:var(--ink); }
+  .htop-bar{ position:relative; height:8px; background:rgba(255,255,255,.04); border-radius:4px; overflow:hidden; }
+  .htop-bar > i{
+    display:block; height:100%;
+    background: linear-gradient(90deg, var(--acc), var(--acc-2));
+    box-shadow: 0 0 10px var(--acc-glow);
+    border-radius:4px;
+    animation: htopGrow 1.5s cubic-bezier(.2,.8,.2,1) forwards;
+    transform-origin:left;
+  }
+  .htop-row.warn .htop-bar > i{ background: linear-gradient(90deg, var(--warn), #fde68a); box-shadow: 0 0 10px rgba(251,191,36,.3); }
+  .htop-row.info .htop-bar > i{ background: linear-gradient(90deg, var(--info), #a5f3fc); box-shadow: 0 0 10px rgba(56,189,248,.3); }
+  @keyframes htopGrow{ from{ transform: scaleX(0); } to{ transform: scaleX(1); } }
+  .htop-row .pct{ text-align:right; color:var(--ink); font-variant-numeric: tabular-nums; }
+  .htop-row .yrs{ text-align:right; color:var(--ink-dim); font-size:11px; }
+  .ticker{ font-size:11px; color:var(--ink-dim); display:flex; gap:14px; margin-top:6px; padding-top:8px; border-top:1px dashed var(--line-2); }
+  .ticker .ok{ color:var(--acc); }
+  .blink-dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--acc); box-shadow:0 0 8px var(--acc-glow); animation: blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.35; } }
+
+  /* ────────────────────── B. git log timeline */
+  .gitlog{ display:flex; flex-direction:column; gap:14px; font-size:12.5px; }
+  .commit{ display:grid; grid-template-columns: 16px 1fr; gap:10px; position:relative; }
+  .commit::before{
+    content:""; position:absolute; left:7.5px; top:18px; bottom:-14px; width:1px;
+    background: linear-gradient(180deg, rgba(var(--acc-rgb),.5), rgba(var(--acc-rgb),.1));
+  }
+  .commit:last-child::before{ display:none; }
+  .commit .dot{ width:16px; height:16px; border-radius:50%; background:#0a0b0e; border:1px solid var(--acc); display:grid; place-items:center; margin-top:1px; }
+  .commit .dot::after{ content:""; width:6px; height:6px; border-radius:50%; background:var(--acc); box-shadow:0 0 8px var(--acc-glow); }
+  .commit .meta{ display:flex; gap:8px; font-size:10.5px; color:var(--ink-dim); margin-bottom:3px; letter-spacing:.03em; }
+  .commit .meta .hash{ color:var(--warn); }
+  .commit .meta .branch{ color:var(--info); }
+  .commit h5{ margin:0; font-size:13px; color:var(--ink); font-weight:600; }
+  .commit p{ margin:3px 0 0; color:var(--ink-mute); font-size:11.5px; line-height:1.55; }
+
+  /* ────────────────────── C. stat tiles */
+  .tiles{ display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
+  .tile{
+    padding:14px 14px 12px; border:1px solid var(--line); border-radius:8px;
+    background: linear-gradient(180deg, rgba(var(--acc-rgb),.04), rgba(255,255,255,0));
+    position:relative; overflow:hidden;
+  }
+  .tile::after{
+    content:""; position:absolute; right:-10px; top:-10px;
+    width:40px; height:40px; border-radius:50%;
+    background: radial-gradient(circle, var(--acc-glow), transparent 70%);
+    opacity:.7;
+  }
+  .tile .n{ font-size:30px; font-weight:700; color:var(--ink); letter-spacing:-.02em; font-variant-numeric: tabular-nums; }
+  .tile .u{ color:var(--acc); font-weight:600; margin-left:2px; font-size:16px; }
+  .tile .k{ font-size:10.5px; color:var(--ink-mute); text-transform:uppercase; letter-spacing:.08em; margin-top:6px; }
+  .tile .spark{ margin-top:8px; height:18px; }
+  .tile .spark polyline{ fill:none; stroke:var(--acc); stroke-width:1.2; opacity:.7; }
+  .tile .spark .area{ fill:var(--acc); opacity:.15; stroke:none; }
+
+  /* ────────────────────── D. now.md */
+  .nowmd{ display:flex; flex-direction:column; gap:14px; font-size:12.5px; }
+  .now-item{ display:grid; grid-template-columns: 90px 1fr; gap:14px; align-items:flex-start; }
+  .now-key{ color:var(--ink-dim); text-transform:uppercase; font-size:10.5px; letter-spacing:.08em; padding-top:2px; }
+  .now-val{ color:var(--ink); line-height:1.6; }
+  .now-val .accent{ color:var(--acc-2); }
+  .now-val .tag{ display:inline-block; padding:1px 7px; border:1px solid var(--line-2); border-radius:999px; font-size:10.5px; color:var(--ink-mute); margin-right:4px; background:rgba(var(--acc-rgb),.04); }
+  .now-banner{
+    margin-top:6px; padding:10px 12px; border-radius:8px;
+    border:1px dashed var(--line-2); background:rgba(var(--acc-rgb),.04);
+    font-size:11.5px; color:var(--ink-mute); display:flex; align-items:center; gap:8px;
+  }
+  .now-banner .live{ display:inline-flex; align-items:center; gap:6px; color:var(--acc); font-weight:500; }
+
+  /* ────────────────────── E. terminal session */
+  .term{
+    background:#06080b; border-radius:8px; padding:14px 16px; min-height:240px;
+    border:1px solid var(--line); font-size:12.5px; color:var(--ink); line-height:1.6;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+    overflow:hidden;
+  }
+  .term .line{ display:flex; gap:8px; align-items:flex-start; }
+  .term .prompt{ color:var(--acc); white-space:nowrap; }
+  .term .cmd{ color:var(--ink); }
+  .term .out{ color:var(--ink-mute); padding-left:14px; }
+  .term .out .k{ color:var(--ink-dim); }
+  .term .out .v{ color:var(--ink); }
+  .term .out .ok{ color:var(--acc); }
+  .caret{ display:inline-block; width:.55em; height:1em; background:var(--acc); vertical-align:-.12em; animation: blink 1s steps(1) infinite; box-shadow:0 0 10px var(--acc-glow); }
+  .term .row-anim{ opacity:0; transform: translateY(4px); animation: termIn .25s ease forwards; }
+  @keyframes termIn{ to{ opacity:1; transform:none; } }
+  .term .lr1{ animation-delay:.1s; }   .term .lr2{ animation-delay:.5s; }
+  .term .lr3{ animation-delay:.9s; }   .term .lr4{ animation-delay:1.3s; }
+  .term .lr5{ animation-delay:1.7s; }  .term .lr6{ animation-delay:2.1s; }
+  .term .lr7{ animation-delay:2.5s; }
+
+  /* ────────────────────── F. radar chart */
+  .radar-grid{ display:grid; grid-template-columns: 1fr 230px; gap:18px; align-items:center; }
+  .radar-legend{ display:flex; flex-direction:column; gap:10px; font-size:12px; }
+  .radar-legend .row{ display:flex; align-items:center; gap:8px; color:var(--ink-mute); }
+  .radar-legend .row b{ color:var(--ink); font-weight:500; }
+  .radar-legend .row .val{ margin-left:auto; color:var(--acc); font-weight:600; font-variant-numeric: tabular-nums; }
+  .radar-legend .dot-sm{ width:7px; height:7px; border-radius:50%; background:var(--acc); box-shadow:0 0 6px var(--acc-glow); }
+
+  /* labels next to plot */
+  .radar-svg .axis-label{ font: 500 10px var(--font); fill: var(--ink-mute); letter-spacing:.06em; text-transform:uppercase; }
+  .radar-svg .grid line, .radar-svg .grid polygon{ stroke: rgba(255,255,255,.06); stroke-width:1; fill:none; }
+  .radar-svg .grid polygon.bg{ fill: rgba(255,255,255,.015); }
+  .radar-svg .axis{ stroke: rgba(255,255,255,.06); stroke-width:1; }
+  .radar-svg .data{
+    fill: var(--acc); opacity:.18; stroke:var(--acc); stroke-width:1.5;
+    filter: drop-shadow(0 0 6px var(--acc-glow));
+    animation: radarDraw 1.2s cubic-bezier(.2,.8,.2,1) forwards;
+    transform-origin: center;
+  }
+  @keyframes radarDraw{ from{ transform: scale(.3); opacity:0; } to{ transform: scale(1); opacity:.6; } }
+  .radar-svg .points circle{ fill:var(--acc); filter: drop-shadow(0 0 4px var(--acc-glow)); }
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    // ────────────────────────── A. htop skills monitor
+    const HTOP_ROWS = [
+      { nm: "backend",   pct: 92, yrs: "5+ yrs", cls: "" },
+      { nm: "frontend",  pct: 86, yrs: "5+ yrs", cls: "" },
+      { nm: "databases", pct: 80, yrs: "4 yrs",  cls: "" },
+      { nm: "devops",    pct: 72, yrs: "3 yrs",  cls: "info" },
+      { nm: "ai/tooling",pct: 64, yrs: "2 yrs",  cls: "warn" },
+      { nm: "design",    pct: 55, yrs: "ongoing",cls: "warn" },
+    ];
+    const HtopMonitor = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>htop</b></div>
+          <div className="pane-meta">monitor · 5s</div>
+        </div>
+        <div className="pane-body">
+          <div className="htop">
+            <div className="htop-head">
+              <span style={{ width:110 }}>AREA</span>
+              <span style={{ flex:1 }}>PROFICIENCY</span>
+              <span style={{ width:56, textAlign:"right" }}>%</span>
+              <span style={{ width:56, textAlign:"right" }}>EXP</span>
+            </div>
+            {HTOP_ROWS.map((r, i) => (
+              <div className={`htop-row ${r.cls}`} key={r.nm} style={{ animationDelay: `${i * 80}ms` }}>
+                <div className="nm">$ {r.nm}</div>
+                <div className="htop-bar"><i style={{ width: `${r.pct}%`, animationDelay: `${i * 80}ms` }}></i></div>
+                <div className="pct">{r.pct}%</div>
+                <div className="yrs">{r.yrs}</div>
+              </div>
+            ))}
+            <div className="ticker">
+              <span className="ok"><span className="blink-dot"></span> uptime 5y · load 1.0 1.0 .9</span>
+              <span style={{ marginLeft:"auto" }}>tasks: 4 running · 12 sleeping</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ────────────────────────── B. git log timeline
+    const COMMITS = [
+      { hash:"a7f3c9d", date:"2024-09", branch:"main",         title:"Founding architect at Slive.ai",        body:".NET + Next + MongoDB. Multi-tenant, event-driven, scaled to thousands of merchants." },
+      { hash:"5e1b80a", date:"2023-03", branch:"main",         title:"Released PulseFit",                      body:"Health & fitness platform with React Native + Node/TS. Took it from idea to App Store." },
+      { hash:"9c2dd14", date:"2022-08", branch:"feature/ai",   title:"Sentiment Analyzer (Python · FastAPI)",  body:"Trained, packaged, and deployed a model with a Next.js client. Open source." },
+      { hash:"f08a312", date:"2021-11", branch:"main",         title:"Started consulting independently",       body:"Backends, integrations, devops for early-stage teams." },
+      { hash:"c451fae", date:"2020-06", branch:"main",         title:"First production system shipped",        body:"Node.js + Socket.io realtime game · 10k+ matches played." },
+      { hash:"init",    date:"2019-02", branch:"init",         title:"Started writing software",               body:"Self-taught from books, blogs, and breaking things in production. Never stopped." },
+    ];
+    const GitTimeline = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>git log --career</b></div>
+          <div className="pane-meta">commits · 6</div>
+        </div>
+        <div className="pane-body">
+          <div className="gitlog">
+            {COMMITS.map((c) => (
+              <div className="commit" key={c.hash}>
+                <div className="dot"></div>
+                <div>
+                  <div className="meta">
+                    <span className="hash">{c.hash}</span>
+                    <span>·</span>
+                    <span>{c.date}</span>
+                    <span>·</span>
+                    <span className="branch">{c.branch}</span>
+                  </div>
+                  <h5>{c.title}</h5>
+                  <p>{c.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+
+    // ────────────────────────── C. stat tiles
+    const sparkPath = (vals, w, h) => {
+      const max = Math.max(...vals), min = Math.min(...vals);
+      const rng = max - min || 1;
+      return vals.map((v, i) => `${(i / (vals.length - 1)) * w},${h - ((v - min) / rng) * h}`).join(" ");
+    };
+    function CountUp({ to, suffix = "", duration = 1400 }) {
+      const [n, setN] = React.useState(0);
+      const ref = React.useRef(null);
+      React.useEffect(() => {
+        const el = ref.current; if (!el) return;
+        const obs = new IntersectionObserver(([e]) => {
+          if (!e.isIntersecting) return;
+          const start = performance.now();
+          const tick = () => {
+            const t = Math.min(1, (performance.now() - start) / duration);
+            const eased = 1 - Math.pow(1 - t, 3);
+            setN(Math.round(to * eased));
+            if (t < 1) requestAnimationFrame(tick);
+          };
+          tick(); obs.disconnect();
+        }, { threshold: .4 });
+        obs.observe(el);
+        return () => obs.disconnect();
+      }, [to, duration]);
+      return <span ref={ref}>{n}<span className="u">{suffix}</span></span>;
+    }
+    const StatTiles = () => {
+      const sparks = [
+        [3,4,4,5,5,6,7,7,8,9,9,10],
+        [1,2,2,3,4,4,5,5,6,7,8,9],
+        [12,14,15,17,18,20,21,22,23,24,26,28],
+        [60,55,72,68,82,75,90,88,95,100,98,110],
+      ];
+      const stats = [
+        { n: 5,   u: "+",   k: "years of experience" },
+        { n: 24,  u: "",    k: "projects shipped" },
+        { n: 28,  u: "",    k: "tools & stacks" },
+        { n: 110, u: "k+",  k: "lines this year" },
+      ];
+      return (
+        <div className="pane">
+          <div className="pane-head">
+            <div className="tl"><span></span><span></span><span></span></div>
+            <div className="pane-title">~/about/<b>stats.json</b></div>
+            <div className="pane-meta">snapshot</div>
+          </div>
+          <div className="pane-body">
+            <div className="tiles">
+              {stats.map((s, i) => (
+                <div className="tile" key={s.k}>
+                  <div className="n"><CountUp to={s.n} suffix={s.u} /></div>
+                  <div className="k">{s.k}</div>
+                  <svg className="spark" viewBox={`0 0 80 18`} preserveAspectRatio="none">
+                    <polygon className="area" points={`0,18 ${sparkPath(sparks[i], 80, 18)} 80,18`} />
+                    <polyline points={sparkPath(sparks[i], 80, 18)} />
+                  </svg>
+                </div>
+              ))}
+            </div>
+            <p style={{ margin: "16px 0 0", color: "var(--ink-mute)", fontSize: 12, lineHeight: 1.6 }}>
+              <span style={{ color: "var(--acc)" }}>$</span> Numbers grow because the work compounds — reliability,
+              clarity, and shipping shape the next thing I build.
+            </p>
+          </div>
+        </div>
+      );
+    };
+
+    // ────────────────────────── D. now.md
+    const NowMd = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>now.md</b></div>
+          <div className="pane-meta">updated may '26</div>
+        </div>
+        <div className="pane-body">
+          <div className="nowmd">
+            <div className="now-item">
+              <div className="now-key">building</div>
+              <div className="now-val">
+                A multi-tenant e-commerce platform at <span className="accent">Slive.ai</span> — focusing on
+                event-driven sync and a clean read-model layer over MongoDB and Postgres.
+              </div>
+            </div>
+            <div className="now-item">
+              <div className="now-key">learning</div>
+              <div className="now-val">
+                <span className="tag">Rust</span>
+                <span className="tag">distributed systems</span>
+                <span className="tag">CRDTs</span>
+                <span className="tag">Postgres internals</span>
+              </div>
+            </div>
+            <div className="now-item">
+              <div className="now-key">reading</div>
+              <div className="now-val">
+                <i>Designing Data-Intensive Applications</i> · M. Kleppmann
+              </div>
+            </div>
+            <div className="now-item">
+              <div className="now-key">listening</div>
+              <div className="now-val">
+                Bonobo · Tycho · long-form dev podcasts during deep work blocks
+              </div>
+            </div>
+            <div className="now-item">
+              <div className="now-key">offline</div>
+              <div className="now-val">
+                Coffee, running, and pretending I'll learn to draw this year.
+              </div>
+            </div>
+            <div className="now-banner">
+              <span className="live"><span className="blink-dot" style={{ background:"var(--acc)" }}></span> AVAILABLE</span>
+              <span>open to selective fullstack & architecture work — Q3 '26 onward</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ────────────────────────── E. terminal session
+    const TerminalSession = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>zsh</b> — 80×24</div>
+          <div className="pane-meta">interactive</div>
+        </div>
+        <div className="pane-body">
+          <div className="term">
+            <div className="line row-anim lr1">
+              <span className="prompt">~ ❯</span>
+              <span className="cmd">whoami</span>
+            </div>
+            <div className="out row-anim lr2">
+              <span className="v">raul.malagarriga</span> — fullstack developer · software architect
+            </div>
+            <div className="line row-anim lr3" style={{ marginTop:8 }}>
+              <span className="prompt">~ ❯</span>
+              <span className="cmd">cat ./about.md | head -3</span>
+            </div>
+            <div className="out row-anim lr4">
+              <div>› <span className="v">5+ years</span> shipping production systems end-to-end.</div>
+              <div>› obsessed with <span className="v">clean architecture</span>, <span className="v">multi-tenancy</span> &amp; <span className="v">event-driven design</span>.</div>
+              <div>› works well in small teams that ship and own outcomes.</div>
+            </div>
+            <div className="line row-anim lr5" style={{ marginTop:8 }}>
+              <span className="prompt">~ ❯</span>
+              <span className="cmd">stack --top 6</span>
+            </div>
+            <div className="out row-anim lr6">
+              <div><span className="k">backend  </span> <span className="v">.NET · Node · FastAPI · NestJS</span></div>
+              <div><span className="k">frontend </span> <span className="v">React · Next.js · React Native</span></div>
+              <div><span className="k">data     </span> <span className="v">Postgres · MongoDB · Redis · ChromaDB</span></div>
+              <div><span className="k">cloud    </span> <span className="v">GCP · Docker · CI/CD · Ubuntu Server</span></div>
+            </div>
+            <div className="line row-anim lr7" style={{ marginTop:8 }}>
+              <span className="prompt">~ ❯</span>
+              <span style={{ color:"var(--ink)" }}>status <span className="caret"></span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ────────────────────────── F. radar chart
+    const RadarChart = () => {
+      const axes = [
+        { k: "backend",   v: .92 },
+        { k: "frontend",  v: .86 },
+        { k: "databases", v: .80 },
+        { k: "devops",    v: .72 },
+        { k: "ai",        v: .64 },
+        { k: "design",    v: .55 },
+      ];
+      const cx = 110, cy = 110, R = 86;
+      const angle = (i) => -Math.PI / 2 + (i / axes.length) * Math.PI * 2;
+      const pt = (i, r) => [cx + Math.cos(angle(i)) * r, cy + Math.sin(angle(i)) * r];
+      const dataPoly = axes.map((a, i) => pt(i, R * a.v).join(",")).join(" ");
+      const rings = [0.25, 0.5, 0.75, 1];
+
+      return (
+        <div className="pane">
+          <div className="pane-head">
+            <div className="tl"><span></span><span></span><span></span></div>
+            <div className="pane-title">~/about/<b>skills.radar</b></div>
+            <div className="pane-meta">svg · 6-axis</div>
+          </div>
+          <div className="pane-body">
+            <div className="radar-grid">
+              <div style={{ display:"grid", placeItems:"center" }}>
+                <svg className="radar-svg" viewBox="0 0 220 220" width="220" height="220">
+                  <g className="grid">
+                    {rings.map((r, i) => (
+                      <polygon key={i} className={i === rings.length-1 ? "bg" : ""}
+                        points={axes.map((_, j) => pt(j, R * r).join(",")).join(" ")} />
+                    ))}
+                    {axes.map((_, i) => {
+                      const [x, y] = pt(i, R);
+                      return <line key={i} className="axis" x1={cx} y1={cy} x2={x} y2={y} />;
+                    })}
+                  </g>
+                  <polygon className="data" points={dataPoly} />
+                  <g className="points">
+                    {axes.map((a, i) => {
+                      const [x, y] = pt(i, R * a.v);
+                      return <circle key={i} cx={x} cy={y} r="3" />;
+                    })}
+                  </g>
+                  {axes.map((a, i) => {
+                    const [x, y] = pt(i, R + 16);
+                    return <text key={i} x={x} y={y} className="axis-label" textAnchor="middle" dominantBaseline="middle">{a.k}</text>;
+                  })}
+                </svg>
+              </div>
+              <div className="radar-legend">
+                <div style={{ fontSize:10.5, color:"var(--ink-dim)", textTransform:"uppercase", letterSpacing:".08em" }}>
+                  proficiency by domain
+                </div>
+                {axes.map((a) => (
+                  <div className="row" key={a.k}>
+                    <span className="dot-sm"></span>
+                    <span><b>{a.k}</b></span>
+                    <span className="val">{Math.round(a.v * 100)}</span>
+                  </div>
+                ))}
+                <div style={{ marginTop:8, fontSize:11, color:"var(--ink-mute)", lineHeight:1.55 }}>
+                  Calibrated against real production work — not just exposure.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // ────────────────────────── canvas
+    function App() {
+      return (
+        <DesignCanvas defaultZoom={0.7}>
+          <DCSection id="alts" title="About me — alternatives" subtitle="Pick one (or mix) to replace the GitHub-style activity heatmap">
+            <DCArtboard id="A" label="A · htop monitor — animated proficiency bars" width={720} height={420}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><HtopMonitor /></div>
+            </DCArtboard>
+            <DCArtboard id="B" label="B · git log --career — milestone timeline" width={720} height={580}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><GitTimeline /></div>
+            </DCArtboard>
+            <DCArtboard id="C" label="C · stats.json — counters + sparklines" width={720} height={360}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><StatTiles /></div>
+            </DCArtboard>
+            <DCArtboard id="D" label="D · now.md — currently…" width={720} height={460}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><NowMd /></div>
+            </DCArtboard>
+            <DCArtboard id="E" label="E · zsh — animated terminal session" width={720} height={460}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><TerminalSession /></div>
+            </DCArtboard>
+            <DCArtboard id="F" label="F · skills.radar — SVG radar chart" width={720} height={380}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><RadarChart /></div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

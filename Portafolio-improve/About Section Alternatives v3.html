@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — alternatives v3 (visual)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#06070a;
+    --ink:#d6dbe2; --ink-mute:#8d96a4; --ink-dim:#5a626f;
+    --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.10);
+    --acc:#4ade80; --acc-2:#86efac; --acc-rgb:74,222,128; --acc-glow:rgba(74,222,128,.22);
+    --warn:#fbbf24; --info:#38bdf8; --magenta:#e879f9; --rose:#fb7185; --violet:#a78bfa;
+    --font: "JetBrains Mono", ui-monospace, SF Mono, Menlo, monospace;
+  }
+  body{ background: var(--bg); margin:0; color:var(--ink); font-family:var(--font); }
+  *{ box-sizing:border-box; }
+
+  /* Pane chrome */
+  .pane{
+    background: linear-gradient(180deg, rgba(20,22,29,.85), rgba(15,17,22,.85));
+    border:1px solid var(--line); border-radius:10px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -30px rgba(0,0,0,.7);
+    overflow:hidden;
+  }
+  .pane-head{ display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)); }
+  .tl{ display:flex; gap:7px; }
+  .tl span{ width:11px; height:11px; border-radius:50%; box-shadow: 0 0 0 .5px rgba(0,0,0,.35) inset; }
+  .tl span:nth-child(1){ background:#ff5f57; }
+  .tl span:nth-child(2){ background:#febc2e; }
+  .tl span:nth-child(3){ background:#28c840; }
+  .pane-title{ font-size:11.5px; color:var(--ink-mute); letter-spacing:.04em; }
+  .pane-title b{ color:var(--ink); font-weight:500; }
+  .pane-meta{ margin-left:auto; font-size:10.5px; color:var(--ink-dim); letter-spacing:.05em; text-transform:uppercase; }
+  .pane-body{ padding:20px 22px; }
+  .blink-dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--acc); box-shadow:0 0 8px var(--acc-glow); animation: blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.35; } }
+
+  /* ─────────────────────── M. tree /raul */
+  .tr{ font-size:13px; line-height: 1.85; color: var(--ink); }
+  .tr .root{ color:var(--acc); font-weight:600; }
+  .tr .dir{ color:var(--info); }
+  .tr .file{ color:var(--ink); }
+  .tr .star{ color:var(--warn); }
+  .tr span.g{ color:var(--ink-dim); }
+  .tr .row{ display:flex; gap:0; }
+  .tr .row .pre{ color:var(--ink-dim); white-space:pre; }
+  .tr .tag{ margin-left:8px; font-size:10.5px; color:var(--ink-dim); }
+  .tr .acc{ color: var(--acc); }
+  .tr-foot{ margin-top:14px; padding-top:12px; border-top:1px dashed var(--line-2); font-size:11.5px; color:var(--ink-mute); display:flex; gap:18px; }
+  .tr-foot b{ color:var(--ink); font-weight:500; }
+
+  /* ─────────────────────── N. trading card */
+  .card-stage{ display:grid; place-items:center; height:100%; padding: 10px; }
+  .tcard{
+    width:300px; aspect-ratio: 5/7;
+    border-radius:14px; padding:10px;
+    background:
+      linear-gradient(135deg, rgba(var(--acc-rgb),.18) 0%, rgba(167,139,250,.10) 50%, rgba(251,191,36,.16) 100%),
+      #0b0d12;
+    border:1px solid rgba(var(--acc-rgb),.4);
+    box-shadow:
+      0 30px 60px -20px rgba(0,0,0,.7),
+      0 0 0 1px rgba(255,255,255,.03) inset,
+      0 0 40px rgba(var(--acc-rgb),.15);
+    position: relative;
+    display:flex; flex-direction:column; gap:8px;
+    transition: transform .25s ease;
+  }
+  .tcard:hover{ transform: translateY(-2px) rotate(-0.6deg); }
+  .tcard::before{
+    content:""; position:absolute; inset:6px; border-radius:10px;
+    border:1px dashed rgba(var(--acc-rgb),.35);
+    pointer-events:none;
+  }
+  .tcard .nm-row{ display:flex; justify-content:space-between; align-items:center; padding: 4px 8px 2px; }
+  .tcard .nm{ color:var(--ink); font-size:13px; font-weight:600; letter-spacing:-.01em; }
+  .tcard .cost{ color:var(--warn); font-weight:700; font-size:13px; }
+  .tcard .cost::before{ content:"◆ "; }
+
+  .tcard .art{
+    flex:1; border-radius:8px; position:relative; overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(var(--acc-rgb),.5), transparent 55%),
+      radial-gradient(circle at 30% 70%, rgba(167,139,250,.35), transparent 55%),
+      radial-gradient(circle at 80% 80%, rgba(251,191,36,.25), transparent 60%),
+      linear-gradient(180deg, #161922, #06070a);
+    display:grid; place-items:center;
+    border: 1px solid rgba(var(--acc-rgb),.2);
+  }
+  .tcard .art .silhouette{
+    font: 700 56px var(--font); color: var(--ink); letter-spacing:-.04em;
+    text-shadow: 0 0 18px var(--acc-glow);
+    background: linear-gradient(180deg, var(--ink), var(--acc-2));
+    -webkit-background-clip: text; background-clip:text; -webkit-text-fill-color: transparent;
+  }
+  .tcard .art .corner-l, .tcard .art .corner-r{
+    position:absolute; width:18px; height:18px; border:1px solid var(--acc); opacity:.7;
+  }
+  .tcard .art .corner-l{ top:8px; left:8px; border-right:0; border-bottom:0; }
+  .tcard .art .corner-r{ bottom:8px; right:8px; border-left:0; border-top:0; }
+  .tcard .type{
+    padding: 5px 10px; font-size:10.5px; color:var(--ink-mute);
+    border-top:1px solid rgba(var(--acc-rgb),.2);
+    border-bottom:1px solid rgba(var(--acc-rgb),.2);
+    background: rgba(var(--acc-rgb),.04);
+    letter-spacing:.06em; text-transform:uppercase;
+    display:flex; justify-content:space-between;
+  }
+  .tcard .type b{ color:var(--ink); font-weight:500; }
+  .tcard .abilities{ padding: 4px 10px 6px; font-size:11px; color:var(--ink-mute); display:flex; flex-direction:column; gap:3px; }
+  .tcard .abilities .ab{ display:flex; gap:6px; align-items:baseline; }
+  .tcard .abilities .ab .nm{ color:var(--acc); font-weight:600; }
+  .tcard .foot{
+    padding: 4px 10px 6px; font-size:9.5px; color:var(--ink-dim);
+    display:flex; justify-content:space-between; letter-spacing:.04em;
+  }
+  .tcard .foot .pwr{ color:var(--ink); font-weight:700; font-size:13px; letter-spacing:-.01em; }
+
+  /* ─────────────────────── O. metro line */
+  .metro{ padding: 6px 0 0; }
+  .metro-line{ position:relative; padding: 32px 24px 14px; }
+  .metro-line svg{ width:100%; display:block; }
+  .metro-stops{ display:flex; justify-content: space-between; position:relative; margin-top:-8px; padding: 0 4px; }
+  .metro-stop{ display:flex; flex-direction:column; align-items:center; flex:1; gap:6px; }
+  .metro-stop .label{ font-size:10.5px; color:var(--ink-mute); text-align:center; letter-spacing:.04em; line-height:1.3; min-height:26px; }
+  .metro-stop .year{ font-size:9.5px; color:var(--ink-dim); margin-top:2px; }
+  .metro-stop.now .label{ color:var(--acc); font-weight:600; }
+  .metro-stop.now .year{ color:var(--acc-2); }
+  .metro-legend{ display:flex; gap:18px; margin-top:14px; padding-top:14px; border-top:1px dashed var(--line-2); font-size:11px; color:var(--ink-mute); justify-content:center; }
+  .metro-legend .l{ display:inline-flex; align-items:center; gap:6px; }
+  .metro-legend .l i{ width:18px; height:3px; border-radius:2px; display:inline-block; }
+
+  /* ─────────────────────── P. constellation */
+  .constel{ position:relative; height: 380px; }
+  .constel svg{ width:100%; height:100%; display:block; }
+  .constel .pt{ fill: var(--acc); }
+  .constel .pt.big{ r:5; filter: drop-shadow(0 0 6px var(--acc-glow)); }
+  .constel .ring{ fill: none; stroke: rgba(var(--acc-rgb),.4); stroke-dasharray: 2 4; animation: spin 60s linear infinite; transform-origin: center; transform-box: fill-box; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+  .constel .label{ fill: var(--ink); font-family: var(--font); font-size: 11px; }
+  .constel .label.dim{ fill: var(--ink-mute); }
+  .constel .line{ stroke: rgba(var(--acc-rgb),.25); stroke-width: .6; }
+  .constel .line.bright{ stroke: rgba(var(--acc-rgb),.55); }
+
+  .constel-foot{ margin-top: 10px; display:flex; justify-content:space-between; align-items:baseline; font-size:11px; color:var(--ink-mute); padding: 0 4px; }
+  .constel-foot b{ color: var(--acc); font-weight:500; }
+
+  /* ─────────────────────── Q. minimal fastfetch (3 cols, very few rows) */
+  .mff{ display:grid; grid-template-columns: 110px 1fr; gap: 22px; align-items:center; }
+  .mff-art{
+    width:110px; height:130px; border-radius:8px; position:relative; overflow:hidden;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(var(--acc-rgb),.45), transparent 60%),
+      linear-gradient(180deg, #0e1117, #06070a);
+    border: 1px solid rgba(var(--acc-rgb),.25);
+    display:grid; place-items:center;
+  }
+  .mff-art .R{
+    font: 700 56px var(--font); letter-spacing:-.04em;
+    background: linear-gradient(180deg, var(--ink), var(--acc));
+    -webkit-background-clip: text; background-clip:text; -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 12px var(--acc-glow);
+  }
+  .mff-art .corner-l, .mff-art .corner-r{ position:absolute; width:12px; height:12px; border:1px solid var(--acc); opacity:.6; }
+  .mff-art .corner-l{ top:6px; left:6px; border-right:0; border-bottom:0; }
+  .mff-art .corner-r{ bottom:6px; right:6px; border-left:0; border-top:0; }
+
+  .mff-rows{ display:flex; flex-direction:column; gap:8px; }
+  .mff-rows .head{ color:var(--acc); font-size:12px; font-weight:600; padding-bottom:6px; border-bottom:1px dashed var(--line-2); margin-bottom:4px; letter-spacing:.04em; }
+  .mff-rows .row{ display:grid; grid-template-columns: 78px 1fr; gap:14px; font-size:12.5px; }
+  .mff-rows .k{ color:var(--acc); font-weight:500; }
+  .mff-rows .v{ color:var(--ink); }
+  .mff-rows .v.mute{ color:var(--ink-mute); }
+  .mff-colors{ display:flex; gap:5px; margin-top:6px; }
+  .mff-colors > i{ width:18px; height:11px; border-radius:2px; display:block; }
+
+  /* ─────────────────────── R. polaroid stack */
+  .pola-stage{ display:grid; place-items:center; padding: 16px 8px 4px; height: 100%; }
+  .pola-fan{ position:relative; width: 100%; max-width: 580px; height: 300px; }
+  .pola{
+    position:absolute;
+    width: 200px; padding: 12px 12px 38px;
+    background: #f3efe6;
+    border-radius: 3px;
+    box-shadow: 0 18px 36px -10px rgba(0,0,0,.6), 0 0 0 1px rgba(0,0,0,.2);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1);
+    color: #2a2a26;
+    font-family: var(--font);
+  }
+  .pola:hover{ transform: translate(-50%,-50%) rotate(0deg) translateY(-8px) !important; z-index: 5; }
+  .pola .photo{
+    aspect-ratio: 1; border-radius: 1px; background: #0a0b0e;
+    display:grid; place-items:center;
+    background:
+      radial-gradient(circle at 50% 35%, rgba(var(--acc-rgb),.4), transparent 60%),
+      linear-gradient(180deg, #1a1f2b, #0a0b0e);
+    position:relative; overflow:hidden;
+  }
+  .pola .photo .glyph{
+    font: 700 32px var(--font); letter-spacing:-.04em;
+    background: linear-gradient(180deg, var(--ink), var(--acc));
+    -webkit-background-clip: text; background-clip:text; -webkit-text-fill-color: transparent;
+  }
+  .pola .photo.alt-1{ background: linear-gradient(180deg, #2a1f3b, #0a0b0e); }
+  .pola .photo.alt-2{ background: linear-gradient(180deg, #1f2b35, #0a0b0e); }
+  .pola .photo.alt-3{ background: linear-gradient(180deg, #2b2820, #0a0b0e); }
+  .pola .cap{ font-family: "Caveat", "Comic Sans MS", cursive; font-size: 14px; text-align:center; margin-top: 10px; color: #2a2a26; }
+  .pola .meta{ font-size: 9px; color: #6a6660; text-align: center; margin-top: 1px; letter-spacing: .04em; }
+
+  .pola.p1{ left: 14%; top: 50%; transform: translate(-50%,-50%) rotate(-9deg); }
+  .pola.p2{ left: 38%; top: 50%; transform: translate(-50%,-50%) rotate(4deg); z-index:2; }
+  .pola.p3{ left: 62%; top: 50%; transform: translate(-50%,-50%) rotate(-3deg); z-index:3; }
+  .pola.p4{ left: 86%; top: 50%; transform: translate(-50%,-50%) rotate(7deg); }
+
+  /* ─────────────────────── helper text */
+  .h1{ margin:0 0 4px; font-size: 14px; color: var(--ink); font-weight: 600; letter-spacing: -.01em; }
+  .h1 .acc{ color: var(--acc); }
+  .sub{ margin:0; font-size: 11.5px; color: var(--ink-mute); }
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    // ─────────────────────── M. tree /raul
+    const Tree = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~ ❯ <b>tree /raul</b></div>
+          <div className="pane-meta">depth=2</div>
+        </div>
+        <div className="pane-body">
+          <div className="tr">
+            <div className="row"><span className="pre"></span><span className="root">/raul</span></div>
+            <div className="row"><span className="pre">├─ </span><span className="dir">identity/</span></div>
+            <div className="row"><span className="pre">│   ├─ </span><span className="file">fullstack.dev</span><span className="tag">primary</span></div>
+            <div className="row"><span className="pre">│   ├─ </span><span className="file">software-architect.dev</span></div>
+            <div className="row"><span className="pre">│   └─ </span><span className="file">problem-solver.md</span></div>
+            <div className="row"><span className="pre">├─ </span><span className="dir">stack/</span></div>
+            <div className="row"><span className="pre">│   ├─ </span><span className="file">.net</span> <span className="g">·</span> <span className="file">typescript</span> <span className="g">·</span> <span className="file">node</span> <span className="g">·</span> <span className="file">python</span></div>
+            <div className="row"><span className="pre">│   └─ </span><span className="file">postgres</span> <span className="g">·</span> <span className="file">mongo</span> <span className="g">·</span> <span className="file">redis</span> <span className="g">·</span> <span className="file">docker</span></div>
+            <div className="row"><span className="pre">├─ </span><span className="dir">principles/</span></div>
+            <div className="row"><span className="pre">│   ├─ </span><span className="star">★</span> <span className="file">clean-architecture</span></div>
+            <div className="row"><span className="pre">│   ├─ </span><span className="star">★</span> <span className="file">multi-tenancy</span></div>
+            <div className="row"><span className="pre">│   └─ </span><span className="star">★</span> <span className="file">event-driven</span></div>
+            <div className="row"><span className="pre">├─ </span><span className="dir">location/</span></div>
+            <div className="row"><span className="pre">│   └─ </span><span className="file">caracas.ve</span> <span className="g">→ utc−4</span></div>
+            <div className="row"><span className="pre">└─ </span><span className="dir acc">availability/</span></div>
+            <div className="row"><span className="pre">    └─ </span><span className="file">open.now</span> <span className="g">·</span> <span className="acc">●</span></div>
+          </div>
+          <div className="tr-foot">
+            <span><b>14</b> dirs</span>
+            <span><b>5+</b> yrs</span>
+            <span><b>&lt;24h</b> reply</span>
+            <span style={{ marginLeft:"auto", color:"var(--acc)" }}>● online</span>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── N. trading card
+    const TradingCard = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/cards/<b>raul.card</b></div>
+          <div className="pane-meta">edition · 01/01</div>
+        </div>
+        <div className="pane-body">
+          <div className="card-stage">
+            <div className="tcard">
+              <div className="nm-row">
+                <span className="nm">RAÚL MALAGARRIGA</span>
+                <span className="cost">5</span>
+              </div>
+              <div className="art">
+                <span className="corner-l"></span>
+                <span className="corner-r"></span>
+                <span className="silhouette">R</span>
+              </div>
+              <div className="type">
+                <span>Creature — <b>Architect / Builder</b></span>
+                <span style={{ color: "var(--acc)" }}>★ rare</span>
+              </div>
+              <div className="abilities">
+                <div className="ab"><span className="nm">Reliability.</span> Stays in play.</div>
+                <div className="ab"><span className="nm">Clarity.</span> Translates ambiguity.</div>
+              </div>
+              <div className="foot">
+                <span>caracas · utc−4</span>
+                <span className="pwr">5+ / ∞</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── O. metro line
+    const Metro = () => {
+      const stops = [
+        { y: "2019", l: "first commit",   color: "var(--ink-mute)" },
+        { y: "2020", l: "backend\nfoundations", color: "var(--ink-mute)" },
+        { y: "2022", l: "fullstack\nshipping",  color: "var(--ink-mute)" },
+        { y: "2023", l: "architect\nmindset",   color: "var(--ink-mute)" },
+        { y: "2024", l: "ai · ml\nintegrations", color: "var(--ink-mute)" },
+        { y: "now",  l: "you\nare here",    color: "var(--acc)", now: true },
+      ];
+      const N = stops.length;
+      return (
+        <div className="pane">
+          <div className="pane-head">
+            <div className="tl"><span></span><span></span><span></span></div>
+            <div className="pane-title">~/about/<b>line.map</b></div>
+            <div className="pane-meta">5 stops · 1 line</div>
+          </div>
+          <div className="pane-body">
+            <div className="metro">
+              <p className="h1"><span className="acc">●</span> the raul line</p>
+              <p className="sub" style={{ marginBottom: 8 }}>5+ years · one direction · always shipping</p>
+              <div className="metro-line">
+                <svg viewBox="0 0 600 50" preserveAspectRatio="none" style={{ height: 50 }}>
+                  <line x1="20" y1="25" x2="580" y2="25" stroke="rgba(var(--acc-rgb),.35)" strokeWidth="6" strokeLinecap="round" />
+                  <line x1="20" y1="25" x2="580" y2="25" stroke="var(--acc)" strokeWidth="2" strokeDasharray="3 5" />
+                  {stops.map((s, i) => {
+                    const x = 20 + ((580 - 20) * i) / (N - 1);
+                    return (
+                      <g key={i}>
+                        <circle cx={x} cy="25" r={s.now ? 9 : 6} fill="#06070a" stroke={s.now ? "var(--acc)" : "rgba(var(--acc-rgb),.65)"} strokeWidth={s.now ? 2.5 : 1.5} />
+                        {s.now && <circle cx={x} cy="25" r="3" fill="var(--acc)" filter="drop-shadow(0 0 6px var(--acc))" />}
+                      </g>
+                    );
+                  })}
+                </svg>
+                <div className="metro-stops">
+                  {stops.map((s, i) => (
+                    <div key={i} className={`metro-stop ${s.now ? "now" : ""}`}>
+                      <div className="label">{s.l.split("\n").map((p, j) => <div key={j}>{p}</div>)}</div>
+                      <div className="year">{s.y}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="metro-legend">
+                <span className="l"><i style={{ background: "var(--acc)" }}></i> career line</span>
+                <span className="l"><i style={{ background: "rgba(var(--acc-rgb),.4)", border: "1px dashed var(--acc)" }}></i> future stops</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────── P. constellation
+    const Constellation = () => {
+      const nodes = [
+        { id:"core",  x:300, y:200, big:true,  label:"raul",         under:"core" },
+        { id:"be",    x:140, y:120, label:"backend" },
+        { id:"fe",    x:160, y:280, label:"frontend" },
+        { id:"db",    x:440, y:120, label:"data" },
+        { id:"infra", x:460, y:290, label:"infra" },
+        { id:"ai",    x:300, y:60,  label:"ai" },
+        { id:"arch",  x:300, y:340, label:"architect", acc:true },
+      ];
+      const edges = [
+        ["core","be"],["core","fe"],["core","db"],["core","infra"],
+        ["core","ai"],["core","arch"],
+        ["be","db"],["fe","be"],["db","infra"],["ai","be"]
+      ];
+      const map = Object.fromEntries(nodes.map(n => [n.id, n]));
+      return (
+        <div className="pane">
+          <div className="pane-head">
+            <div className="tl"><span></span><span></span><span></span></div>
+            <div className="pane-title">~/about/<b>constellation.svg</b></div>
+            <div className="pane-meta">7 nodes</div>
+          </div>
+          <div className="pane-body">
+            <div className="constel">
+              <svg viewBox="0 0 600 400">
+                {edges.map(([a,b], i) => {
+                  const na = map[a], nb = map[b];
+                  return <line key={i} className={a === "core" || b === "core" ? "line bright" : "line"} x1={na.x} y1={na.y} x2={nb.x} y2={nb.y} />;
+                })}
+                <circle className="ring" cx="300" cy="200" r="170" />
+                <circle className="ring" cx="300" cy="200" r="110" />
+                {nodes.map((n) => (
+                  <g key={n.id}>
+                    {n.big && <circle cx={n.x} cy={n.y} r="18" fill="none" stroke="var(--acc)" strokeWidth=".6" opacity=".3" />}
+                    {n.big && <circle cx={n.x} cy={n.y} r="11" fill="none" stroke="var(--acc)" strokeWidth=".6" opacity=".5" />}
+                    <circle cx={n.x} cy={n.y} r={n.big ? 5 : n.acc ? 4 : 3.2}
+                      fill={n.acc ? "var(--warn)" : "var(--acc)"}
+                      style={n.big || n.acc ? { filter:"drop-shadow(0 0 6px var(--acc-glow))" } : {}}
+                    />
+                    <text x={n.x + 10} y={n.y + 4} className={n.big ? "label" : "label dim"} fontSize={n.big ? 13 : 11}>{n.label}</text>
+                  </g>
+                ))}
+              </svg>
+            </div>
+            <div className="constel-foot">
+              <span>nodes <b>raul</b> connects</span>
+              <span style={{ color:"var(--warn)" }}>★ architect — passive</span>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // ─────────────────────── Q. minimal fastfetch
+    const MiniFastfetch = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~ ❯ <b>fastfetch --minimal</b></div>
+          <div className="pane-meta">v2.1</div>
+        </div>
+        <div className="pane-body">
+          <div className="mff">
+            <div className="mff-art">
+              <span className="corner-l"></span>
+              <span className="corner-r"></span>
+              <span className="R">R</span>
+            </div>
+            <div className="mff-rows">
+              <div className="head">raul@dev</div>
+              <div className="row"><span className="k">role</span>   <span className="v">fullstack · architect</span></div>
+              <div className="row"><span className="k">stack</span>  <span className="v">.net · ts · postgres · docker</span></div>
+              <div className="row"><span className="k">based</span>  <span className="v">caracas · utc−4</span></div>
+              <div className="row"><span className="k">uptime</span> <span className="v">5+ yrs in production</span></div>
+              <div className="row"><span className="k">status</span> <span className="v"><span style={{ color:"var(--acc)" }}>●</span> open for work</span></div>
+              <div className="mff-colors">
+                <i style={{ background:"var(--rose)" }}></i>
+                <i style={{ background:"var(--acc)" }}></i>
+                <i style={{ background:"var(--warn)" }}></i>
+                <i style={{ background:"var(--info)" }}></i>
+                <i style={{ background:"var(--violet)" }}></i>
+                <i style={{ background:"var(--magenta)" }}></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── R. polaroid stack
+    const PolaroidStack = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>contact-sheet.jpg</b></div>
+          <div className="pane-meta">4 frames</div>
+        </div>
+        <div className="pane-body" style={{ padding: 0 }}>
+          <div className="pola-stage">
+            <div className="pola-fan">
+              <div className="pola p1">
+                <div className="photo"><div className="glyph">R</div></div>
+                <div className="cap">the maker</div>
+                <div className="meta">caracas · '26</div>
+              </div>
+              <div className="pola p2">
+                <div className="photo alt-1"><div className="glyph">{ "{ }" }</div></div>
+                <div className="cap">the code</div>
+                <div className="meta">.ts · .cs · .py</div>
+              </div>
+              <div className="pola p3">
+                <div className="photo alt-2"><div className="glyph">⌘</div></div>
+                <div className="cap">the principles</div>
+                <div className="meta">clean · reliable</div>
+              </div>
+              <div className="pola p4">
+                <div className="photo alt-3"><div className="glyph">●</div></div>
+                <div className="cap">available now</div>
+                <div className="meta">&lt;24h reply</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── canvas
+    function App() {
+      return (
+        <DesignCanvas defaultZoom={0.65}>
+          <DCSection id="alts3" title="About me — visual concepts (round 3)" subtitle="Minimal text, no progress bars. Pure visual + a few key:value lines.">
+            <DCArtboard id="M" label="M · tree /raul — filesystem as portrait" width={720} height={520}>
+              <div style={{ padding: 24, background: "var(--bg)", height: "100%" }}><Tree /></div>
+            </DCArtboard>
+            <DCArtboard id="N" label="N · trading card — collectible portrait" width={520} height={620}>
+              <div style={{ padding: 16, background: "var(--bg)", height: "100%" }}><TradingCard /></div>
+            </DCArtboard>
+            <DCArtboard id="O" label="O · metro line — career as one subway line" width={780} height={400}>
+              <div style={{ padding: 24, background: "var(--bg)", height: "100%" }}><Metro /></div>
+            </DCArtboard>
+            <DCArtboard id="P" label="P · constellation — skills as stars" width={780} height={580}>
+              <div style={{ padding: 24, background: "var(--bg)", height: "100%" }}><Constellation /></div>
+            </DCArtboard>
+            <DCArtboard id="Q" label="Q · fastfetch (minimal) — 5 lines, big logo" width={680} height={320}>
+              <div style={{ padding: 24, background: "var(--bg)", height: "100%" }}><MiniFastfetch /></div>
+            </DCArtboard>
+            <DCArtboard id="R" label="R · polaroid contact sheet — 4 frames, 2-word captions" width={780} height={460}>
+              <div style={{ padding: 24, background: "var(--bg)", height: "100%" }}><PolaroidStack /></div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

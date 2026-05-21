@@ -1,0 +1,613 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>About — alternatives v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#0a0b0e;
+    --ink:#d6dbe2; --ink-mute:#8d96a4; --ink-dim:#5a626f;
+    --line:rgba(255,255,255,.06); --line-2:rgba(255,255,255,.10);
+    --acc:#4ade80; --acc-2:#86efac; --acc-rgb:74,222,128; --acc-glow:rgba(74,222,128,.22);
+    --warn:#fbbf24; --info:#38bdf8; --magenta:#e879f9; --rose:#fb7185; --violet:#a78bfa;
+    --font: "JetBrains Mono", ui-monospace, SF Mono, Menlo, monospace;
+  }
+  body{ background:#06070a; margin:0; color:var(--ink); font-family:var(--font); }
+  *{ box-sizing:border-box; }
+
+  /* Pane chrome */
+  .pane{
+    background: linear-gradient(180deg, rgba(20,22,29,.85), rgba(15,17,22,.85));
+    border:1px solid var(--line); border-radius:10px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -30px rgba(0,0,0,.7);
+    overflow:hidden;
+  }
+  .pane-head{ display:flex; align-items:center; gap:10px; padding:9px 12px; border-bottom:1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0)); }
+  .tl{ display:flex; gap:7px; }
+  .tl span{ width:11px; height:11px; border-radius:50%; box-shadow: 0 0 0 .5px rgba(0,0,0,.35) inset; }
+  .tl span:nth-child(1){ background:#ff5f57; }
+  .tl span:nth-child(2){ background:#febc2e; }
+  .tl span:nth-child(3){ background:#28c840; }
+  .pane-title{ font-size:11.5px; color:var(--ink-mute); letter-spacing:.04em; }
+  .pane-title b{ color:var(--ink); font-weight:500; }
+  .pane-meta{ margin-left:auto; font-size:10.5px; color:var(--ink-dim); letter-spacing:.05em; text-transform:uppercase; }
+  .pane-body{ padding:18px 20px; }
+
+  .blink-dot{ display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--acc); box-shadow:0 0 8px var(--acc-glow); animation: blink 1.4s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:.35; } }
+  .caret{ display:inline-block; width:.55em; height:1em; background:var(--acc); vertical-align:-.12em; animation: blink 1s steps(1) infinite; box-shadow:0 0 10px var(--acc-glow); }
+
+  /* ─────────────────────── G. fastfetch */
+  .ff{ display:grid; grid-template-columns: 200px 1fr; gap:24px; align-items:center; }
+  .ff-ascii{ font-size:9.5px; line-height:1.05; white-space:pre; color:var(--acc); opacity:.9; text-shadow: 0 0 12px var(--acc-glow); }
+  .ff-rows{ display:flex; flex-direction:column; gap:6px; font-size:12.5px; }
+  .ff-rows .head{ color:var(--acc); font-weight:600; margin-bottom:8px; padding-bottom:6px; border-bottom:1px dashed var(--line-2); }
+  .ff-rows .row{ display:grid; grid-template-columns: 100px 1fr; gap:10px; }
+  .ff-rows .k{ color:var(--acc); font-weight:500; }
+  .ff-rows .v{ color:var(--ink); }
+  .ff-rows .v.mute{ color:var(--ink-mute); }
+  .ff-colors{ display:flex; gap:5px; margin-top:10px; }
+  .ff-colors > i{ width:18px; height:11px; border-radius:2px; display:block; }
+
+  /* ─────────────────────── H. boot sequence */
+  .boot{ background:#06080b; border-radius:8px; padding:14px 16px; min-height:300px; border:1px solid var(--line); font-size:12px; line-height:1.65; color:var(--ink); overflow:hidden; }
+  .boot .l{ display:flex; gap:8px; opacity:0; transform: translateY(4px); animation: bootIn .25s ease forwards; }
+  .boot .ok{ color:var(--acc); width:50px; flex:none; }
+  .boot .warn{ color:var(--warn); width:50px; flex:none; }
+  .boot .info{ color:var(--info); width:50px; flex:none; }
+  .boot .dim{ color:var(--ink-dim); }
+  .boot .banner{ margin-top:14px; padding:14px 16px; border:1px dashed var(--acc); border-radius:6px; color:var(--acc); text-align:center; opacity:0; animation: bootIn .4s ease forwards; animation-delay: 3.6s; background: rgba(var(--acc-rgb),.04); }
+  .boot .banner b{ font-size:14px; letter-spacing:.04em; }
+  @keyframes bootIn{ to{ opacity:1; transform:none; } }
+
+  /* ─────────────────────── I. manpage */
+  .mp{ font-size:12.5px; line-height:1.7; }
+  .mp .top{ display:flex; justify-content:space-between; padding-bottom:8px; border-bottom:1px solid var(--line-2); color:var(--ink-dim); font-size:11px; letter-spacing:.06em; text-transform:uppercase; }
+  .mp h6{ margin: 16px 0 6px; color:var(--acc); font-weight:600; font-size:12px; letter-spacing:.06em; }
+  .mp p, .mp ul{ margin:0; color:var(--ink-mute); }
+  .mp ul{ list-style:none; padding-left:0; }
+  .mp ul li{ display:grid; grid-template-columns: 150px 1fr; gap:14px; padding:3px 0; }
+  .mp ul li .opt{ color:var(--ink); }
+  .mp code{ color:var(--ink); background:rgba(var(--acc-rgb),.06); padding:0 4px; border-radius:3px; font-size:.95em; }
+  .mp .accent{ color:var(--acc-2); }
+  .mp .syn{ color:var(--ink); padding:8px 0; }
+  .mp .syn .acc{ color:var(--acc); }
+
+  /* ─────────────────────── J. .zshrc */
+  .zsh{ font-size:12.5px; line-height:1.7; }
+  .zsh .ln{ display:grid; grid-template-columns: 28px 1fr; gap:10px; padding: 0 0; }
+  .zsh .ln .no{ color:var(--ink-dim); text-align:right; opacity:.6; user-select:none; font-size:11px; padding-top:1px; }
+  .zsh .cm{ color:var(--ink-dim); font-style: italic; }
+  .zsh .kw{ color:var(--magenta); }
+  .zsh .fn{ color:var(--info); }
+  .zsh .var{ color:var(--warn); }
+  .zsh .str{ color:var(--acc-2); }
+  .zsh .op{ color:var(--ink-mute); }
+  .zsh .br{ color:var(--ink); }
+  .zsh-header{ display:flex; gap:14px; font-size:10.5px; color:var(--ink-dim); padding-bottom:8px; border-bottom:1px dashed var(--line-2); margin-bottom:8px; text-transform:uppercase; letter-spacing:.08em; }
+  .zsh-header .path{ color:var(--ink); }
+
+  /* ─────────────────────── K. bento grid */
+  .bento{ display:grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 78px; gap:10px; }
+  .b-cell{
+    background: linear-gradient(180deg, rgba(255,255,255,.025), rgba(255,255,255,0));
+    border:1px solid var(--line); border-radius:10px;
+    padding:14px; position:relative; overflow:hidden;
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  .b-cell:hover{ border-color: rgba(var(--acc-rgb),.4); transform: translateY(-1px); }
+  .b-cell .lbl{ font-size:10px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.08em; margin-bottom:6px; }
+  .b-cell .big{ font-size:24px; color:var(--ink); letter-spacing:-.02em; font-weight:600; }
+  .b-cell .sub{ font-size:11px; color:var(--ink-mute); margin-top:4px; line-height:1.5; }
+
+  .b-photo{ grid-column: span 2; grid-row: span 3; padding:0; background:#000; }
+  .b-photo img{ width:100%; height:100%; object-fit:cover; opacity:.92; }
+  .b-photo .ph-meta{ position:absolute; left:0; right:0; bottom:0; padding:14px 16px;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,.7));
+    color:var(--ink); font-size:11.5px; display:flex; align-items:center; gap:8px;
+  }
+
+  .b-quote{ grid-column: span 2; grid-row: span 2; }
+  .b-quote p{ margin:0; color:var(--ink); font-size:13px; line-height:1.55; font-style: italic; }
+  .b-quote cite{ display:block; margin-top:6px; color:var(--acc); font-size:10.5px; font-style: normal; letter-spacing:.04em; }
+
+  .b-stat{ }
+  .b-stack{ grid-column: span 2; grid-row: span 2; }
+  .b-stack .tags{ display:flex; flex-wrap:wrap; gap:5px; margin-top:6px; }
+  .b-stack .tag{ font-size:10.5px; padding:3px 8px; border:1px solid var(--line-2); border-radius:999px; color:var(--ink-mute); background: rgba(var(--acc-rgb),.04); }
+  .b-stack .tag.hot{ color:var(--acc-2); border-color: rgba(var(--acc-rgb),.35); }
+
+  .b-now{ grid-column: span 2; grid-row: span 1; display:flex; align-items:center; gap:12px; }
+  .b-now .eq{ display:flex; gap:3px; align-items:flex-end; height:18px; }
+  .b-now .eq i{ display:block; width:3px; background: var(--acc); border-radius:1px; opacity:.9; box-shadow: 0 0 5px var(--acc-glow); animation: eq .8s ease-in-out infinite alternate; }
+  .b-now .eq i:nth-child(1){ height:60%; animation-delay:-.4s; }
+  .b-now .eq i:nth-child(2){ height:100%; animation-delay:-.2s; }
+  .b-now .eq i:nth-child(3){ height:80%; }
+  .b-now .eq i:nth-child(4){ height:45%; animation-delay:-.6s; }
+  @keyframes eq{ to{ height:30%; } }
+
+  .b-loc{ display:flex; flex-direction:column; gap:6px; }
+  .b-loc .map{ height:24px; opacity:.6; }
+  .b-loc .map svg{ width:100%; height:100%; }
+
+  /* ─────────────────────── L. RPG character sheet */
+  .rpg{ display:grid; grid-template-columns: 220px 1fr; gap:18px; }
+  .rpg-avatar{
+    height:220px; border-radius:8px; border:1px solid var(--line);
+    background:
+      radial-gradient(circle at 30% 20%, rgba(var(--acc-rgb),.12), transparent 55%),
+      linear-gradient(180deg, #0a0b0e, #14161d);
+    position:relative; overflow:hidden;
+    display:flex; align-items:flex-end; padding:14px;
+    box-shadow: inset 0 0 30px rgba(var(--acc-rgb),.05);
+  }
+  .rpg-avatar .frame{
+    position:absolute; inset:14px; border:1px dashed rgba(var(--acc-rgb),.25); border-radius:6px;
+    display:grid; place-items:center;
+  }
+  .rpg-avatar .frame .glyph{
+    font: 700 64px var(--font); color: var(--acc); text-shadow: 0 0 18px var(--acc-glow);
+    letter-spacing:-.04em;
+  }
+  .rpg-avatar .nameplate{ position:relative; z-index:1; }
+  .rpg-avatar .nm{ font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.1em; }
+  .rpg-avatar .nm b{ color:var(--ink); }
+  .rpg-avatar .lvl{ margin-top:4px; display:flex; gap:8px; align-items:baseline; }
+  .rpg-avatar .lvl .L{ color:var(--acc); font-weight:700; font-size:22px; }
+  .rpg-avatar .lvl .cl{ color:var(--ink); font-size:11.5px; }
+
+  .rpg-stats{ display:flex; flex-direction:column; gap:8px; }
+  .rpg-stats .stat{ display:grid; grid-template-columns: 28px 95px 1fr 40px; gap:10px; align-items:center; font-size:12px; }
+  .rpg-stats .stat .g{ width:24px; height:24px; border-radius:5px; display:grid; place-items:center; background: rgba(var(--acc-rgb),.08); color:var(--acc); font-weight:700; font-size:11px; border:1px solid rgba(var(--acc-rgb),.18); }
+  .rpg-stats .stat .nm{ color:var(--ink); text-transform:uppercase; letter-spacing:.06em; font-size:11px; }
+  .rpg-stats .stat .bar{ height:6px; background: rgba(255,255,255,.04); border-radius:3px; overflow:hidden; }
+  .rpg-stats .stat .bar > i{ display:block; height:100%; background: linear-gradient(90deg, var(--acc), var(--acc-2)); box-shadow: 0 0 8px var(--acc-glow); animation: htopGrow 1.2s cubic-bezier(.2,.8,.2,1) forwards; transform-origin:left; }
+  @keyframes htopGrow{ from{ transform: scaleX(0); } to{ transform: scaleX(1); } }
+  .rpg-stats .stat .v{ text-align:right; color:var(--ink); font-variant-numeric: tabular-nums; font-weight:600; }
+  .rpg-stats .stat .vm{ color:var(--ink-dim); font-size:11px; }
+
+  .rpg-equip{ margin-top:14px; }
+  .rpg-equip .lbl{ font-size:10.5px; color:var(--ink-mute); text-transform:uppercase; letter-spacing:.08em; margin-bottom:8px; }
+  .rpg-grid{ display:grid; grid-template-columns: repeat(8, 1fr); gap:6px; }
+  .slot{
+    aspect-ratio:1; border:1px solid var(--line); border-radius:6px;
+    background: rgba(255,255,255,.025);
+    display:grid; place-items:center; font-size:9.5px; color:var(--ink-mute);
+    letter-spacing:.04em; padding:4px; text-align:center; line-height:1.1;
+    transition: all .2s;
+  }
+  .slot.has{ border-color: rgba(var(--acc-rgb),.35); background: rgba(var(--acc-rgb),.07); color: var(--acc-2); }
+  .slot.legendary{ border-color: var(--warn); background: rgba(251,191,36,.07); color: var(--warn); box-shadow: 0 0 14px rgba(251,191,36,.15); }
+  .slot:hover{ transform: scale(1.06); }
+
+  .rpg-passives{ margin-top:12px; padding-top:12px; border-top:1px dashed var(--line-2); display:flex; gap:14px; flex-wrap:wrap; font-size:11px; color:var(--ink-mute); }
+  .rpg-passives span b{ color: var(--ink); }
+  .rpg-passives .p{ display:inline-flex; align-items:center; gap:5px; }
+  .rpg-passives .p::before{ content:"◆"; color:var(--acc); }
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" src="design-canvas.jsx"></script>
+
+  <script type="text/babel">
+    // ─────────────────────── G. fastfetch
+    const FASTFETCH_ASCII =
+`        ▄▄▄▄▄▄▄▄▄
+      ▄█▀▀     ▀▀█▄
+    ▄█▀           ▀█▄
+   █▀     ▄▄▄▄     ▀█
+   █     █▀  ▀█     █
+   █     █▄▄▄█▀     █
+   █     █  ▀█▄     █
+   █▄    █    ▀█    █
+    ▀█▄  ▀▀     ▀▀▄█▀
+      ▀█▄▄     ▄▄█▀
+        ▀▀▀▀▀▀▀▀▀`;
+
+    const Fastfetch = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~ ❯ <b>fastfetch</b></div>
+          <div className="pane-meta">v2.1.0</div>
+        </div>
+        <div className="pane-body">
+          <div className="ff">
+            <pre className="ff-ascii">{FASTFETCH_ASCII}</pre>
+            <div className="ff-rows">
+              <div className="head">raul@dev-machine</div>
+              <div className="row"><span className="k">OS</span>          <span className="v">RaulOS 5.2.4 <span className="v mute">(human-edition)</span></span></div>
+              <div className="row"><span className="k">Host</span>        <span className="v">Caracas, Venezuela <span className="v mute">· UTC−4</span></span></div>
+              <div className="row"><span className="k">Kernel</span>      <span className="v">curiosity-driven · 5.0 yrs</span></div>
+              <div className="row"><span className="k">Uptime</span>      <span className="v">28 years <span className="v mute">(5+ in software)</span></span></div>
+              <div className="row"><span className="k">Shell</span>       <span className="v">zsh + tmux</span></div>
+              <div className="row"><span className="k">DE</span>          <span className="v">VS Code · Neovim · Warp</span></div>
+              <div className="row"><span className="k">CPU</span>         <span className="v">deep-focus core @ 4.0GHz <span className="v mute">(coffee-cooled)</span></span></div>
+              <div className="row"><span className="k">GPU</span>         <span className="v">imagination · pattern-matching</span></div>
+              <div className="row"><span className="k">Memory</span>      <span className="v">technical books + side projects</span></div>
+              <div className="row"><span className="k">Disk</span>        <span className="v">tabs / 256 GB <span className="v mute">(94% full)</span></span></div>
+              <div className="row"><span className="k">Languages</span>   <span className="v">TS · C# · Python · Go <span className="v mute">+ ES/EN</span></span></div>
+              <div className="row"><span className="k">Status</span>      <span className="v"><span style={{ color:"var(--acc)" }}>●</span> available for work</span></div>
+              <div className="ff-colors">
+                <i style={{ background:"#0a0b0e", border:"1px solid var(--line)" }}></i>
+                <i style={{ background:"var(--rose)" }}></i>
+                <i style={{ background:"var(--acc)" }}></i>
+                <i style={{ background:"var(--warn)" }}></i>
+                <i style={{ background:"var(--info)" }}></i>
+                <i style={{ background:"var(--violet)" }}></i>
+                <i style={{ background:"var(--magenta)" }}></i>
+                <i style={{ background:"var(--ink)" }}></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── H. boot sequence
+    const BOOT_LINES = [
+      { tag: "ok",   text: <>Loading <span className="dim">/proc/identity</span> — Raúl Malagarriga</> },
+      { tag: "ok",   text: <>Initializing curiosity module v5.0</> },
+      { tag: "ok",   text: <>Mounting <span className="dim">/experience</span> — 5 yrs of production systems</> },
+      { tag: "ok",   text: <>Starting reliability daemon… <span className="dim">[stable]</span></> },
+      { tag: "ok",   text: <>Compiling fullstack toolchain — frontend · backend · data</> },
+      { tag: "info", text: <>Loading principles: <span className="dim">clean architecture · multi-tenancy · clarity</span></> },
+      { tag: "ok",   text: <>Establishing comms — Caracas · UTC−4 · &lt;24h response</> },
+      { tag: "warn", text: <>Coffee tank: 47% <span className="dim">(refilling…)</span></> },
+      { tag: "ok",   text: <>Loading collaboration kernel — small teams, big ownership</> },
+      { tag: "ok",   text: <>System checks passed: <span className="dim">11/11</span></> },
+    ];
+    const BootSequence = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>boot.log</b></div>
+          <div className="pane-meta">tail -f</div>
+        </div>
+        <div className="pane-body">
+          <div className="boot">
+            <div style={{ color:"var(--ink-dim)", marginBottom:8 }}>RaulOS 5.2.4 — booting…</div>
+            {BOOT_LINES.map((l, i) => (
+              <div className="l" key={i} style={{ animationDelay: `${i * 280}ms` }}>
+                <span className={l.tag === "ok" ? "ok" : l.tag === "warn" ? "warn" : "info"}>
+                  {l.tag === "ok" ? "[  OK  ]" : l.tag === "warn" ? "[ WARN ]" : "[ INFO ]"}
+                </span>
+                <span>{l.text}</span>
+              </div>
+            ))}
+            <div className="banner">
+              <b>SYSTEM READY · OPEN FOR WORK</b><br />
+              <span style={{ fontSize:11, color:"var(--ink-mute)" }}>
+                login as: visitor &nbsp;·&nbsp; press <span style={{ color:"var(--acc)" }}>⌘K</span> to interact
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── I. manpage
+    const Manpage = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~ ❯ <b>man raul</b></div>
+          <div className="pane-meta">section 1</div>
+        </div>
+        <div className="pane-body">
+          <div className="mp">
+            <div className="top">
+              <span>RAUL(1)</span>
+              <span>General Commands Manual</span>
+              <span>RAUL(1)</span>
+            </div>
+
+            <h6>NAME</h6>
+            <p><span className="accent">raul</span> — a software developer who builds reliable, useful systems.</p>
+
+            <h6>SYNOPSIS</h6>
+            <p className="syn">
+              <span className="acc">raul</span> [<code>--backend</code>] [<code>--frontend</code>] [<code>--db</code>]<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;[<code>--devops</code>] [<code>--ai</code>] [<code>--lang</code> es|en]<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;[<code>--mode</code> contract|fulltime] <code>project</code>
+            </p>
+
+            <h6>DESCRIPTION</h6>
+            <p>
+              <span className="accent">raul</span> takes an underspecified project and returns a working,
+              well-documented system. Reads from <code>stdin</code> (your goals) and writes to a production
+              environment over the duration of the engagement. Tolerates ambiguity, prefers clarity,
+              and exits with status <code>0</code> when shipped.
+            </p>
+
+            <h6>OPTIONS</h6>
+            <ul>
+              <li><span className="opt">--backend</span><span>.NET · Node · NestJS · FastAPI · Express</span></li>
+              <li><span className="opt">--frontend</span><span>React · Next.js · React Native · Tailwind</span></li>
+              <li><span className="opt">--db</span><span>PostgreSQL · MongoDB · Redis · ChromaDB · Supabase</span></li>
+              <li><span className="opt">--devops</span><span>Docker · CI/CD · GCP · Ubuntu Server</span></li>
+              <li><span className="opt">--principles</span><span>clean architecture · multi-tenancy · event-driven</span></li>
+            </ul>
+
+            <h6>EXAMPLES</h6>
+            <p style={{ paddingTop:4 }}>
+              <code>raul --backend --db --devops "scale to 10k users"</code><br />
+              <span style={{ color:"var(--ink-dim)" }}>↳ multi-tenant service, async jobs, observability baked in.</span>
+            </p>
+
+            <h6>SEE ALSO</h6>
+            <p>
+              <code>linkedin(1)</code>, <code>github(1)</code>, <code>email(1)</code> —
+              <span style={{ color:"var(--acc)" }}> rjmalagarrigat@gmail.com</span>
+            </p>
+
+            <div className="top" style={{ marginTop:14, borderTop:"1px solid var(--line-2)", borderBottom:0, paddingTop:8 }}>
+              <span>raul.dev</span>
+              <span>May 2026</span>
+              <span>RAUL(1)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── J. .zshrc
+    const ZshLine = ({ n, children }) => (
+      <div className="ln">
+        <span className="no">{n}</span>
+        <span>{children}</span>
+      </div>
+    );
+    const Zshrc = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/.config/<b>raul.zshrc</b></div>
+          <div className="pane-meta">readonly · 0644</div>
+        </div>
+        <div className="pane-body">
+          <div className="zsh">
+            <div className="zsh-header">
+              <span>file</span><span className="path">~/.config/raul.zshrc</span>
+              <span style={{ marginLeft:"auto" }}>UTF-8 · LF · 24 lines</span>
+            </div>
+            <ZshLine n={1}><span className="cm"># --- identity ---</span></ZshLine>
+            <ZshLine n={2}><span className="kw">export</span> <span className="var">NAME</span><span className="op">=</span><span className="str">"Raúl Malagarriga"</span></ZshLine>
+            <ZshLine n={3}><span className="kw">export</span> <span className="var">ROLE</span><span className="op">=</span><span className="str">"fullstack · software architect"</span></ZshLine>
+            <ZshLine n={4}><span className="kw">export</span> <span className="var">BASED_IN</span><span className="op">=</span><span className="str">"Caracas, Venezuela"</span> <span className="cm"># UTC−4</span></ZshLine>
+            <ZshLine n={5}><span className="kw">export</span> <span className="var">UPTIME</span><span className="op">=</span><span className="str">"5+ years in production"</span></ZshLine>
+            <ZshLine n={6}>&nbsp;</ZshLine>
+            <ZshLine n={7}><span className="cm"># --- aliases (how I work) ---</span></ZshLine>
+            <ZshLine n={8}><span className="kw">alias</span> <span className="fn">work</span><span className="op">=</span><span className="str">"reliable && documented && shipped"</span></ZshLine>
+            <ZshLine n={9}><span className="kw">alias</span> <span className="fn">code</span><span className="op">=</span><span className="str">"clean | tested | reviewed"</span></ZshLine>
+            <ZshLine n={10}><span className="kw">alias</span> <span className="fn">debug</span><span className="op">=</span><span className="str">"read-first --understand --then-fix"</span></ZshLine>
+            <ZshLine n={11}><span className="kw">alias</span> <span className="fn">deep_work</span><span className="op">=</span><span className="str">"quiet && offline && coffee=on"</span></ZshLine>
+            <ZshLine n={12}><span className="kw">alias</span> <span className="fn">scope</span><span className="op">=</span><span className="str">"clarify --before-coding"</span></ZshLine>
+            <ZshLine n={13}>&nbsp;</ZshLine>
+            <ZshLine n={14}><span className="cm"># --- principles loaded on startup ---</span></ZshLine>
+            <ZshLine n={15}><span className="fn">source</span> <span className="str">"~/.principles/clean-architecture.sh"</span></ZshLine>
+            <ZshLine n={16}><span className="fn">source</span> <span className="str">"~/.principles/event-driven.sh"</span></ZshLine>
+            <ZshLine n={17}><span className="fn">source</span> <span className="str">"~/.principles/multi-tenancy.sh"</span></ZshLine>
+            <ZshLine n={18}>&nbsp;</ZshLine>
+            <ZshLine n={19}><span className="cm"># --- ports ---</span></ZshLine>
+            <ZshLine n={20}><span className="kw">export</span> <span className="var">EMAIL</span><span className="op">=</span><span className="str">"rjmalagarrigat@gmail.com"</span></ZshLine>
+            <ZshLine n={21}><span className="kw">export</span> <span className="var">GITHUB</span><span className="op">=</span><span className="str">"@raulmalagarriga"</span></ZshLine>
+            <ZshLine n={22}>&nbsp;</ZshLine>
+            <ZshLine n={23}><span className="cm"># --- on hire ---</span></ZshLine>
+            <ZshLine n={24}><span className="kw">function</span> <span className="fn">hire</span><span className="br">()</span> <span className="br">{'{ '}</span><span className="fn">echo</span> <span className="str">"let's build something"</span><span className="br">{' }'}</span> <span className="caret"></span></ZshLine>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── K. bento grid
+    const Bento = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>bento.tsx</b></div>
+          <div className="pane-meta">grid · 4×N</div>
+        </div>
+        <div className="pane-body">
+          <div className="bento">
+            <div className="b-cell b-photo">
+              <div style={{ width:"100%", height:"100%", background:"linear-gradient(135deg, #1a1f2b, #0a0b0e)", display:"grid", placeItems:"center", color:"var(--ink-dim)", fontSize:11 }}>
+                ✦ profile photo
+              </div>
+              <div className="ph-meta">
+                <span style={{ color:"var(--acc)" }}>●</span>
+                <span><b style={{ color:"var(--ink)" }}>Raúl Malagarriga</b> · fullstack &amp; architect</span>
+              </div>
+            </div>
+
+            <div className="b-cell b-quote">
+              <p>"Clean structures, clear communication, and shipping. The rest is taste."</p>
+              <cite>— personal manifesto</cite>
+            </div>
+
+            <div className="b-cell b-stat">
+              <div className="lbl">years shipping</div>
+              <div className="big">5<span style={{ color:"var(--acc)" }}>+</span></div>
+              <div className="sub">in production</div>
+            </div>
+
+            <div className="b-cell b-stat">
+              <div className="lbl">projects</div>
+              <div className="big">24</div>
+              <div className="sub">end-to-end</div>
+            </div>
+
+            <div className="b-cell b-stack">
+              <div className="lbl">daily stack</div>
+              <div className="tags">
+                <span className="tag hot">TypeScript</span>
+                <span className="tag hot">.NET</span>
+                <span className="tag hot">Next.js</span>
+                <span className="tag">React Native</span>
+                <span className="tag">Postgres</span>
+                <span className="tag">MongoDB</span>
+                <span className="tag">Redis</span>
+                <span className="tag">Docker</span>
+              </div>
+            </div>
+
+            <div className="b-cell b-now">
+              <div className="eq"><i></i><i></i><i></i><i></i></div>
+              <div>
+                <div className="lbl" style={{ marginBottom:2 }}>now playing</div>
+                <div style={{ fontSize:12, color:"var(--ink)" }}>Bonobo — Migration</div>
+              </div>
+            </div>
+
+            <div className="b-cell b-loc">
+              <div className="lbl">based in</div>
+              <div style={{ fontSize:13, color:"var(--ink)", letterSpacing:"-.01em" }}>Caracas <span style={{ color:"var(--ink-dim)" }}>· UTC−4</span></div>
+              <div className="map">
+                <svg viewBox="0 0 120 24" preserveAspectRatio="none">
+                  <path d="M0 16 Q15 8 30 12 T60 10 Q75 6 90 14 T120 12" stroke="rgba(var(--acc-rgb),.4)" strokeWidth=".6" fill="none" />
+                  <circle cx="34" cy="11" r="2" fill="var(--acc)" />
+                  <circle cx="34" cy="11" r="5" fill="none" stroke="var(--acc)" strokeWidth=".6" opacity=".4" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="b-cell" style={{ gridColumn: "span 2", gridRow: "span 1" }}>
+              <div className="lbl">status</div>
+              <div style={{ display:"flex", alignItems:"center", gap:8, marginTop:2 }}>
+                <span className="blink-dot"></span>
+                <span style={{ color:"var(--ink)", fontSize:12 }}>available · Q3 '26 onward</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── L. RPG character sheet
+    const CharacterSheet = () => (
+      <div className="pane">
+        <div className="pane-head">
+          <div className="tl"><span></span><span></span><span></span></div>
+          <div className="pane-title">~/about/<b>character.sheet</b></div>
+          <div className="pane-meta">save · slot 01</div>
+        </div>
+        <div className="pane-body">
+          <div className="rpg">
+            <div className="rpg-avatar">
+              <div className="frame"><div className="glyph">R</div></div>
+              <div className="nameplate">
+                <div className="nm"><b>RAÚL MALAGARRIGA</b></div>
+                <div className="lvl"><span className="L">28</span><span className="cl">Software Architect · Fullstack</span></div>
+              </div>
+            </div>
+
+            <div>
+              <div className="rpg-stats">
+                <div className="stat">
+                  <div className="g">STR</div><div className="nm">backend</div>
+                  <div className="bar"><i style={{ width:"92%" }}></i></div>
+                  <div className="v">92</div>
+                </div>
+                <div className="stat">
+                  <div className="g">DEX</div><div className="nm">frontend</div>
+                  <div className="bar"><i style={{ width:"86%" }}></i></div>
+                  <div className="v">86</div>
+                </div>
+                <div className="stat">
+                  <div className="g">CON</div><div className="nm">reliability</div>
+                  <div className="bar"><i style={{ width:"94%" }}></i></div>
+                  <div className="v">94</div>
+                </div>
+                <div className="stat">
+                  <div className="g">INT</div><div className="nm">architecture</div>
+                  <div className="bar"><i style={{ width:"88%" }}></i></div>
+                  <div className="v">88</div>
+                </div>
+                <div className="stat">
+                  <div className="g">WIS</div><div className="nm">debugging</div>
+                  <div className="bar"><i style={{ width:"82%" }}></i></div>
+                  <div className="v">82</div>
+                </div>
+                <div className="stat">
+                  <div className="g">CHA</div><div className="nm">collaboration</div>
+                  <div className="bar"><i style={{ width:"78%" }}></i></div>
+                  <div className="v">78</div>
+                </div>
+              </div>
+
+              <div className="rpg-equip">
+                <div className="lbl">equipment · stack</div>
+                <div className="rpg-grid">
+                  <div className="slot legendary">.NET</div>
+                  <div className="slot has">Next.js</div>
+                  <div className="slot has">TS</div>
+                  <div className="slot has">Node</div>
+                  <div className="slot legendary">Postgres</div>
+                  <div className="slot has">Mongo</div>
+                  <div className="slot has">Redis</div>
+                  <div className="slot has">Docker</div>
+                  <div className="slot has">Nest</div>
+                  <div className="slot has">FastAPI</div>
+                  <div className="slot">Go</div>
+                  <div className="slot has">Tailwind</div>
+                  <div className="slot has">React Native</div>
+                  <div className="slot has">GCP</div>
+                  <div className="slot">Rust</div>
+                  <div className="slot">…</div>
+                </div>
+              </div>
+
+              <div className="rpg-passives">
+                <span className="p"><b>Clean Architect</b> · +2 maintainability</span>
+                <span className="p"><b>Async Sage</b> · +3 event-driven</span>
+                <span className="p"><b>Tenant Whisperer</b> · +5 multi-tenancy</span>
+                <span className="p"><b>Doc Keeper</b> · +1 to all team rolls</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+
+    // ─────────────────────── canvas
+    function App() {
+      return (
+        <DesignCanvas defaultZoom={0.65}>
+          <DCSection id="alts" title="About me — wild card alternatives" subtitle="More distinctive concepts. Pick any (or combine two).">
+            <DCArtboard id="G" label="G · fastfetch — ascii portrait + system properties" width={820} height={460}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><Fastfetch /></div>
+            </DCArtboard>
+            <DCArtboard id="H" label="H · boot.log — animated system boot sequence" width={760} height={540}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><BootSequence /></div>
+            </DCArtboard>
+            <DCArtboard id="I" label="I · man raul — Linux manpage" width={780} height={800}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><Manpage /></div>
+            </DCArtboard>
+            <DCArtboard id="J" label="J · .zshrc — dotfile autobiography" width={780} height={620}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><Zshrc /></div>
+            </DCArtboard>
+            <DCArtboard id="K" label="K · bento — modern grid (photo + quote + stats + stack + now-playing)" width={820} height={640}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><Bento /></div>
+            </DCArtboard>
+            <DCArtboard id="L" label="L · character.sheet — RPG-style profile" width={820} height={580}>
+              <div style={{ padding: 24, background: "#0a0b0e", height: "100%" }}><CharacterSheet /></div>
+            </DCArtboard>
+          </DCSection>
+        </DesignCanvas>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

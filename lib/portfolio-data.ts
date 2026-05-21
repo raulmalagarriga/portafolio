@@ -16,6 +16,10 @@ import LandingPulse1 from "@/assets/pulse/landing.png"
 import LandingPulse2 from "@/assets/pulse/landing2.png"
 import InterfazPulse from "@/assets/pulse/pulseinterfaz.png"
 
+import VerificaReportes from "@/assets/verifica/reportes.png"
+import VerificaMonedas from "@/assets/verifica/monedas.png"
+import VerificaConciliacion from "@/assets/verifica/conciliacion.png"
+
 export type IconName =
   | "github"
   | "linkedin"
@@ -129,6 +133,16 @@ export const PROJECTS: ProjectDef[] = [
     longKey: "projects.pulse.long",
     gallery: [LandingPulse1, LandingPulse2, InterfazPulse],
     cover: LandingPulse1,
+  },
+  {
+    key: "verifica",
+    nameKey: "projects.verifica.name",
+    glyph: "VE",
+    tech: ["Next.js", "TypeScript", "Node.js", "MongoDB", "Docker"],
+    summaryKey: "projects.verifica.summary",
+    longKey: "projects.verifica.long",
+    gallery: [VerificaReportes, VerificaMonedas, VerificaConciliacion],
+    cover: VerificaReportes,
   },
 ]
 

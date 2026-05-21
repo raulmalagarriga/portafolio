@@ -99,6 +99,12 @@ export const translations = {
       "projects.pulse.long":
         "Mobile-first platform empowering personal trainers to manage clients, programs, and billing effortlessly. Includes an AI workout-plan generator that produces precise programs adapted to each client's goals and constraints.",
 
+      "projects.verifica.name": "Verifica",
+      "projects.verifica.summary":
+        "Cloud-based app to control your business income and expenses and reconcile payments against your bank — fast capture, multi-currency, daily close.",
+      "projects.verifica.long":
+        "Financial control suite for small businesses: register and validate payments, track expenses by department, manage multiple currencies (USD, EUR, VES) with BCV-sourced exchange rates, and reconcile movements against bank statements in a single guided flow. Includes daily/period reports with CSV and PDF export, POS module, and a role-based admin console.",
+
       // Links
       "links.title": "Profiles",
       "links.sub": "Where to find me",
@@ -282,6 +288,12 @@ export const translations = {
         "App móvil para entrenadores personales — automatiza gestión de clientes, pagos y métricas, con generador de rutinas por IA.",
       "projects.pulse.long":
         "Plataforma mobile-first para que entrenadores administren clientes, rutinas y cobros sin fricción. Incluye un generador de rutinas por IA que produce planes precisos adaptados a los objetivos y restricciones de cada cliente.",
+
+      "projects.verifica.name": "Verifica",
+      "projects.verifica.summary":
+        "App en la nube para controlar ingresos y egresos del negocio y conciliar los pagos contra el banco — captura rápida, multi-moneda, cierre diario.",
+      "projects.verifica.long":
+        "Suite de control financiero para pequeños negocios: registra y valida pagos, controla egresos por departamento, gestiona múltiples monedas (USD, EUR, VES) con tasas BCV, y concilia los movimientos contra el extracto bancario en un flujo guiado. Incluye reportes diarios y por período con exportación a CSV y PDF, módulo de punto de venta y un panel admin con roles.",
 
       // Links
       "links.title": "Perfiles",

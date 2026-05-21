@@ -1,254 +1,351 @@
 export const translations = {
     en: {
-      // Navigation
-      about: "About",
-      skills: "Skills",
-      projects: "Projects",
-      profiles: "Profiles",
-      contact: "Contact",
-      home: "Home",
-  
+      // Navigation / sections
+      "nav.home": "home",
+      "nav.about": "about",
+      "nav.projects": "projects",
+      "nav.links": "links",
+      "nav.contact": "contact",
+
       // Hero
-      "hero.title": "> Hello World. I am a ",
-      "hero.title.backend": "Backend Developer.",
-      "hero.title.software": "Computer Engineer.",
-      "hero.title.architec": "Software Architect.",
-      "hero.intro": "Welcome to my portfolio. Got an idea? Let’s bring it to life with well-crafted technology, built to grow.",
-      "hero.explore": "Explore",
-  
+      "hero.prompt": "whoami --intro",
+      "hero.prefix": "Hello World. I am a ",
+      "hero.title.fullstack": "Fullstack Developer.",
+      "hero.title.architect": "Software Architect.",
+      "hero.title.engineer": "Computer Engineer.",
+      "hero.intro.welcome": "Welcome to my portfolio. Got an idea? Let's bring it to life with well-crafted technology, built to grow. I design",
+      "hero.intro.backends": "reliable backends",
+      "hero.intro.frontends": "cohesive frontends",
+      "hero.intro.systems": "thoughtful systems",
+      "hero.intro.and": "and",
+      "hero.explore": "explore",
+      "hero.status.available": "available for work",
+      "hero.status.location": "based in venezuela 🌎",
+      "hero.status.response": "response < 24h",
+
       // About
-      "about.title": "About Me",
-      "about.p1":
-        "Hi! I'm Raúl Malagarriga, a software development professional with a strong focus on building reliable, efficient solutions aligned with each client's goals. I'm passionate about understanding how things work, designing clean structures, and creating systems that truly make an impact. I enjoy turning ideas into functional products, always with a focus on scalability, clarity, and long-term quality.",
-        "about.p2":
-        "I consider myself a problem-solver, detail-oriented, and highly collaborative. I value clear communication and proper documentation as essential tools for any project's success. My work goes beyond just writing code — I strive to understand challenges, propose smart solutions, and support every step of the process. My goal is always to bring real value through technology.",
+      "about.title": "About me",
+      "about.sub": "A look at who I am and how I work",
+      "about.p1.lead": "Hi! I'm",
+      "about.name": "Raúl Malagarriga",
+      "about.p1.rest":
+        ", a software development professional with a strong focus on building reliable, efficient solutions aligned with each client's goals. I'm passionate about understanding how things work, designing clean structures, and creating systems that truly make an impact.",
+      "about.p2":
+        "I consider myself a problem-solver, detail-oriented, and highly collaborative. I value clear communication and proper documentation as essential tools for any project's success. My goal is always to bring real value through technology.",
+      "about.activity.label": "git log --activity --last=26w",
+      "about.activity.less": "less",
+      "about.activity.more": "more",
+      "about.kv.name": "name",
+      "about.kv.role": "role",
+      "about.kv.role.value": "Fullstack / Architect",
+      "about.kv.exp": "exp",
+      "about.kv.exp.value": "5+ years building production systems",
+      "about.kv.focus": "focus",
+      "about.kv.focus.value": "reliability · scale · clarity",
+      "about.kv.status": "status",
+      "about.kv.status.value": "available",
+      "about.kv.contact": "contact",
 
       // Skills
-      "skills.title": "Skills",
-      "skills.languages": "Languages",
-      "skills.frameworks": "Frameworks",
+      "skills.label": "ls ./skills",
+      "skills.frontend": "Frontend",
+      "skills.backend": "Backend",
       "skills.databases": "Databases",
       "skills.cloud": "Cloud & DevOps",
       "skills.tools": "Tools",
       "skills.concepts": "Concepts",
-      "skills.frontend": "Frontend",
-      "skills.backend": "Backend",
-  
+
       // Projects
-      "projects.title": "Projects",
-      "projects.view": "View on GitHub",
-      "projects.comming": "Coming Soon!",
-      "projects.visit": "Visit the project!",
-      "projects.modal.openDetails": "Open project details",
-      "projects.modal.highlights": "Highlights",
-      "projects.modal.gallery": "Gallery",
-      "projects.modal.stack": "Tech stack",
-      "projects.modal.links": "Links",
-      "projects.modal.close": "Close",
-      "projects.modal.previousImage": "Previous image",
-      "projects.modal.nextImage": "Next image",
-      "projects.modal.goToImage": "Go to image",
+      "projects.title": "Selected projects",
+      "projects.sub": "A few things I've built end-to-end",
+      "projects.openDetails": "open details",
+      "projects.visit": "visit",
+      "projects.source": "source",
+      "projects.stack": "stack",
+      "projects.close": "esc / close",
 
-      // Project descriptions
-      "projects.ecommerce.title": "Slive",
-      "projects.ecommerce.desc":
-        "Comprehensive cloud-based administrative system for retail, featuring sales, inventory management, and a POS. Incorporates proprietary AI for predictive analytics and strategic business guidance.",
-      "projects.ecommerce.modal.summary":
-        "Enterprise-grade retail management suite orchestrating point-of-sale, inventory, CRM, and analytics from a unified cloud console.",
+      // Project entries
+      "projects.slive.name": "Slive",
+      "projects.slive.summary":
+        "Comprehensive cloud-based administrative system for retail — sales, inventory, POS, and proprietary AI for predictive analytics and strategic business guidance.",
+      "projects.slive.long":
+        "Enterprise-grade retail management suite orchestrating point-of-sale, inventory, CRM, and analytics from a unified cloud console. Includes proprietary AI for predictive forecasting, anomaly detection, and a recommendation engine tuned to each merchant's catalog.",
 
-      "projects.chat.title": "BattleShip Game",
-      "projects.chat.desc":
+      "projects.sentiment.name": "Sentiment Analyzer",
+      "projects.sentiment.summary":
+        "API that determines the emotional tone of text — positive, neutral, or negative — and assigns a polarity score.",
+      "projects.sentiment.long":
+        "Full-stack sentiment analysis toolkit that scores customer feedback in real time through an intuitive dashboard. Backed by a FastAPI service, a Next.js frontend, and a tunable polarity model with batch and streaming endpoints.",
+
+      "projects.battleship.name": "Battleship Game",
+      "projects.battleship.summary":
         "Classic multiplayer battleship game with integrated real-time chat.",
-      "projects.chat.modal.summary":
-        "Multiplayer Battleship experience featuring synchronized gameplay, chat, and match state persistence.",
+      "projects.battleship.long":
+        "Multiplayer Battleship experience featuring synchronized gameplay, room-based matchmaking, persistent match state, and an integrated real-time chat over websockets.",
 
-      "projects.pulse.title": "PULSE",
-      "projects.pulse.desc":
-        "Mobile application for personal trainers, automating client management, payments, and progress metrics. Features an AI-powered workout plan generator for instant and precise client personalization.",
-      "projects.pulse.modal.summary":
-        "Mobile-first platform empowering personal trainers to manage clients, programs, and billing effortlessly.",
+      "projects.pulse.name": "PULSE",
+      "projects.pulse.summary":
+        "Mobile app for personal trainers — automates client management, payments, and progress metrics, with an AI workout-plan generator.",
+      "projects.pulse.long":
+        "Mobile-first platform empowering personal trainers to manage clients, programs, and billing effortlessly. Includes an AI workout-plan generator that produces precise programs adapted to each client's goals and constraints.",
 
-      "projects.data.title": "Calendar App",
-      "projects.data.desc":
-        "Interactive calendar for managing events and teamwork.",
-      "projects.data.modal.summary":
-        "Team-oriented calendar service for coordinating events, reminders, and shared availability.",
+      // Links
+      "links.title": "Profiles",
+      "links.sub": "Where to find me",
+      "links.open": "open",
+      "links.github.name": "GitHub",
+      "links.github.desc": "Check out my code repositories and contributions",
+      "links.linkedin.name": "LinkedIn",
+      "links.linkedin.desc": "Connect with me professionally",
+      "links.blog.name": "Blog",
+      "links.blog.desc": "Read my articles and tutorials",
+      "links.resume.name": "Resume",
+      "links.resume.desc": "Download my resume in PDF format",
 
-      "projects.sentiment.title": "Sentiment Analyzer",
-      "projects.sentiment.desc":
-        "API that determines the emotional tone of text, classifying it as positive, neutral, or negative, and assigns a polarity score",
-      "projects.sentiment.modal.summary":
-        "Full-stack sentiment analysis toolkit that scores customer feedback in real time through an intuitive dashboard.",
-  
-      // Profiles
-      "profiles.title": "Profiles",
-      "profiles.github": "GitHub",
-      "profiles.github.desc": "Check out my code repositories and contributions",
-      "profiles.linkedin": "LinkedIn",
-      "profiles.linkedin.desc": "Connect with me professionally",
-      "profiles.fiverr": "Fiverr",
-      "profiles.fiverr.desc": "Hire me for freelance backend development",
-      "profiles.blog": "Blog",
-      "profiles.blog.desc": "Read my articles and tutorials",
-      "profiles.resume": "Resume",
-      "profiles.resume.desc": "Download my resume in PDF format",
-  
       // Contact
-      "contact.title": "Contact Me",
-      "contact.name": "Name",
-      "contact.email": "Email",
-      "contact.subject": "Subject",
-      "contact.message": "Message",
-      "contact.send": "Send Message",
-      "contact.placeholder.name": "John Doe",
-      "contact.placeholder.email": "john@example.com",
-      "contact.placeholder.subject": "Project Inquiry",
-      "contact.placeholder.message": "I'd like to discuss a project...",
-      "contact.sending": "Sending...",
-      "contact.success": "Sent!",
-      "contact.error": "Something went wrong :(",
-  
+      "contact.title": "Let's build something",
+      "contact.sub": "Drop me a line and I'll get back to you",
+      "contact.form.name": "name",
+      "contact.form.email": "email",
+      "contact.form.subject": "subject",
+      "contact.form.message": "message",
+      "contact.form.placeholder.name": "Ada Lovelace",
+      "contact.form.placeholder.email": "ada@example.com",
+      "contact.form.placeholder.subject": "A project I'd love your eyes on…",
+      "contact.form.placeholder.message": "Tell me a bit about it.",
+      "contact.form.send": "send",
+      "contact.form.sending": "sending…",
+      "contact.form.sent": "✓ sent — I'll reply soon",
+      "contact.form.error": "something went wrong",
+      "contact.form.idle": "encrypted in transit · response under 24h",
+      "contact.info.email": "email",
+      "contact.info.linkedin": "linkedin",
+      "contact.info.github": "github",
+      "contact.info.timezone": "timezone",
+      "contact.info.timezone.value": "UTC−4 (Caracas)",
+      "contact.info.languages": "languages",
+      "contact.info.languages.value": "Español · English",
+      "contact.info.tip.prefix": "tip:",
+      "contact.info.tip.body": "hit",
+      "contact.info.tip.body2": "from anywhere to jump to a section, switch theme, or contact me.",
+
       // Footer
-      "footer.designed": "Designed and built by",
-      "footer.rights": "All rights reserved.",
-  
-      // Theme selector
-      "theme.select": "Theme",
-      "theme.green": "console",
-      "theme.blue": "ocean",
-      "theme.yellow": "sunset",
-      "theme.white": "discreet",
-  
-      // Language selector
-      "language.select": "Language",
-      "language.en": "English",
-      "language.es": "Spanish",
+      "footer.designed": "designed & built by",
+      "footer.handcrafted": "handcrafted · built with Next.js · zero compromise on details",
+
+      // Command palette
+      "palette.placeholder": "Type a command or jump to a section…",
+      "palette.run": "run",
+      "palette.nav": "nav",
+      "palette.close": "close",
+      "palette.empty": "No matches",
+      "palette.goto": "Go to",
+      "palette.accent.green": "Accent → matrix green",
+      "palette.accent.amber": "Accent → sunset amber",
+      "palette.accent.cyan": "Accent → ice cyan",
+      "palette.accent.magenta": "Accent → plasma magenta",
+      "palette.accent.white": "Accent → mono white",
+      "palette.toggle.scanlines.on": "Enable CRT scanlines",
+      "palette.toggle.scanlines.off": "Disable CRT scanlines",
+      "palette.toggle.noise.on": "Enable film grain",
+      "palette.toggle.noise.off": "Disable film grain",
+      "palette.toggle.language.en": "Switch to English",
+      "palette.toggle.language.es": "Switch to Spanish",
+      "palette.ext.github": "Open GitHub",
+      "palette.ext.linkedin": "Open LinkedIn",
+      "palette.ext.email": "Email Raúl",
+      "palette.hint.section": "section",
+      "palette.hint.theme": "theme",
+      "palette.hint.fx": "fx",
+      "palette.hint.language": "language",
+      "palette.hint.external": "external",
+
+      // Tweaks panel
+      "tweaks.title": "Tweaks",
+      "tweaks.theme": "Theme",
+      "tweaks.accent": "Accent",
+      "tweaks.background": "Background",
+      "tweaks.style": "Style",
+      "tweaks.scanlines": "Scanlines",
+      "tweaks.filmgrain": "Film grain",
+      "tweaks.layout": "Layout",
+      "tweaks.density": "Density",
+      "tweaks.scrollFx": "Scroll FX",
+      "tweaks.intensity": "Intensity",
+      "tweaks.language": "Language",
     },
     es: {
-      // Navigation
-      about: "Sobre Mí",
-      skills: "Habilidades",
-      projects: "Proyectos",
-      profiles: "Perfiles",
-      contact: "Contacto",
-      home: "Inicio",
-  
+      // Navigation / sections
+      "nav.home": "inicio",
+      "nav.about": "sobre-mi",
+      "nav.projects": "proyectos",
+      "nav.links": "perfiles",
+      "nav.contact": "contacto",
+
       // Hero
-      "hero.title": "> Hola Mundo. Soy un ",
-      "hero.title.backend": "Desarrollador Backend.",
-      "hero.title.software": "Ingeniero en computación.",
-      "hero.title.architec": "Arquitecto de Software.",
-      "hero.intro": "Bienvenido a mi portafolio. ¿Tienes una idea? Hagámosla realidad con tecnología bien pensada y preparada para crecer.",
-      "hero.explore": "Explorar",
-  
+      "hero.prompt": "whoami --intro",
+      "hero.prefix": "Hola Mundo. Soy un ",
+      "hero.title.fullstack": "Desarrollador Fullstack.",
+      "hero.title.architect": "Arquitecto de Software.",
+      "hero.title.engineer": "Ingeniero en Computación.",
+      "hero.intro.welcome": "Bienvenido a mi portafolio. ¿Tienes una idea? Hagámosla realidad con tecnología bien pensada y preparada para crecer. Diseño",
+      "hero.intro.backends": "backends confiables",
+      "hero.intro.frontends": "frontends cohesivos",
+      "hero.intro.systems": "sistemas con propósito",
+      "hero.intro.and": "y",
+      "hero.explore": "explorar",
+      "hero.status.available": "disponible para trabajar",
+      "hero.status.location": "desde venezuela 🌎",
+      "hero.status.response": "respondo en < 24h",
+
       // About
-      "about.title": "Sobre Mí",
-      "about.p1":
-        "¡Hola! Soy Raúl Malagarriga, un profesional del desarrollo de software con una fuerte orientación a la creación de soluciones sólidas, eficientes y alineadas con los objetivos del cliente. Me apasiona entender cómo funcionan las cosas, diseñar estructuras claras y construir sistemas que realmente marquen la diferencia. Disfruto transformar ideas en productos funcionales, manteniendo siempre un enfoque en la escalabilidad, el orden y la calidad del resultado final.",
+      "about.title": "Sobre mí",
+      "about.sub": "Quién soy y cómo trabajo",
+      "about.p1.lead": "¡Hola! Soy",
+      "about.name": "Raúl Malagarriga",
+      "about.p1.rest":
+        ", un profesional del desarrollo de software con un enfoque sólido en construir soluciones confiables y eficientes, alineadas con los objetivos de cada cliente. Me apasiona entender cómo funcionan las cosas, diseñar estructuras claras y crear sistemas que realmente marquen la diferencia.",
       "about.p2":
-        "Me considero una persona resolutiva, comprometida con los detalles y con una gran capacidad para trabajar en equipo. Valoro la comunicación clara y la documentación como herramientas clave para el éxito de cualquier proyecto. No solo me dedico a programar, también me involucro en entender el problema, proponer soluciones viables y acompañar su evolución. Mi meta siempre es aportar valor real a través de la tecnología.",
-  
+        "Me considero resolutivo, detallista y muy colaborativo. Valoro la comunicación clara y la documentación como herramientas esenciales para el éxito de cualquier proyecto. Mi meta siempre es aportar valor real a través de la tecnología.",
+      "about.activity.label": "git log --activity --last=26w",
+      "about.activity.less": "menos",
+      "about.activity.more": "más",
+      "about.kv.name": "nombre",
+      "about.kv.role": "rol",
+      "about.kv.role.value": "Fullstack / Arquitecto",
+      "about.kv.exp": "exp",
+      "about.kv.exp.value": "5+ años construyendo sistemas en producción",
+      "about.kv.focus": "foco",
+      "about.kv.focus.value": "confiabilidad · escala · claridad",
+      "about.kv.status": "estado",
+      "about.kv.status.value": "disponible",
+      "about.kv.contact": "contacto",
+
       // Skills
-      "skills.title": "Habilidades",
-      "skills.languages": "Lenguajes",
-      "skills.frameworks": "Frameworks",
+      "skills.label": "ls ./habilidades",
+      "skills.frontend": "Frontend",
+      "skills.backend": "Backend",
       "skills.databases": "Bases de Datos",
       "skills.cloud": "Cloud & DevOps",
       "skills.tools": "Herramientas",
       "skills.concepts": "Conceptos",
-      "skills.frontend": "Frontend",
-      "skills.backend": "Backend",
-  
+
       // Projects
-      "projects.title": "Proyectos",
-      "projects.view": "Ver en GitHub",
-      "projects.comming": "¡Proximamente!",
-      "projects.visit": "¡Visita el proyecto!",
-      "projects.modal.openDetails": "Abrir detalles del proyecto",
-      "projects.modal.highlights": "Puntos destacados",
-      "projects.modal.gallery": "Galería",
-      "projects.modal.stack": "Tecnologías",
-      "projects.modal.links": "Enlaces",
-      "projects.modal.close": "Cerrar",
-      "projects.modal.previousImage": "Imagen anterior",
-      "projects.modal.nextImage": "Imagen siguiente",
-      "projects.modal.goToImage": "Ir a la imagen",
-      // Project descriptions
-      "projects.ecommerce.title": "Slive",
-      "projects.ecommerce.desc":
-        "Sistema administrativo integral basado en la nube para el retail, con gestión de ventas, inventario y un POS. Incluye una IA propietaria para análisis predictivo y asesoramiento estratégico del negocio.",
-      "projects.ecommerce.modal.summary":
-        "Suite de gestión minorista de nivel empresarial que unifica POS, inventario, CRM y analítica en una consola en la nube.",
+      "projects.title": "Proyectos seleccionados",
+      "projects.sub": "Algunas cosas que he construido de punta a punta",
+      "projects.openDetails": "ver detalles",
+      "projects.visit": "visitar",
+      "projects.source": "código",
+      "projects.stack": "stack",
+      "projects.close": "esc / cerrar",
 
+      "projects.slive.name": "Slive",
+      "projects.slive.summary":
+        "Sistema administrativo integral en la nube para retail — ventas, inventario, POS e IA propia para análisis predictivo y guía estratégica de negocio.",
+      "projects.slive.long":
+        "Suite de gestión minorista de nivel empresarial que unifica POS, inventario, CRM y analítica en una consola en la nube. Incluye una IA propia para forecasting, detección de anomalías y un motor de recomendaciones adaptado a cada catálogo.",
 
-      "projects.chat.title": "BattleShip Game",
-      "projects.chat.desc":
-        "Clasico juego de battleship multijugador con chat integrado en tiempo real.",
-      "projects.chat.modal.summary":
-        "Experiencia multijugador con partidas sincronizadas, chat integrado y persistencia del estado del juego.",
+      "projects.sentiment.name": "Sentiment Analyzer",
+      "projects.sentiment.summary":
+        "API que determina el tono emocional del texto — positivo, neutral o negativo — y asigna una puntuación de polaridad.",
+      "projects.sentiment.long":
+        "Herramienta full-stack que analiza comentarios en tiempo real con un dashboard intuitivo. Backend en FastAPI, frontend en Next.js y un modelo de polaridad afinable con endpoints batch y streaming.",
 
+      "projects.battleship.name": "Battleship Game",
+      "projects.battleship.summary":
+        "Clásico battleship multijugador con chat en tiempo real integrado.",
+      "projects.battleship.long":
+        "Experiencia multijugador con partidas sincronizadas, matchmaking por salas, persistencia del estado de juego y chat en tiempo real sobre websockets.",
 
-      "projects.pulse.title": "PULSE",
-      "projects.pulse.desc":
-        "Aplicación móvil integral para entrenadores personales, automatizando la gestión de clientes, pagos y métricas de progreso. Incorpora un generador de planes de entrenamiento potenciado por IA para personalización instantánea y precisa.",
-      "projects.pulse.modal.summary":
-        "Plataforma mobile-first que ayuda a entrenadores personales a administrar clientes, rutinas y cobros sin fricción.",
+      "projects.pulse.name": "PULSE",
+      "projects.pulse.summary":
+        "App móvil para entrenadores personales — automatiza gestión de clientes, pagos y métricas, con generador de rutinas por IA.",
+      "projects.pulse.long":
+        "Plataforma mobile-first para que entrenadores administren clientes, rutinas y cobros sin fricción. Incluye un generador de rutinas por IA que produce planes precisos adaptados a los objetivos y restricciones de cada cliente.",
 
-      "projects.data.title": "Calendar App",
-      "projects.data.desc":
-        "Calendario interactivo para gestionar eventos y trabajo en equipo.",
-      "projects.data.modal.summary":
-        "Servicio de calendario orientado a equipos para coordinar eventos, recordatorios y disponibilidad compartida.",
+      // Links
+      "links.title": "Perfiles",
+      "links.sub": "Dónde encontrarme",
+      "links.open": "abrir",
+      "links.github.name": "GitHub",
+      "links.github.desc": "Revisa mis repositorios y contribuciones",
+      "links.linkedin.name": "LinkedIn",
+      "links.linkedin.desc": "Conéctate conmigo profesionalmente",
+      "links.blog.name": "Blog",
+      "links.blog.desc": "Lee mis artículos y tutoriales",
+      "links.resume.name": "Currículum",
+      "links.resume.desc": "Descarga mi currículum en formato PDF",
 
-
-      "projects.sentiment.title": "Sentiment Analyzer",
-      "projects.sentiment.desc":
-        "API que determina el tono emocional del texto, clasificándolo como positivo, neutral o negativo, y le asigna una puntuación de polaridad.",
-      "projects.sentiment.modal.summary":
-        "Herramienta full-stack que analiza comentarios en tiempo real y muestra los resultados en un panel intuitivo.",
-
-      // Profiles
-      "profiles.title": "Perfiles",
-      "profiles.github": "GitHub",
-      "profiles.github.desc": "Revisa mis repositorios de código y contribuciones",
-      "profiles.linkedin": "LinkedIn",
-      "profiles.linkedin.desc": "Conéctate conmigo profesionalmente",
-      "profiles.fiverr": "Fiverr",
-      "profiles.fiverr.desc": "Contrátame para desarrollo backend freelance",
-      "profiles.blog": "Blog",
-      "profiles.blog.desc": "Lee mis artículos y tutoriales",
-      "profiles.resume": "Currículum",
-      "profiles.resume.desc": "Descarga mi currículum en formato PDF",
-  
       // Contact
-      "contact.title": "Contáctame",
-      "contact.name": "Nombre",
-      "contact.email": "Correo",
-      "contact.subject": "Asunto",
-      "contact.message": "Mensaje",
-      "contact.send": "Enviar Mensaje",
-      "contact.placeholder.name": "Jose Pérez",
-      "contact.placeholder.email": "jose@ejemplo.com",
-      "contact.placeholder.subject": "Consulta de Proyecto",
-      "contact.placeholder.message": "Me gustaría discutir un proyecto...",
-      "contact.sending": "Enviando...",
-      "contact.success": "¡Enviado!",
-      "contact.error": "Algo ha salido mal :(",
+      "contact.title": "Construyamos algo",
+      "contact.sub": "Escríbeme y te respondo cuanto antes",
+      "contact.form.name": "nombre",
+      "contact.form.email": "correo",
+      "contact.form.subject": "asunto",
+      "contact.form.message": "mensaje",
+      "contact.form.placeholder.name": "Ada Lovelace",
+      "contact.form.placeholder.email": "ada@ejemplo.com",
+      "contact.form.placeholder.subject": "Un proyecto que me gustaría que vieras…",
+      "contact.form.placeholder.message": "Cuéntame un poco sobre él.",
+      "contact.form.send": "enviar",
+      "contact.form.sending": "enviando…",
+      "contact.form.sent": "✓ enviado — te respondo pronto",
+      "contact.form.error": "algo salió mal",
+      "contact.form.idle": "cifrado en tránsito · respondo en < 24h",
+      "contact.info.email": "email",
+      "contact.info.linkedin": "linkedin",
+      "contact.info.github": "github",
+      "contact.info.timezone": "zona horaria",
+      "contact.info.timezone.value": "UTC−4 (Caracas)",
+      "contact.info.languages": "idiomas",
+      "contact.info.languages.value": "Español · English",
+      "contact.info.tip.prefix": "tip:",
+      "contact.info.tip.body": "presiona",
+      "contact.info.tip.body2": "desde cualquier sección para navegar, cambiar tema o contactarme.",
+
       // Footer
-      "footer.designed": "Diseñado y construido por",
-      "footer.rights": "Todos los derechos reservados.",
-  
-      // Theme selector
-      "theme.select": "Tema",
-      "theme.green": "console",
-      "theme.blue": "ocean",
-      "theme.yellow": "sunset",
-      "theme.white": "discreet",
-  
-      // Language selector
-      "language.select": "Idioma",
-      "language.en": "Inglés",
-      "language.es": "Español",
+      "footer.designed": "diseñado y construido por",
+      "footer.handcrafted": "hecho a mano · construido con Next.js · cuidando cada detalle",
+
+      // Command palette
+      "palette.placeholder": "Escribe un comando o salta a una sección…",
+      "palette.run": "ejecutar",
+      "palette.nav": "navegar",
+      "palette.close": "cerrar",
+      "palette.empty": "Sin resultados",
+      "palette.goto": "Ir a",
+      "palette.accent.green": "Acento → verde matrix",
+      "palette.accent.amber": "Acento → ámbar sunset",
+      "palette.accent.cyan": "Acento → cyan hielo",
+      "palette.accent.magenta": "Acento → magenta plasma",
+      "palette.accent.white": "Acento → blanco mono",
+      "palette.toggle.scanlines.on": "Activar scanlines CRT",
+      "palette.toggle.scanlines.off": "Desactivar scanlines CRT",
+      "palette.toggle.noise.on": "Activar grano fílmico",
+      "palette.toggle.noise.off": "Desactivar grano fílmico",
+      "palette.toggle.language.en": "Cambiar a inglés",
+      "palette.toggle.language.es": "Cambiar a español",
+      "palette.ext.github": "Abrir GitHub",
+      "palette.ext.linkedin": "Abrir LinkedIn",
+      "palette.ext.email": "Enviar email a Raúl",
+      "palette.hint.section": "sección",
+      "palette.hint.theme": "tema",
+      "palette.hint.fx": "fx",
+      "palette.hint.language": "idioma",
+      "palette.hint.external": "externo",
+
+      // Tweaks panel
+      "tweaks.title": "Ajustes",
+      "tweaks.theme": "Tema",
+      "tweaks.accent": "Acento",
+      "tweaks.background": "Fondo",
+      "tweaks.style": "Estilo",
+      "tweaks.scanlines": "Scanlines",
+      "tweaks.filmgrain": "Grano fílmico",
+      "tweaks.layout": "Diseño",
+      "tweaks.density": "Densidad",
+      "tweaks.scrollFx": "Scroll FX",
+      "tweaks.intensity": "Intensidad",
+      "tweaks.language": "Idioma",
     },
-  }
-  
+  } as const

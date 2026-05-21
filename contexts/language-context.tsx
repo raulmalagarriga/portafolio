@@ -5,15 +5,15 @@ import type React from "react"
 import { createContext, useContext, useEffect, useState } from "react"
 import { translations } from "@/lib/translations"
 
-type Language = "en" | "es"
+export type Language = "en" | "es"
 
-// Define the type for translation keys
 type TranslationKey = keyof typeof translations.en
 
 type LanguageContextType = {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: TranslationKey) => string
+  toggleLanguage: () => void
+  t: (key: TranslationKey | (string & {})) => string
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
@@ -21,27 +21,31 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("en")
 
-  // Load language from localStorage on mount
   useEffect(() => {
-    const savedLanguage = localStorage.getItem("terminal-language") as Language
-    if (savedLanguage && ["en", "es"].includes(savedLanguage)) {
+    const savedLanguage = localStorage.getItem("terminal-language") as Language | null
+    if (savedLanguage && (savedLanguage === "en" || savedLanguage === "es")) {
       setLanguage(savedLanguage)
     }
   }, [])
 
-  // Save language to localStorage when language changes
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang)
-    localStorage.setItem("terminal-language", lang)
+    try {
+      localStorage.setItem("terminal-language", lang)
+    } catch {}
   }
 
-  // Translation function
-  const t = (key: TranslationKey): string => {
-    return translations[language][key] || key
+  const toggleLanguage = () => {
+    handleLanguageChange(language === "en" ? "es" : "en")
+  }
+
+  const t = (key: TranslationKey | (string & {})): string => {
+    const bag = translations[language] as Record<string, string>
+    return bag[key as string] ?? (key as string)
   }
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleLanguageChange, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage: handleLanguageChange, toggleLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   )

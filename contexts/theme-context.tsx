@@ -4,36 +4,52 @@ import type React from "react"
 
 import { createContext, useContext, useEffect, useState } from "react"
 
-type ThemeColor = "green" | "blue" | "yellow" | "white"
+export type ThemeColor = "green" | "amber" | "cyan" | "magenta" | "white"
+
+export const THEME_COLORS: ThemeColor[] = ["green", "amber", "cyan", "magenta", "white"]
 
 type ThemeContextType = {
   themeColor: ThemeColor
   setThemeColor: (color: ThemeColor) => void
+  cycleThemeColor: () => void
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
+function isValidTheme(value: string | null): value is ThemeColor {
+  return !!value && (THEME_COLORS as string[]).includes(value)
+}
+
 export function ThemeColorProvider({ children }: { children: React.ReactNode }) {
   const [themeColor, setThemeColor] = useState<ThemeColor>("green")
 
-  // Load theme from localStorage on mount
   useEffect(() => {
-    const savedTheme = localStorage.getItem("terminal-theme") as ThemeColor
-    if (savedTheme && ["green", "blue", "yellow", "white"].includes(savedTheme)) {
-      setThemeColor(savedTheme)
-      document.documentElement.setAttribute("data-theme-color", savedTheme)
-    }
+    const saved = localStorage.getItem("terminal-theme")
+    const next: ThemeColor = isValidTheme(saved) ? saved : "green"
+    setThemeColor(next)
   }, [])
 
-  // Save theme to localStorage and update CSS variables when theme changes
+  useEffect(() => {
+    document.body.setAttribute("data-accent", themeColor)
+  }, [themeColor])
+
   const handleThemeChange = (color: ThemeColor) => {
     setThemeColor(color)
-    localStorage.setItem("terminal-theme", color)
-    document.documentElement.setAttribute("data-theme-color", color)
+    try {
+      localStorage.setItem("terminal-theme", color)
+    } catch {}
+  }
+
+  const cycleThemeColor = () => {
+    const i = THEME_COLORS.indexOf(themeColor)
+    const next = THEME_COLORS[(i + 1) % THEME_COLORS.length]
+    handleThemeChange(next)
   }
 
   return (
-    <ThemeContext.Provider value={{ themeColor, setThemeColor: handleThemeChange }}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{ themeColor, setThemeColor: handleThemeChange, cycleThemeColor }}>
+      {children}
+    </ThemeContext.Provider>
   )
 }
 

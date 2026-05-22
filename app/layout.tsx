@@ -10,71 +10,58 @@ import ScrollProgress from "@/components/terminal/scroll-progress"
 
 const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000")
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000")
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Raul Malagarriga — Fullstack Developer & Software Architect",
+    default:
+      "Raul Malagarriga · malagarrigadev.vercel.app — Fullstack Developer & Software Architect",
     template: "%s · Raul Malagarriga",
   },
   description:
-    "Portafolio de Raul Malagarriga (rjmalagarrigat) — Ingeniero en Computación, Fullstack Developer y Software Architect. Diseño backends confiables, frontends cohesivos y sistemas reflexivos. Maracaibo, Venezuela.",
-  applicationName: "raulmalagarriga.dev",
+    "Raul Malagarriga (rjmalagarrigat) — Computer Engineer, Fullstack Developer and Software Architect based in Maracaibo, Venezuela. I design reliable backends, cohesive frontends, and thoughtful systems that ship and keep working.",
+  applicationName: "malagarrigadev.vercel.app",
   authors: [{ name: "Raul Malagarriga", url: siteUrl }],
   creator: "Raul Malagarriga",
   publisher: "Raul Malagarriga",
   keywords: [
     "Raul Malagarriga",
-    "Raúl Malagarriga",
     "raul malagarriga",
     "raulmalagarriga",
     "rjmalagarrigat",
-    "Raul Malagarriga Software",
     "Raul Malagarriga developer",
-    "Raul Malagarriga portafolio",
     "Raul Malagarriga portfolio",
-    "Ingeniero Raul Malagarriga",
-    "Raul Malagarriga ingeniero",
-    "Raul Malagarriga ingeniero en computación",
-    "Raul Malagarriga fullstack",
-    "Raul Malagarriga arquitecto de software",
-    "Engineer Raul Malagarriga",
-    "Raul Malagarriga Engineer",
-    "Raul Malagarriga Computer Engineer",
     "Raul Malagarriga Software Engineer",
     "Raul Malagarriga Fullstack Developer",
     "Raul Malagarriga Software Architect",
-    "Software Engineer Raul Malagarriga",
-    "Fullstack Developer Raul Malagarriga",
-    "fullstack developer Venezuela",
-    "software architect Maracaibo",
-    "computer engineer Venezuela",
-    "desarrollador venezuela",
-    "ingeniero software venezuela",
+    "Ingeniero Raul Malagarriga",
+    "Engineer Raul Malagarriga",
   ],
-  alternates: {
-    canonical: "/",
-    languages: { "en-US": "/", "es-ES": "/" },
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "profile",
     locale: "en_US",
-    alternateLocale: ["es_ES"],
     url: "/",
     siteName: "Raul Malagarriga — Portfolio",
-    title: "Raul Malagarriga — Fullstack Developer & Software Architect",
+    title:
+      "Raul Malagarriga · malagarrigadev.vercel.app — Fullstack Developer & Software Architect",
     description:
-      "Ingeniero en Computación · Fullstack Developer · Software Architect. Backends confiables, frontends cohesivos, sistemas que llegan a producción y siguen funcionando.",
+      "Computer Engineer · Fullstack Developer · Software Architect. Reliable backends, cohesive frontends, thoughtful systems that ship and keep working.",
     firstName: "Raul",
     lastName: "Malagarriga",
     username: "rjmalagarrigat",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Raul Malagarriga — Fullstack Developer & Software Architect",
+    title:
+      "Raul Malagarriga · malagarrigadev.vercel.app — Fullstack Developer & Software Architect",
     description:
-      "Ingeniero · Fullstack · Software Architect. Backends, frontends y sistemas reflexivos.",
+      "Computer Engineer · Fullstack Developer · Software Architect. Reliable backends, cohesive frontends, thoughtful systems.",
     creator: "@rjmalagarrigat",
   },
   robots: {
@@ -104,7 +91,7 @@ const personJsonLd = {
   ],
   jobTitle: "Fullstack Developer · Software Architect · Computer Engineer",
   description:
-    "Ingeniero en Computación que diseña backends confiables, frontends cohesivos y sistemas reflexivos.",
+    "Computer Engineer who designs reliable backends, cohesive frontends, and thoughtful systems.",
   url: siteUrl,
   image: `${siteUrl}/opengraph-image`,
   email: "mailto:rjmalagarrigat@gmail.com",

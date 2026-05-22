@@ -10,7 +10,6 @@ import { SECTIONS, type ProjectDef, type SectionId } from "@/lib/portfolio-data"
 import TopBar from "@/components/terminal/top-bar"
 import StatusBar from "@/components/terminal/status-bar"
 import CommandPalette, { type Command } from "@/components/terminal/command-palette"
-import TweaksPanel from "@/components/terminal/tweaks-panel"
 import ProjectModal from "@/components/terminal/project-modal"
 
 import HeroSection from "@/components/sections/hero-section"
@@ -234,8 +233,6 @@ export default function Portfolio() {
       />
 
       <ProjectModal project={project} onClose={() => setProject(null)} />
-
-      <TweaksPanel tweaks={tweaks} setTweak={setTweak} />
     </>
   )
 }

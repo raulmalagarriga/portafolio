@@ -7,14 +7,9 @@ import { LanguageProvider } from "@/contexts/language-context"
 import { Analytics } from "@vercel/analytics/react"
 import BgLayers from "@/components/terminal/bg-layers"
 import ScrollProgress from "@/components/terminal/scroll-progress"
+import { getSiteUrl } from "@/lib/site-url"
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000")
+const siteUrl = getSiteUrl()
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

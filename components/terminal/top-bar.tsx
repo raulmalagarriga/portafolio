@@ -3,6 +3,7 @@
 import { useLanguage } from "@/contexts/language-context"
 import { SECTIONS, type SectionId } from "@/lib/portfolio-data"
 import Icon from "@/components/terminal/icon"
+import LanguageToggle from "@/components/terminal/language-toggle"
 
 type TopBarProps = {
   active: SectionId
@@ -15,7 +16,7 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
   const { t } = useLanguage()
 
   return (
-    <div className="topbar">
+    <header className="topbar">
       <div className="brand">
         <div className="glyph">R</div>
         <div>
@@ -28,8 +29,9 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
         {SECTIONS.map((s) => (
           <button
             key={s.id}
-            className={`navtab${active === s.id ? " active" : ""}`}
+            className={`navtab${active === s.id ? " active" : ""}${s.secondary ? " secondary" : ""}`}
             onClick={() => onNav(s.id)}
+            aria-current={active === s.id ? "true" : undefined}
             type="button"
           >
             <span className="hash">#</span> {t(s.labelKey)}
@@ -38,14 +40,15 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
       </nav>
 
       <div className="right">
-        <button className="iconbtn" title="Cycle accent color" onClick={onCycleAccent} type="button">
+        <LanguageToggle compact />
+        <button className="iconbtn" title="Cycle accent color" aria-label="Cycle accent color" onClick={onCycleAccent} type="button">
           <Icon name="palette" size={14} />
         </button>
-        <button className="iconbtn" title="Open command palette (⌘K)" onClick={onOpenPalette} type="button">
+        <button className="iconbtn" title="Open command palette (⌘K)" aria-label="Open command palette" onClick={onOpenPalette} type="button">
           <Icon name="search" size={14} />
         </button>
-        <span className="kbd" style={{ marginLeft: 4 }}>⌘ K</span>
+        <span className="kbd hide-mobile" style={{ marginLeft: 4 }}>⌘ K</span>
       </div>
-    </div>
+    </header>
   )
 }

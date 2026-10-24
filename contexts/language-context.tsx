@@ -1,13 +1,14 @@
 "use client"
 
 import type React from "react"
-
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useCallback, useContext, useMemo } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import { translations } from "@/lib/translations"
+import { LOCALE_COOKIE, localizePath, type Locale } from "@/lib/i18n"
 
-export type Language = "en" | "es"
+export type Language = Locale
 
-type TranslationKey = keyof typeof translations.en
+type TranslationKey = keyof typeof translations.es
 
 type LanguageContextType = {
   language: Language
@@ -18,37 +19,47 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>("en")
+export function LanguageProvider({
+  locale,
+  children,
+}: {
+  locale: Language
+  children: React.ReactNode
+}) {
+  const router = useRouter()
+  const pathname = usePathname()
 
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem("terminal-language") as Language | null
-    if (savedLanguage && (savedLanguage === "en" || savedLanguage === "es")) {
-      setLanguage(savedLanguage)
-    }
-  }, [])
-
-  const handleLanguageChange = (lang: Language) => {
-    setLanguage(lang)
-    try {
-      localStorage.setItem("terminal-language", lang)
-    } catch {}
-  }
-
-  const toggleLanguage = () => {
-    handleLanguageChange(language === "en" ? "es" : "en")
-  }
-
-  const t = (key: TranslationKey | (string & {})): string => {
-    const bag = translations[language] as Record<string, string>
-    return bag[key as string] ?? (key as string)
-  }
-
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage: handleLanguageChange, toggleLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
+  const setLanguage = useCallback(
+    (lang: Language) => {
+      if (lang === locale) return
+      try {
+        document.cookie = `${LOCALE_COOKIE}=${lang}; path=/; max-age=31536000; samesite=lax`
+      } catch {}
+      const hash = typeof window !== "undefined" ? window.location.hash : ""
+      const search = typeof window !== "undefined" ? window.location.search : ""
+      router.push(`${localizePath(pathname || "/", lang)}${search}${hash}`, { scroll: false })
+    },
+    [locale, pathname, router]
   )
+
+  const toggleLanguage = useCallback(() => {
+    setLanguage(locale === "es" ? "en" : "es")
+  }, [locale, setLanguage])
+
+  const t = useCallback(
+    (key: TranslationKey | (string & {})): string => {
+      const bag = translations[locale] as Record<string, string>
+      return bag[key as string] ?? (translations.es as Record<string, string>)[key as string] ?? (key as string)
+    },
+    [locale]
+  )
+
+  const value = useMemo(
+    () => ({ language: locale, setLanguage, toggleLanguage, t }),
+    [locale, setLanguage, toggleLanguage, t]
+  )
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>
 }
 
 export function useLanguage() {

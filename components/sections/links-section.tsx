@@ -13,11 +13,11 @@ export default function LinksSection() {
   return (
     <section id="links" className="section">
       <span className="sect-ghost" aria-hidden>
-        04
+        09
       </span>
       <div className="container">
         <Reveal variant="up">
-          <SectionHeader num="04" file="links.tsx" title={t("links.title")} sub={t("links.sub")} />
+          <SectionHeader num="09" file="links.tsx" title={t("links.title")} sub={t("links.sub")} />
         </Reveal>
 
         <div className="links-grid">

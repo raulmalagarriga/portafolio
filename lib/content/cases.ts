@@ -76,7 +76,7 @@ export const CASES: CaseDef[] = [
       { kind: "static", src: VerificaReportes, alt: { es: "Verifica · reportes", en: "Verifica · reports" } },
       { kind: "static", src: VerificaMonedas, alt: { es: "Verifica · monedas", en: "Verifica · currencies" } },
       { kind: "static", src: VerificaConciliacion, alt: { es: "Verifica · conciliación", en: "Verifica · reconciliation" } },
-      // TODO: add /public/cases/verifica-1.png (and -2, -3…) to extend the gallery; they appear automatically.
+      // TODO: optional extra screenshots: /public/cases/verifica-1.png (hidden until the file exists).
       { kind: "file", src: "/cases/verifica-1.png", alt: { es: "Verifica · captura", en: "Verifica · screenshot" } },
     ],
   },

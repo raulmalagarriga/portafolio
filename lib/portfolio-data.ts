@@ -56,7 +56,7 @@ export function sectionNum(id: SectionId): string {
 }
 
 export type LinkDef = {
-  key: "github" | "linkedin" | "blog" | "resume"
+  key: "github" | "linkedin" | "blog"
   icon: IconName
   url: string
 }
@@ -65,7 +65,6 @@ export const LINKS: LinkDef[] = [
   { key: "github", icon: "github", url: "https://github.com/raulmalagarriga" },
   { key: "linkedin", icon: "linkedin", url: "https://www.linkedin.com/in/rjmalagarrigat/" },
   { key: "blog", icon: "medium", url: "https://medium.com/@rjmalagarrigat" },
-  { key: "resume", icon: "download", url: "/Resume-RaulJMalagarriga.pdf" },
 ]
 
 export const SOCIAL = {

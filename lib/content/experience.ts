@@ -36,8 +36,8 @@ export const EXPERIENCE: ExperienceDef[] = [
     key: "megacopias",
     role: { es: "Responsable de Tecnología e Innovación", en: "Head of Technology & Innovation" },
     org: { es: "Mega Copias", en: "Mega Copias" },
-    // TODO: start date at Mega Copias (YYYY-MM)
-    start: undefined,
+    // TODO: add the month once confirmed (YYYY-MM); year-only renders as "2025".
+    start: "2025",
     highlights: {
       es: [
         "Verifica: la conciliación diaria de pagos pasó de unas 2 horas a menos de 10 minutos.",
@@ -89,6 +89,7 @@ export const EXPERIENCE: ExperienceDef[] = [
     org: { es: "Saint Latinoamérica", en: "Saint Latinoamérica" },
     start: "2019-03",
     end: "2023-03",
+    url: "https://saintnet.com/",
     highlights: {
       es: [
         "Gestión de incidencias y pruebas técnicas del software de gestión empresarial de Saint.",

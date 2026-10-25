@@ -5,6 +5,14 @@ import { pick } from "@/lib/i18n"
 import { CONSULTING } from "@/lib/content/consulting"
 import type { ContactReason } from "@/lib/content/contact"
 import Icon from "@/components/terminal/icon"
+import { ClipboardList, Hammer, LifeBuoy, ScanSearch, type LucideIcon } from "lucide-react"
+
+const STEP_ICONS: Record<string, LucideIcon> = {
+  diagnose: ScanSearch,
+  propose: ClipboardList,
+  build: Hammer,
+  support: LifeBuoy,
+}
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
 import SectionHeader from "@/components/terminal/section-header"
@@ -24,38 +32,54 @@ export default function ConsultingSection({ onContact }: Props) {
           <SectionHeader num="06" file="consulting.tsx" title={t("consulting.title")} sub={t("consulting.sub")} />
         </Reveal>
 
-        <div className="consulting-grid">
-          <Reveal variant="left" delay={80} sweep>
-            <Pane
-              title={
-                <>
-                  ~/consulting/<b>process.sh</b>
-                </>
-              }
-              meta="4 steps"
-              hoverable
-            >
-              <p className="bio-lead" style={{ marginBottom: 20 }}>
-                {pick(CONSULTING.intro, language)}
-              </p>
-              <div className="label" style={{ marginBottom: 10 }}>
-                <span className="b">$</span> {t("consulting.process")}
-              </div>
-              <ol className="steps">
-                {CONSULTING.steps.map((s, i) => (
-                  <li key={s.cmd} className="step">
+        <Reveal variant="rise" delay={80} sweep>
+          <Pane
+            title={
+              <>
+                ~/consulting/<b>process.sh</b>
+              </>
+            }
+            meta="4 steps"
+            hoverable
+          >
+            <p className="bio-lead" style={{ marginBottom: 20 }}>
+              {pick(CONSULTING.intro, language)}
+            </p>
+            <div className="label" style={{ marginBottom: 12 }}>
+              <span className="b">$</span> {t("consulting.process")}
+            </div>
+            <ol className="stepper">
+              {CONSULTING.steps.map((s, i) => (
+                <li key={s.cmd} className="stepper-item">
+                  <div className="step">
+                    <div className="step-top">
+                      <span className="step-icon" aria-hidden>
+                        {(() => {
+                          const StepIcon = STEP_ICONS[s.icon]
+                          return <StepIcon size={18} strokeWidth={1.75} />
+                        })()}
+                      </span>
+                      <span className="step-num">{String(i + 1).padStart(2, "0")}</span>
+                    </div>
                     <div className="step-cmd">
-                      <span className="b">$</span> {String(i + 1).padStart(2, "0")} ./{s.cmd}
+                      <span className="b">$</span> ./{s.cmd}
                     </div>
                     <h3>{pick(s.title, language)}</h3>
                     <p>{pick(s.body, language)}</p>
-                  </li>
-                ))}
-              </ol>
-            </Pane>
-          </Reveal>
+                  </div>
+                  {i < CONSULTING.steps.length - 1 && (
+                    <span className="step-arrow" aria-hidden>
+                      <Icon name="arrow" size={16} />
+                    </span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          </Pane>
+        </Reveal>
 
-          <Reveal variant="right" delay={140} sweep>
+        <Reveal variant="up" delay={140} sweep>
+          <div style={{ marginTop: 18 }}>
             <Pane
               title={
                 <>
@@ -65,24 +89,21 @@ export default function ConsultingSection({ onContact }: Props) {
               meta="scope"
               hoverable
             >
-              <div className="label" style={{ marginBottom: 10 }}>
-                <span className="b">$</span> {t("consulting.services")}
-              </div>
-              <div className="principles">
-                {CONSULTING.services[language].map((s) => (
-                  <span key={s} className="principle">
-                    <span className="glyph">◆</span> {s}
-                  </span>
-                ))}
-              </div>
-              <div style={{ marginTop: 24 }}>
+              <div className="services-row">
+                <div className="principles">
+                  {CONSULTING.services[language].map((s) => (
+                    <span key={s} className="principle">
+                      <span className="glyph">◆</span> {s}
+                    </span>
+                  ))}
+                </div>
                 <button type="button" className="btn" onClick={() => onContact(CONSULTING.cta.reason)}>
                   <Icon name="send" size={13} /> {pick(CONSULTING.cta.label, language)}
                 </button>
               </div>
             </Pane>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
     </section>
   )

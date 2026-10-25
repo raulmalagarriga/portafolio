@@ -22,8 +22,8 @@ export const HERO = {
     en: "I build software that solves real business problems.",
   } satisfies L,
   subtitle: {
-    es: "Soy Raúl Malagarriga, ingeniero en computación. Cofundé PULSE, lidero la tecnología e innovación de Mega Copias y ayudo a empresas a convertir sus problemas operativos en software a medida.",
-    en: "I'm Raúl Malagarriga, a computer engineer. I co-founded PULSE, lead technology and innovation at Mega Copias, and help companies turn operational problems into custom software.",
+    es: "Ingeniero en computación. Cofundé PULSE, lidero la tecnología de Mega Copias y construyo software a medida para empresas.",
+    en: "Computer engineer. I co-founded PULSE, lead technology at Mega Copias, and build custom software for companies.",
   } satisfies L,
   cta: {
     primary: { es: "Conoce PULSE", en: "Discover PULSE" } satisfies L,

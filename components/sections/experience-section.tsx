@@ -15,6 +15,7 @@ const MONTHS: Record<Locale, string[]> = {
 
 function fmt(ym: string, locale: Locale): string {
   const [y, m] = ym.split("-")
+  if (!m) return y
   const mi = Number(m) - 1
   const month = MONTHS[locale][mi] ?? ""
   return month ? `${month} ${y}` : y

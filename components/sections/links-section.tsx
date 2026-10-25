@@ -22,10 +22,7 @@ export default function LinksSection() {
 
         <div className="links-grid">
           {LINKS.map((link, i) => {
-            const isResume = link.key === "resume"
-            const linkProps = isResume
-              ? { href: link.url, download: true }
-              : { href: link.url, target: "_blank", rel: "noreferrer" }
+            const linkProps = { href: link.url, target: "_blank", rel: "noreferrer" }
             return (
               <Reveal key={link.key} variant="scale" delay={80 + i * 80}>
                 <a {...linkProps} style={{ textDecoration: "none", color: "inherit", display: "block" }}>

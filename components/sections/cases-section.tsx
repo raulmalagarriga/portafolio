@@ -60,7 +60,7 @@ export default function CasesSection({ available, onOpen, onContact }: Props) {
 
                     <button
                       type="button"
-                      className="preview"
+                      className="preview case-preview"
                       onClick={() => onOpen(c)}
                       aria-label={`${t("common.openDetails")}: ${c.name}`}
                       style={{ padding: 0, border: "1px solid var(--line)" }}
@@ -71,14 +71,14 @@ export default function CasesSection({ available, onOpen, onContact }: Props) {
                           alt={pick(cover.alt, language)}
                           width={520}
                           height={120}
-                          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                          style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
                         />
                       ) : cover ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
                           src={cover.src}
                           alt={pick(cover.alt, language)}
-                          style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "top center" }}
+                          style={{ width: "100%", height: "100%", objectFit: "contain", objectPosition: "center" }}
                         />
                       ) : (
                         <ScreenshotPlaceholder path={c.gallery[0]?.kind === "file" ? c.gallery[0].src : undefined} style={{ height: "100%" }} />

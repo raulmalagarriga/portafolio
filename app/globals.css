@@ -1065,3 +1065,100 @@ label.label { cursor: pointer; }
 .app-links a { font-size: 11.5px; color: var(--acc-2); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
 .app-links a:hover { color: var(--acc); }
 .app-links a + a::before { content: "·"; color: var(--ink-dim); margin-right: 6px; }
+
+/* ═══ Round 3: galleries without cropping, PULSE layout, stepper, links ═══ */
+
+/* Galleries show the full screenshot on a dark stage */
+.gallery-stage { background: #0a0b0e; }
+.links-grid { grid-template-columns: 1fr; }
+@media (min-width: 640px) { .links-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* Case cards: uncropped preview with the screenshot's own ratio */
+.proj-card .preview.case-preview { height: auto; aspect-ratio: 2.15; }
+.proj-card .preview.case-preview img { object-fit: contain; object-position: center; }
+.proj-card .preview.case-preview::after { display: none; }
+.proj-card:hover .preview.case-preview img { transform: none; }
+
+/* PULSE layout */
+.pulse-head { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: end; }
+@media (min-width: 900px) { .pulse-head { grid-template-columns: 1.4fr auto; gap: 32px; } }
+.pulse-head .pulse-tagline { max-width: 30ch; }
+.pulse-head .pulse-desc { margin-top: 10px; font-size: 13px; }
+.pulse-head .pulse-metrics { margin-top: 0; padding: 0; border: 0; grid-template-columns: repeat(3, auto); gap: 22px; }
+@media (min-width: 900px) { .pulse-head .pulse-metrics { justify-content: end; } }
+@media (max-width: 560px) { .pulse-head .pulse-metrics { grid-template-columns: 1fr 1fr; } }
+
+.pulse-media { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 22px; align-items: center; }
+@media (min-width: 760px) { .pulse-media { grid-template-columns: 1fr 150px; } }
+@media (min-width: 1100px) { .pulse-media { grid-template-columns: 1fr 180px; gap: 24px; } }
+.phone {
+  position: relative; width: 150px; margin: 0 auto;
+  border-radius: 26px; padding: 8px;
+  background: linear-gradient(180deg, #1a1d25, #0f1116);
+  border: 1px solid var(--line-2);
+  box-shadow: 0 20px 50px -20px rgba(0,0,0,.8), 0 0 0 1px rgba(var(--acc-rgb),.08);
+}
+@media (min-width: 1100px) { .phone { width: 180px; } }
+.phone-notch { position: absolute; top: 14px; left: 50%; transform: translateX(-50%); width: 40%; height: 6px; border-radius: 3px; background: #0a0b0e; z-index: 3; }
+.phone .gallery { border-radius: 18px; border: 0; }
+.phone .gallery-nav { width: 24px; height: 24px; }
+.phone .gallery-nav.prev { left: 6px; } .phone .gallery-nav.next { right: 6px; }
+.phone .gallery-dots { bottom: 8px; }
+
+.pulse-foot { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 22px; padding-top: 18px; border-top: 1px dashed var(--line-2); }
+@media (min-width: 900px) { .pulse-foot { grid-template-columns: 1.2fr 1fr; gap: 32px; } }
+.feature-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 5px 18px; font-size: 12.5px; color: var(--ink-mute); }
+@media (min-width: 560px) { .feature-list { grid-template-columns: 1fr 1fr; } }
+.feature-list li { display: flex; gap: 6px; line-height: 1.5; }
+.feature-list .b { color: var(--acc); opacity: .7; }
+.pulse-actions { display: flex; flex-direction: column; gap: 12px; }
+.pulse-actions .btn { align-self: flex-start; }
+.pulse-actions .app-rows { margin-top: 0; }
+.pulse-actions .investor-cta { margin-top: 2px; }
+
+/* Consulting stepper with arrows */
+.stepper { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 0; }
+@media (min-width: 900px) { .stepper { grid-template-columns: repeat(4, 1fr); } }
+.stepper-item { position: relative; display: flex; flex-direction: column; }
+.stepper-item .step { flex: 1; }
+.step-num { font-size: 22px; font-weight: 700; color: var(--acc); letter-spacing: -.02em; line-height: 1; margin-bottom: 8px; opacity: .9; }
+.step-arrow {
+  display: flex; align-items: center; justify-content: center;
+  color: var(--acc); opacity: .7; padding: 6px 0;
+}
+.step-arrow svg { transform: rotate(90deg); }
+@media (min-width: 900px) {
+  .stepper { gap: 0; }
+  .stepper-item { flex-direction: row; align-items: stretch; }
+  .step-arrow { padding: 0 6px; }
+  .step-arrow svg { transform: none; }
+}
+.services-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; }
+.pulse-head .pulse-tagline { max-width: 36ch; }
+@media (min-width: 900px) { .pulse-head { grid-template-columns: 1fr auto; } }
+.pulse-head .pulse-metric .v { font-size: clamp(18px, 1.8vw, 24px); }
+
+/* ═══ Round 4: alignment fixes ═══ */
+
+/* PULSE app rows: same structure in every card (name, then store links) */
+.app-row { display: grid; grid-template-columns: 1fr; gap: 6px; justify-content: stretch; }
+.app-links { justify-content: flex-start; }
+
+/* Case cards: one-line file path and a fixed-height title block so previews line up */
+.case-card .pane-head { min-width: 0; }
+.case-card .pane-title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.case-card .pane-meta { flex: none; }
+.case-card .top { min-height: 68px; align-items: center; }
+.case-card .top h3 { line-height: 1.3; }
+.case-card .preview.case-preview { flex: none; }
+
+/* Consulting step icons */
+.step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.step-icon {
+  width: 36px; height: 36px; border-radius: 9px; display: grid; place-items: center;
+  background: rgba(var(--acc-rgb),.10); color: var(--acc);
+  border: 1px solid rgba(var(--acc-rgb),.22);
+  transition: transform .25s ease, background .25s ease;
+}
+.step:hover .step-icon { transform: translateY(-2px); background: rgba(var(--acc-rgb),.16); }
+.step-top .step-num { margin: 0; font-size: 18px; opacity: .55; }

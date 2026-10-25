@@ -112,9 +112,6 @@ export default function HeroSection({ onNav, onContact }: HeroSectionProps) {
                   <a className="btn ghost sm" href={SOCIAL.linkedin} target="_blank" rel="noreferrer">
                     <Icon name="linkedin" size={12} /> linkedin
                   </a>
-                  <a className="btn ghost sm" href="/Resume-RaulJMalagarriga.pdf" download>
-                    <Icon name="download" size={12} /> cv
-                  </a>
                 </div>
               </div>
             </Pane>

@@ -77,7 +77,7 @@ export default function CaseModal({ item, available, onClose, onContact }: CaseM
             <StatusBadge status={item.status} />
           </div>
 
-          <Gallery items={item.gallery} available={available} keyboard />
+          <Gallery items={item.gallery} available={available} aspectRatio="2.15" keyboard />
 
           <dl className="case-rows">
             {rows.map((r) => (

@@ -9,6 +9,7 @@ export const CONSULTING = {
   steps: [
     {
       cmd: "diagnose",
+      icon: "diagnose" as const,
       title: { es: "Diagnóstico", en: "Diagnosis" } satisfies L,
       body: {
         es: "Entiendo cómo opera tu negocio antes de escribir una línea de código.",
@@ -17,6 +18,7 @@ export const CONSULTING = {
     },
     {
       cmd: "propose",
+      icon: "propose" as const,
       title: { es: "Propuesta", en: "Proposal" } satisfies L,
       body: {
         es: "Una solución por fases, con alcance claro y sin sorpresas.",
@@ -25,6 +27,7 @@ export const CONSULTING = {
     },
     {
       cmd: "build",
+      icon: "build" as const,
       title: { es: "Construcción", en: "Build" } satisfies L,
       body: {
         es: "Entregas incrementales que tu equipo puede usar desde la primera fase.",
@@ -33,6 +36,7 @@ export const CONSULTING = {
     },
     {
       cmd: "support",
+      icon: "support" as const,
       title: { es: "Acompañamiento", en: "Support" } satisfies L,
       body: {
         es: "Soporte, ajustes y mejoras mientras el sistema crece contigo.",

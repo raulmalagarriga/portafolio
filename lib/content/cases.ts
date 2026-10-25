@@ -104,9 +104,11 @@ export const CASES: CaseDef[] = [
     stack: ["Next.js", "MongoDB", "Docker"],
     status: "development",
     gallery: [
-      // TODO: add /public/cases/whatsapp-1.png (and -2…) once there is something to show.
-      { kind: "file", src: "/cases/whatsapp-1.png", alt: { es: "Gestor de chats · panel", en: "Chat manager · dashboard" } },
-      { kind: "file", src: "/cases/whatsapp-2.png", alt: { es: "Gestor de chats · conversación", en: "Chat manager · conversation" } },
+      // Customer names, avatars, messages and the linking QR are pixelated in these copies.
+      { kind: "file", src: "/cases/whatsapp-1.png", alt: { es: "Gestor de chats · bandeja con tiempos de respuesta", en: "Chat manager · inbox with response timers" } },
+      { kind: "file", src: "/cases/whatsapp-2.png", alt: { es: "Gestor de chats · tablero por estados", en: "Chat manager · status board" } },
+      { kind: "file", src: "/cases/whatsapp-3.png", alt: { es: "Gestor de chats · configuración de estados y tiempos límite", en: "Chat manager · status and time-limit settings" } },
+      { kind: "file", src: "/cases/whatsapp-4.png", alt: { es: "Gestor de chats · vinculación con WhatsApp", en: "Chat manager · WhatsApp linking" } },
     ],
   },
   {

@@ -18,6 +18,11 @@ export function useScrollFx(intensity: ScrollFxIntensity, background: string) {
       })
       const sp = document.getElementById("scrollProgress")
       if (sp) sp.style.opacity = "0"
+      const hero = document.querySelector<HTMLElement>(".hero-drift")
+      if (hero) {
+        hero.style.opacity = ""
+        hero.style.setProperty("--hero-y", "0px")
+      }
       return
     }
 
@@ -29,6 +34,7 @@ export function useScrollFx(intensity: ScrollFxIntensity, background: string) {
     const heroDrift = document.querySelector<HTMLElement>(".hero-drift")
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const minimal = intensity === "minimal" || reduced
+    const wideHero = window.matchMedia("(min-width: 980px)")
 
     let raf = 0
     let lastY = window.scrollY
@@ -73,9 +79,16 @@ export function useScrollFx(intensity: ScrollFxIntensity, background: string) {
         ghost.style.transform = `translate3d(0, ${off.toFixed(1)}px, 0)`
       }
 
-      if (heroDrift && !minimal) {
-        heroDrift.style.setProperty("--hero-y", `${(-y * 0.12).toFixed(1)}px`)
-        heroDrift.style.opacity = Math.max(0, 1 - y / 700).toFixed(2)
+      if (heroDrift) {
+        // Drift + fade only when the hero fits side by side (wide screens). On phones the
+        // profile card sits below the fold inside the hero, so fading would dim it.
+        if (!minimal && wideHero.matches) {
+          heroDrift.style.setProperty("--hero-y", `${(-y * 0.12).toFixed(1)}px`)
+          heroDrift.style.opacity = Math.max(0, 1 - y / 700).toFixed(2)
+        } else {
+          heroDrift.style.setProperty("--hero-y", "0px")
+          heroDrift.style.opacity = ""
+        }
       }
     }
 

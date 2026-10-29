@@ -9,38 +9,34 @@ export const CONSULTING = {
   steps: [
     {
       cmd: "diagnose",
-      icon: "diagnose" as const,
       title: { es: "Diagnóstico", en: "Diagnosis" } satisfies L,
       body: {
-        es: "Entiendo cómo opera tu negocio antes de escribir una línea de código.",
-        en: "I learn how your business runs before writing a line of code.",
+        es: "Entiendo cómo opera tu negocio antes de escribir código.",
+        en: "I learn how your business runs before writing code.",
       } satisfies L,
     },
     {
       cmd: "propose",
-      icon: "propose" as const,
       title: { es: "Propuesta", en: "Proposal" } satisfies L,
       body: {
-        es: "Una solución por fases, con alcance claro y sin sorpresas.",
-        en: "A phased solution with a clear scope and no surprises.",
+        es: "Una solución por fases, con alcance claro.",
+        en: "A phased solution with a clear scope.",
       } satisfies L,
     },
     {
       cmd: "build",
-      icon: "build" as const,
       title: { es: "Construcción", en: "Build" } satisfies L,
       body: {
-        es: "Entregas incrementales que tu equipo puede usar desde la primera fase.",
-        en: "Incremental deliveries your team can use from phase one.",
+        es: "Entregas que tu equipo usa desde la primera fase.",
+        en: "Deliveries your team uses from phase one.",
       } satisfies L,
     },
     {
       cmd: "support",
-      icon: "support" as const,
       title: { es: "Acompañamiento", en: "Support" } satisfies L,
       body: {
-        es: "Soporte, ajustes y mejoras mientras el sistema crece contigo.",
-        en: "Support, adjustments and improvements as the system grows with you.",
+        es: "Ajustes y mejoras mientras el sistema crece contigo.",
+        en: "Adjustments and improvements as the system grows with you.",
       } satisfies L,
     },
   ],

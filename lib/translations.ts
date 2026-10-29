@@ -58,10 +58,8 @@ export const translations = {
     "experience.title": "Experiencia",
 
     // Consulting
-    "consulting.title": "Consultoría · Cómo trabajo",
-    "consulting.sub": "Software a medida, por fases y sin sorpresas",
-    "consulting.process": "proceso",
-    "consulting.services": "servicios",
+    "consulting.title": "Consultoría",
+    "consulting.services": "servicios ›",
 
     // Lab
     "lab.title": "Laboratorio",
@@ -216,10 +214,8 @@ export const translations = {
     "experience.title": "Experience",
 
     // Consulting
-    "consulting.title": "Consulting · How I work",
-    "consulting.sub": "Custom software, in phases and with no surprises",
-    "consulting.process": "process",
-    "consulting.services": "services",
+    "consulting.title": "Consulting",
+    "consulting.services": "services ›",
 
     // Lab
     "lab.title": "Lab",

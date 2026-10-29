@@ -1,7 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { IBM_Plex_Sans } from "next/font/google"
+import { IBM_Plex_Sans, JetBrains_Mono } from "next/font/google"
 import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeColorProvider } from "@/contexts/theme-context"
@@ -21,6 +21,14 @@ const bodyFont = IBM_Plex_Sans({
   weight: ["400", "500"],
   display: "swap",
   variable: "--font-body",
+})
+
+/** Mono face for titles, labels, commands, chips, dates, buttons, nav and figures. */
+const monoFont = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-jetbrains",
 })
 
 type Params = Promise<{ locale: string }>
@@ -135,15 +143,7 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound()
 
   return (
-    <html lang={locale} className={bodyFont.variable} suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Geist+Mono:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang={locale} className={`${bodyFont.variable} ${monoFont.variable}`} suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <ThemeColorProvider>

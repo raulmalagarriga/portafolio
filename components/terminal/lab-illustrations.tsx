@@ -35,7 +35,7 @@ function SentimentArt({ label }: ArtProps) {
       <path d="M22 70 v8 M120 70 v8 M218 70 v8" stroke="#5a626f" strokeWidth="1.5" />
       <path d="M120 74 H189" stroke="currentColor" strokeWidth="2" />
       <circle cx="189" cy="74" r="4.5" fill="currentColor" />
-      <text x="189" y="90" textAnchor="middle" fill="currentColor" style={{ font: "500 9.5px 'JetBrains Mono', monospace" }}>
+      <text x="189" y="90" textAnchor="middle" fill="currentColor" style={{ font: "500 9.5px var(--font-mono)" }}>
         +0.82
       </text>
     </svg>

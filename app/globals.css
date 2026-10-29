@@ -10,15 +10,12 @@
   --ink-mute:  #8d96a4;
   --ink-dim:   #5a626f;
   --ink-strong: #f1f3f6;  /* titles */
-  --ink-2:     #a3abb8;   /* secondary paragraph text */
-  /* --ink-mute (#8d96a4) is the lightest grey allowed for text; --ink-dim is decoration only. */
+  --ink-2:     #a3abb8;   /* --ink-mute (#8d96a4) is the lightest grey allowed for text; --ink-dim is decoration only. */
   --line:      rgba(255,255,255,0.07);   /* dividers */
   --line-2:    rgba(255,255,255,0.10);
   --line-card: rgba(255,255,255,0.08);   /* cards */
   --line-input: rgba(255,255,255,0.12);  /* inputs */
-  --line-ghost: rgba(255,255,255,0.14);  /* ghost buttons */
-
-  /* theme accent — overridden by data-accent */
+  --line-ghost: rgba(255,255,255,0.14);  /* theme accent — overridden by data-accent */
   --acc:        #4ade80;
   --acc-2:      #86efac;
   --acc-rgb:    74,222,128;
@@ -28,8 +25,8 @@
   --danger:    #ef4444;
   --info:      #38bdf8;
 
-  --font-mono: "JetBrains Mono", "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-  /* --font-body (IBM Plex Sans) is set by next/font on <html>. */
+  /* --font-jetbrains and --font-body (IBM Plex Sans) are set by next/font on <html>. */
+  --font-mono: var(--font-jetbrains), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --font-sans: var(--font-body), "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
   --r-sm: 6px;
   --r-md: 10px;
@@ -290,15 +287,7 @@ body.scrolling-fast .bg-mesh { filter: blur(56px); }
 .palette li { padding: 9px 12px; border-radius: 7px; display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--ink-mute); cursor: pointer; }
 .palette li.sel { background: rgba(var(--acc-rgb),.08); color: var(--ink); }
 .palette li .ico { color: var(--acc); width: 14px; text-align: center; }
-.palette .hint { padding: 8px 12px; border-top: 1px solid var(--line); display: flex; gap: 14px; color: var(--ink-dim); font-size: 10.5px; }
-
-/* Equal-height link cards (extra <a> wrapper between reveal and pane) */
-
-/* ── Project card ────────────────────────────────────────────────────── */
-
-/* ── Profile/link card ──────────────────────────────────────────────── */
-
-/* ── Contact ─────────────────────────────────────────────────────────── */
+.palette .hint { padding: 8px 12px; border-top: 1px solid var(--line); display: flex; gap: 14px; color: var(--ink-mute); font-size: 10.5px; }
 
 .label { font-size: 10.5px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: .08em; display: flex; gap: 6px; align-items: baseline; margin-bottom: 6px; }
 .label .b { color: var(--acc); }
@@ -318,8 +307,6 @@ body.scrolling-fast .bg-mesh { filter: blur(56px); }
 .acc-link:hover { color: var(--acc); text-decoration: underline; }
 .mute-link { color: var(--ink-mute); text-decoration: none; }
 .mute-link:hover { color: var(--ink); }
-
-/* ── About: 2-column layout, bio lead, principles, stats ─────────────── */
 
 /* ── Reveal ──────────────────────────────────────────────────────────── */
 .reveal {
@@ -396,8 +383,6 @@ section.section > .container { position: relative; z-index: 1; }
   animation: paletteSlide .25s cubic-bezier(.2,.8,.2,1);
 }
 
-/* ── Footer link ─────────────────────────────────────────────────────── */
-
 /* ── Tweaks panel (port from prototype) ──────────────────────────────── */
 .twk-panel {
   position: fixed; right: 16px; bottom: 36px; z-index: 50; width: 280px;
@@ -439,10 +424,10 @@ section.section > .container { position: relative; z-index: 1; }
 .twk-row-h { flex-direction: row; align-items: center; justify-content: space-between; gap: 10px; }
 .twk-lbl { display: flex; justify-content: space-between; align-items: baseline; color: var(--ink-mute); }
 .twk-lbl > span:first-child { font-weight: 500; color: var(--ink); }
-.twk-val { color: var(--ink-dim); font-variant-numeric: tabular-nums; }
+.twk-val { color: var(--ink-mute); font-variant-numeric: tabular-nums; }
 .twk-sect {
   font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-  color: var(--ink-dim); padding: 10px 0 0;
+  color: var(--ink-mute); padding: 10px 0 0;
 }
 .twk-sect:first-child { padding-top: 0; }
 
@@ -485,8 +470,8 @@ section.section > .container { position: relative; z-index: 1; }
 .twk-chip[data-on="1"] { box-shadow: 0 0 0 1.5px var(--ink), 0 2px 6px rgba(0,0,0,.4); }
 
 /* ═══════════════════════════════════════════════════════════════════════
-   Narrative redesign — new sections (hero, facets, pulse, cases, timeline,
-   consulting, lab, stack, language toggle, placeholders)
+   Shared components (focus ring, gallery, placeholders, status badge,
+   case modal, language toggle, mobile menu)
    ═══════════════════════════════════════════════════════════════════════ */
 
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
@@ -495,11 +480,7 @@ section.section > .container { position: relative; z-index: 1; }
 :focus-visible { outline: 2px solid rgba(var(--acc-rgb),.7); outline-offset: 2px; border-radius: 4px; }
 .palette input:focus-visible { outline: none; }
 
-/* ── Chips row ───────────────────────────────────────────────────────── */
-
 .tag.todo { border-style: dashed; color: var(--warn); border-color: rgba(245,158,11,.45); background: rgba(245,158,11,.06); }
-
-/* ── PULSE (featured) ────────────────────────────────────────────────── */
 
 /* ── Gallery ─────────────────────────────────────────────────────────── */
 .gallery { position: relative; border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: #0a0b0e; }
@@ -523,7 +504,7 @@ section.section > .container { position: relative; z-index: 1; }
 .shot-placeholder-glyph { font-size: 22px; color: rgba(var(--acc-rgb),.5); }
 .shot-placeholder-text { font-size: 11.5px; color: var(--ink-mute); letter-spacing: .06em; text-transform: uppercase; }
 .shot-placeholder-text .b { color: var(--acc); }
-.shot-placeholder-path { font-size: 10.5px; color: var(--ink-dim); }
+.shot-placeholder-path { font-size: 10.5px; color: var(--ink-mute); }
 
 /* ── Status badge ────────────────────────────────────────────────────── */
 .status-badge {
@@ -536,8 +517,6 @@ section.section > .container { position: relative; z-index: 1; }
 .status-badge.production { color: var(--acc-2); border-color: rgba(var(--acc-rgb),.35); background: rgba(var(--acc-rgb),.06); }
 .status-badge.development { color: var(--warn); border-color: rgba(245,158,11,.4); background: rgba(245,158,11,.06); }
 .status-badge.development .dot { background: var(--warn); box-shadow: 0 0 8px rgba(245,158,11,.4); }
-
-/* ── Cases ───────────────────────────────────────────────────────────── */
 
 .impact-big {
   font-size: clamp(17px, 1.8vw, 22px); font-weight: 600; color: var(--acc-2);
@@ -556,63 +535,24 @@ section.section > .container { position: relative; z-index: 1; }
 .case-row dt { margin: 0; }
 .case-row dd { margin: 0; font-size: 13px; color: var(--ink-mute); line-height: 1.65; }
 
-/* ── Experience timeline ─────────────────────────────────────────────── */
-
-/* ── Consulting ──────────────────────────────────────────────────────── */
-
-/* ── Lab ─────────────────────────────────────────────────────────────── */
-
-/* ── Stack (condensed) ───────────────────────────────────────────────── */
-
 /* ── Language toggle ─────────────────────────────────────────────────── */
 .lang-toggle { display: inline-flex; padding: 2px; border-radius: 7px; border: 1px solid var(--line); background: rgba(255,255,255,.03); }
 .lang-opt {
   border: 0; background: transparent; cursor: pointer; padding: 4px 8px; border-radius: 5px;
-  font: 600 10.5px var(--font-mono); color: var(--ink-dim); text-transform: uppercase; letter-spacing: .08em;
+  font: 600 10.5px var(--font-mono); color: var(--ink-mute); text-transform: uppercase; letter-spacing: .08em;
   transition: all .2s ease;
 }
 .lang-opt:hover { color: var(--ink); }
 .lang-opt.on { background: rgba(var(--acc-rgb),.14); color: var(--acc-2); }
-
-/* ── Contact select ──────────────────────────────────────────────────── */
-
 
 @media (max-width: 760px) { .topbar .hide-mobile { display: none; } .topbar .right { gap: 6px; } }
 
 /* Modal gallery must not shrink inside the scrolling flex column */
 .modal-body > .gallery { flex: none; }
 @media (max-width: 640px) { .modal { max-height: 92vh; } .modal-body { padding: 14px 16px; } }
-/* Three case cards side by side on wide screens */
-
-/* PULSE app rows (trainers / athletes) */
-
-.btn.sm { padding: 6px 10px; font-size: 11.5px; }
-
-/* ── PULSE refinements ───────────────────────────────────────────────── */
-
-/* ═══ Round 3: galleries without cropping, PULSE layout, stepper, links ═══ */
 
 /* Galleries show the full screenshot on a dark stage */
 .gallery-stage { background: #0a0b0e; }
-
-/* Case cards: uncropped preview with the screenshot's own ratio */
-
-/* PULSE layout */
-
-/* Consulting stepper with arrows */
-
-/* ═══ Round 4: alignment fixes ═══ */
-
-/* PULSE app rows: same structure in every card (name, then store links) */
-
-/* Case cards: one-line file path and a fixed-height title block so previews line up */
-
-/* Consulting step icons */
-
-/* ═══ Round 5: mobile hardening ═══ */
-
-/* Grid tracks must be allowed to shrink below their content's min width,
-   otherwise a single nowrap line (e.g. a long file path) widens the whole page. */
 
 .pane, .pane-body, .pane-head { min-width: 0; }
 .pane-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -637,36 +577,21 @@ html, body { max-width: 100%; }
   .iconbtn { width: 38px; height: 38px; }
   .lang-opt { padding: 8px 10px; font-size: 11px; }
 
-  /* Larger tap areas for inline links and controls */
-
   .btn { min-height: 44px; }
-  .btn.sm { min-height: 40px; padding: 8px 14px; }
 
   .gallery-nav { width: 36px; height: 36px; }
 
   .gallery-dot { position: relative; }
   .gallery-dot::before { content: ""; position: absolute; inset: -10px -6px; }
 
- /* avoid iOS zoom on focus */
-
   /* Readability: nothing under 11px */
   .label, .tag, .status-badge, .pane-meta, .shot-placeholder-path, .kbd { font-size: 11px; }
-
-  /* Hero */
 
   /* Section headers */
   .sect-h { font-size: 28px; }
   .sect-h.lg { font-size: 32px; }
 
-  /* PULSE */
-
-  /* Cases: badge stays visible, path truncates */
-
   .case-row { gap: 2px; }
-
-  /* Stack rows */
-
-  /* Links: 1 column with compact cards */
 
   /* Modal fills the phone */
   .modal-back { padding: 10px; }
@@ -676,7 +601,6 @@ html, body { max-width: 100%; }
 
 @media (max-width: 360px) {
   .topbar .brand-text > span:last-child { display: none; } /* drop ".dev" */
-
 }
 
 /* ── Top bar: responsive nav + mobile menu ───────────────────────────── */
@@ -712,30 +636,11 @@ html, body { max-width: 100%; }
 .mobile-menu-palette {
   margin-top: 10px; width: 100%; min-height: 44px; display: flex; align-items: center; gap: 8px;
   padding: 10px 12px; border-radius: 8px; border: 1px dashed var(--line-2); background: rgba(255,255,255,.02);
-  font: 12.5px var(--font-mono); color: var(--ink-dim); cursor: pointer; text-align: left;
+  font: 12.5px var(--font-mono); color: var(--ink-mute); cursor: pointer; text-align: left;
 }
 @media (max-width: 340px) { .mobile-menu ul { grid-template-columns: 1fr; } }
 
-/* small glyph readability */
-
 @media (max-width: 640px) { .lang-opt { min-height: 34px; } }
-
-/* ═══ Round 5b: mobile polish ═══ */
-
-/* App rows: audience always on its own line so both cards share the same structure */
-
-@media (max-width: 640px) {
-  /* Typed role fits in two lines, so the reserved space stays small */
-
-  /* Stats 2×2: aligned cells */
-
-  /* Case & lab cards: single inner padding */
-
-  /* Profiles: compact horizontal cards */
-
-  /* Form fields: 16px (no iOS zoom) in a proportional face so long options fit */
-
-}
 
 /* ═══════════════════════════════════════════════════════════════════════
    Light redesign — one block per section

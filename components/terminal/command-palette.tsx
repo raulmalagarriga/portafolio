@@ -100,7 +100,7 @@ export default function CommandPalette({
             >
               <span className="ico">{c.glyph || "›"}</span>
               <span>{c.label}</span>
-              <span style={{ marginLeft: "auto", color: "var(--ink-dim)", fontSize: 11 }}>{c.hint}</span>
+              <span style={{ marginLeft: "auto", color: "var(--ink-mute)", fontSize: 11 }}>{c.hint}</span>
             </li>
           ))}
         </ul>

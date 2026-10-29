@@ -9,6 +9,8 @@ type ScrambleTextProps = {
   duration?: number
   trigger?: "mount" | "hover" | "scroll"
   className?: string
+  /** Hide the scrambling characters from assistive tech (the parent carries the real label). */
+  "aria-hidden"?: boolean
 }
 
 export default function ScrambleText({
@@ -16,6 +18,7 @@ export default function ScrambleText({
   duration = 700,
   trigger = "mount",
   className,
+  "aria-hidden": ariaHidden,
 }: ScrambleTextProps) {
   const [out, setOut] = useState(text)
   const ref = useRef<HTMLSpanElement | null>(null)
@@ -78,6 +81,7 @@ export default function ScrambleText({
     <span
       ref={ref}
       className={className}
+      aria-hidden={ariaHidden}
       onMouseEnter={trigger === "hover" ? run : undefined}
     >
       {out}

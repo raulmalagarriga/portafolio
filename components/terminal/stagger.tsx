@@ -8,18 +8,22 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type ElementType,
   type ReactElement,
   type ReactNode,
 } from "react"
 
 type StaggerProps = {
+  /** Container element; keep list semantics with "ol" / "ul" / "dl". */
+  as?: ElementType
   children: ReactNode
   className?: string
   style?: CSSProperties
 }
 
-export default function Stagger({ children, className = "", style }: StaggerProps) {
-  const ref = useRef<HTMLDivElement | null>(null)
+/** Children rise in one after another when the container enters the viewport. */
+export default function Stagger({ as: Tag = "div", children, className = "", style }: StaggerProps) {
+  const ref = useRef<HTMLElement | null>(null)
   const [shown, setShown] = useState(false)
 
   useEffect(() => {
@@ -51,12 +55,8 @@ export default function Stagger({ children, className = "", style }: StaggerProp
   })
 
   return (
-    <div
-      ref={ref}
-      className={`stagger${shown ? " in" : ""}${className ? " " + className : ""}`}
-      style={style}
-    >
+    <Tag ref={ref} className={`stagger${shown ? " in" : ""}${className ? " " + className : ""}`} style={style}>
       {kids}
-    </div>
+    </Tag>
   )
 }

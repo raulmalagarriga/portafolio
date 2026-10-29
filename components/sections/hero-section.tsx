@@ -10,6 +10,7 @@ import { PROFILE_PHOTO, SOCIAL, type SectionId } from "@/lib/portfolio-data"
 import type { ContactReason } from "@/lib/content/contact"
 import Icon from "@/components/terminal/icon"
 import Reveal from "@/components/terminal/reveal"
+import Stagger from "@/components/terminal/stagger"
 import TypedTitle from "@/components/terminal/typed-title"
 
 type HeroSectionProps = {
@@ -70,23 +71,21 @@ export default function HeroSection({ onNav, onContact }: HeroSectionProps) {
           </Reveal>
         </div>
 
-        <Reveal>
-          <dl className="stats">
-            {STATS.map((s) => (
-              <div key={s.key} className="stat">
-                <dt className={`stat-v${s.accent ? " acc" : ""}`}>{s.value}</dt>
-                <dd className="stat-k body-text">{pick(s.label, language)}</dd>
-              </div>
-            ))}
-          </dl>
-        </Reveal>
+        <Stagger as="dl" className="stats">
+          {STATS.map((s) => (
+            <div key={s.key} className="stat">
+              <dt className={`stat-v${s.accent ? " acc" : ""}`}>{s.value}</dt>
+              <dd className="stat-k body-text">{pick(s.label, language)}</dd>
+            </div>
+          ))}
+        </Stagger>
 
         <Reveal>
           <div className="facets">
             <p className="cmd-line">
               <span className="acc">$</span> ls ~/raul
             </p>
-            <div className="facet-list">
+            <Stagger className="facet-list">
               {FACETS.map((f) => (
                 <a key={f.key} className="facet" href={`#${f.target}`} onClick={go(f.target)}>
                   <span className="facet-folder">{pick(f.folder, language)}</span>
@@ -97,7 +96,7 @@ export default function HeroSection({ onNav, onContact }: HeroSectionProps) {
                   <span className="go">{pick(f.linkLabel, language)} →</span>
                 </a>
               ))}
-            </div>
+            </Stagger>
           </div>
         </Reveal>
       </div>

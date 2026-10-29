@@ -9,6 +9,7 @@ import { SOCIAL } from "@/lib/portfolio-data"
 import Icon from "@/components/terminal/icon"
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
+import Stagger from "@/components/terminal/stagger"
 import SectionHeader from "@/components/terminal/section-header"
 
 type SubmissionStatus = "idle" | "loading" | "success" | "error"
@@ -79,7 +80,7 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
           <Reveal>
             <SectionHeader id="contact" title={t("contact.title")} size="lg" />
             <p className="contact-lead body-text">{t("contact.lead")}</p>
-            <ul className="contact-rows">
+            <Stagger as="ul" className="contact-rows">
               {rows.map((r) => {
                 const external = r.href.startsWith("http")
                 return (
@@ -95,7 +96,7 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
                   </li>
                 )
               })}
-            </ul>
+            </Stagger>
           </Reveal>
 
           <Reveal delay={100}>

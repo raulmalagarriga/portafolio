@@ -8,6 +8,8 @@ import { LAB, LAB_INTRO } from "@/lib/content/lab"
 import Card from "@/components/terminal/card"
 import { LAB_ILLUSTRATIONS } from "@/components/terminal/lab-illustrations"
 import Reveal from "@/components/terminal/reveal"
+import Stagger from "@/components/terminal/stagger"
+import ScrambleText from "@/components/terminal/scramble-text"
 import SectionHeader from "@/components/terminal/section-header"
 
 /** "2026-02" → "2026" (the list shows years only). */
@@ -24,40 +26,38 @@ export default function ExperienceSection() {
           <SectionHeader id="experience" title={t("experience.title")} />
         </Reveal>
 
-        <Reveal>
-          <ol className="exp-list">
-            {EXPERIENCE.map((e) => {
-              const current = !e.end
-              return (
-                <li key={e.key} className="exp">
-                  <span className={`exp-when${current ? " current" : ""}`}>
-                    {e.start ? (
-                      year(e.start)
-                    ) : (
-                      // TODO: fill `start` in lib/content/experience.ts
-                      <span className="tl-pending" title={t("common.datePending")}>
-                        ····
+        <Stagger as="ol" className="exp-list">
+          {EXPERIENCE.map((e) => {
+            const current = !e.end
+            return (
+              <li key={e.key} className="exp">
+                <span className={`exp-when${current ? " current" : ""}`}>
+                  {e.start ? (
+                    year(e.start)
+                  ) : (
+                    // TODO: fill `start` in lib/content/experience.ts
+                    <span className="tl-pending" title={t("common.datePending")}>
+                      ····
+                    </span>
+                  )}{" "}
+                  — {e.end ? year(e.end) : t("common.present")}
+                </span>
+                <div>
+                  <h3 className="exp-role">
+                    {pick(e.role, language)}
+                    {e.roleTodo && (
+                      <span className="tag todo" style={{ marginLeft: 8 }} title="TODO">
+                        {t("common.todo")}
                       </span>
-                    )}{" "}
-                    — {e.end ? year(e.end) : t("common.present")}
-                  </span>
-                  <div>
-                    <h3 className="exp-role">
-                      {pick(e.role, language)}
-                      {e.roleTodo && (
-                        <span className="tag todo" style={{ marginLeft: 8 }} title="TODO">
-                          {t("common.todo")}
-                        </span>
-                      )}
-                    </h3>
-                    <p className="exp-org">{pick(e.org, language)}</p>
-                  </div>
-                  <p className="exp-summary body-text">{pick(e.summary, language)}</p>
-                </li>
-              )
-            })}
-          </ol>
-        </Reveal>
+                    )}
+                  </h3>
+                  <p className="exp-org">{pick(e.org, language)}</p>
+                </div>
+                <p className="exp-summary body-text">{pick(e.summary, language)}</p>
+              </li>
+            )
+          })}
+        </Stagger>
 
         <Reveal>
           <Card className="stack-card">
@@ -80,7 +80,9 @@ export default function ExperienceSection() {
             <p className="cmd-line">
               <span className="acc">$</span> ls lab/
             </p>
-            <h3 className="lab-title">{t("lab.title")}</h3>
+            <h3 className="lab-title" aria-label={t("lab.title")}>
+              <ScrambleText text={t("lab.title")} duration={650} trigger="scroll" aria-hidden />
+            </h3>
             <p className="lab-intro body-text">{pick(LAB_INTRO, language)}</p>
           </Reveal>
           <div className="lab-grid">

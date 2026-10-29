@@ -10,11 +10,13 @@ import { pick } from "@/lib/i18n"
 import type { CaseDef } from "@/lib/content/cases"
 import { isContactReason, type ContactReason } from "@/lib/content/contact"
 import { PULSE } from "@/lib/content/pulse"
+import { scrollToElement } from "@/lib/smooth-scroll"
 
 import TopBar from "@/components/terminal/top-bar"
 import StatusBar from "@/components/terminal/status-bar"
 import CommandPalette, { type Command } from "@/components/terminal/command-palette"
 import CaseModal from "@/components/terminal/case-modal"
+import SmoothScroll from "@/components/terminal/smooth-scroll"
 
 import HeroSection from "@/components/sections/hero-section"
 import PulseSection from "@/components/sections/pulse-section"
@@ -101,7 +103,7 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
 
   const onNav = useCallback((id: SectionId) => {
     const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+    if (el) scrollToElement(el)
     setActive(id)
   }, [])
 
@@ -258,6 +260,7 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
 
   return (
     <>
+      <SmoothScroll />
       <TopBar active={active} onNav={onNav} onOpenPalette={() => setPaletteOpen(true)} onCycleAccent={handleCycleAccent} />
 
       <main className="app">

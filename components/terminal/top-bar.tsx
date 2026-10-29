@@ -21,7 +21,7 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
   useEffect(() => {
     if (!menuOpen) return
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false)
-    const mq = window.matchMedia("(min-width: 1024px)")
+    const mq = window.matchMedia("(min-width: 960px)")
     const onMq = () => mq.matches && setMenuOpen(false)
     window.addEventListener("keydown", onKey)
     mq.addEventListener("change", onMq)
@@ -36,26 +36,31 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
     onNav(id)
   }
 
+  // The logo leads home, so the nav lists the other five sections.
+  const links = SECTIONS.filter((s) => s.id !== "home")
+
   return (
     <header className="topbar">
-      <div className="brand">
-        <div className="glyph">R</div>
-        <div className="brand-text">
+      <button type="button" className="brand" onClick={() => go("home")} aria-label={t("nav.home")}>
+        <span className="glyph" aria-hidden>
+          R
+        </span>
+        <span className="brand-text">
           <span style={{ color: "var(--ink)" }}>raulmalagarriga</span>
           <span style={{ color: "var(--ink-mute)" }}>.dev</span>
-        </div>
-      </div>
+        </span>
+      </button>
 
       <nav className="navtabs" aria-label="Sections">
-        {SECTIONS.map((s) => (
+        {links.map((s) => (
           <button
             key={s.id}
-            className={`navtab${active === s.id ? " active" : ""}${s.secondary ? " secondary" : ""}`}
+            className={`navtab${active === s.id ? " active" : ""}`}
             onClick={() => onNav(s.id)}
             aria-current={active === s.id ? "true" : undefined}
             type="button"
           >
-            <span className="hash">#</span> {t(s.labelKey)}
+            {t(s.labelKey)}
           </button>
         ))}
       </nav>
@@ -86,7 +91,7 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
           <div className="mobile-menu-back" onClick={() => setMenuOpen(false)} aria-hidden />
           <nav id="mobile-menu" className="mobile-menu" aria-label="Sections">
             <ul>
-              {SECTIONS.map((s) => (
+              {links.map((s) => (
                 <li key={s.id}>
                   <button
                     type="button"
@@ -95,7 +100,7 @@ export default function TopBar({ active, onNav, onOpenPalette, onCycleAccent }: 
                     onClick={() => go(s.id)}
                   >
                     <span className="num">{s.num}</span>
-                    <span className="hash">#</span> {t(s.labelKey)}
+                    {t(s.labelKey)}
                   </button>
                 </li>
               ))}

@@ -7,24 +7,20 @@ import { LAB, LAB_INTRO } from "@/lib/content/lab"
 import Icon from "@/components/terminal/icon"
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
-import SectionHeader from "@/components/terminal/section-header"
 
 export default function LabSection() {
   const { t, language } = useLanguage()
 
   return (
     <section id="lab" className="section">
-      <span className="sect-ghost" aria-hidden>
-        07
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="07" file="lab.tsx" title={t("lab.title")} sub={pick(LAB_INTRO, language)} />
+        <Reveal>
+          <h2 className="sect-h">{t("lab.title")}</h2>
         </Reveal>
 
         <div className="lab-grid">
           {LAB.map((p, i) => (
-            <Reveal key={p.key} variant="scale" delay={80 + i * 80} sweep>
+            <Reveal key={p.key} delay={80 + i * 80}>
               <Pane
                 hoverable
                 title={

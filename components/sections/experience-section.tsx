@@ -26,15 +26,12 @@ export default function ExperienceSection() {
 
   return (
     <section id="experience" className="section">
-      <span className="sect-ghost" aria-hidden>
-        05
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="05" file="experience.tsx" title={t("experience.title")} sub={t("experience.sub")} />
+        <Reveal>
+          <SectionHeader id="experience" title={t("experience.title")} />
         </Reveal>
 
-        <Reveal variant="rise" delay={80} sweep>
+        <Reveal delay={80}>
           <Pane
             title={
               <>

@@ -13,16 +13,8 @@ export function useScrollFx(intensity: ScrollFxIntensity, background: string) {
       document.querySelectorAll<HTMLElement>(".parallax").forEach((el) => {
         el.style.transform = ""
       })
-      document.querySelectorAll<HTMLElement>(".sect-ghost").forEach((el) => {
-        el.style.transform = ""
-      })
       const sp = document.getElementById("scrollProgress")
       if (sp) sp.style.opacity = "0"
-      const hero = document.querySelector<HTMLElement>(".hero-drift")
-      if (hero) {
-        hero.style.opacity = ""
-        hero.style.setProperty("--hero-y", "0px")
-      }
       return
     }
 
@@ -30,11 +22,8 @@ export function useScrollFx(intensity: ScrollFxIntensity, background: string) {
     if (sp) sp.style.opacity = "1"
 
     const parallaxNodes = Array.from(document.querySelectorAll<HTMLElement>(".parallax"))
-    const ghosts = Array.from(document.querySelectorAll<HTMLElement>(".sect-ghost"))
-    const heroDrift = document.querySelector<HTMLElement>(".hero-drift")
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     const minimal = intensity === "minimal" || reduced
-    const wideHero = window.matchMedia("(min-width: 980px)")
 
     let raf = 0
     let lastY = window.scrollY
@@ -67,27 +56,6 @@ export function useScrollFx(intensity: ScrollFxIntensity, background: string) {
         for (const node of parallaxNodes) {
           const rate = parseFloat(node.dataset.parallax || "0")
           node.style.transform = `translate3d(0, ${(y * rate).toFixed(1)}px, 0)`
-        }
-      }
-
-      for (const ghost of ghosts) {
-        const parent = ghost.parentElement
-        if (!parent) continue
-        const rect = parent.getBoundingClientRect()
-        const center = rect.top + rect.height / 2 - window.innerHeight / 2
-        const off = minimal ? center * -0.04 : center * -0.18
-        ghost.style.transform = `translate3d(0, ${off.toFixed(1)}px, 0)`
-      }
-
-      if (heroDrift) {
-        // Drift + fade only when the hero fits side by side (wide screens). On phones the
-        // profile card sits below the fold inside the hero, so fading would dim it.
-        if (!minimal && wideHero.matches) {
-          heroDrift.style.setProperty("--hero-y", `${(-y * 0.12).toFixed(1)}px`)
-          heroDrift.style.opacity = Math.max(0, 1 - y / 700).toFixed(2)
-        } else {
-          heroDrift.style.setProperty("--hero-y", "0px")
-          heroDrift.style.opacity = ""
         }
       }
     }

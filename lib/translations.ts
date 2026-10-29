@@ -5,15 +5,19 @@ export const translations = {
   es: {
     // Navigation / sections
     "nav.home": "inicio",
-    "nav.what-i-do": "qué-hago",
     "nav.pulse": "pulse",
     "nav.cases": "casos",
     "nav.experience": "experiencia",
     "nav.consulting": "consultoría",
-    "nav.lab": "lab",
-    "nav.stack": "stack",
-    "nav.links": "perfiles",
     "nav.contact": "contacto",
+
+    // Section header paths
+    "path.home": "~/inicio",
+    "path.pulse": "~/pulse",
+    "path.cases": "~/casos",
+    "path.experience": "~/experiencia",
+    "path.consulting": "~/consultoria",
+    "path.contact": "~/contacto",
 
     // Shared
     "common.present": "presente",
@@ -178,15 +182,19 @@ export const translations = {
   en: {
     // Navigation / sections
     "nav.home": "home",
-    "nav.what-i-do": "what-i-do",
     "nav.pulse": "pulse",
     "nav.cases": "cases",
     "nav.experience": "experience",
     "nav.consulting": "consulting",
-    "nav.lab": "lab",
-    "nav.stack": "stack",
-    "nav.links": "links",
     "nav.contact": "contact",
+
+    // Section header paths
+    "path.home": "~/home",
+    "path.pulse": "~/pulse",
+    "path.cases": "~/cases",
+    "path.experience": "~/experience",
+    "path.consulting": "~/consulting",
+    "path.contact": "~/contact",
 
     // Shared
     "common.present": "present",

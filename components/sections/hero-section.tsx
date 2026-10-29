@@ -24,12 +24,9 @@ export default function HeroSection({ onNav, onContact }: HeroSectionProps) {
 
   return (
     <section id="home" className="section" style={{ minHeight: "92vh", display: "flex", alignItems: "center" }}>
-      <span className="sect-ghost" aria-hidden>
-        01
-      </span>
       <div className="container hero-drift" style={{ width: "100%" }}>
         <div className="hero-grid">
-          <Reveal variant="rise" sweep>
+          <Reveal>
             <Pane
               title={
                 <>
@@ -62,7 +59,7 @@ export default function HeroSection({ onNav, onContact }: HeroSectionProps) {
             </Pane>
           </Reveal>
 
-          <Reveal variant="right" delay={140} sweep>
+          <Reveal delay={140}>
             <Pane
               title={
                 <>

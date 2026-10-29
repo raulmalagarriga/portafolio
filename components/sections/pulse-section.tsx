@@ -20,15 +20,12 @@ export default function PulseSection({ available, onContact }: Props) {
 
   return (
     <section id="pulse" className="section">
-      <span className="sect-ghost" aria-hidden>
-        03
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="03" file="pulse.tsx" title={t("pulse.title")} sub={t("pulse.sub")} />
+        <Reveal>
+          <SectionHeader id="pulse" title={t("pulse.title")} sub={t("pulse.sub")} />
         </Reveal>
 
-        <Reveal variant="rise" delay={80} sweep>
+        <Reveal delay={80}>
           <Pane
             title={
               <>

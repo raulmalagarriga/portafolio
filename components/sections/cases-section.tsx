@@ -24,19 +24,16 @@ export default function CasesSection({ available, onOpen, onContact }: Props) {
 
   return (
     <section id="cases" className="section">
-      <span className="sect-ghost" aria-hidden>
-        04
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="04" file="cases/" title={t("cases.title")} sub={t("cases.sub")} />
+        <Reveal>
+          <SectionHeader id="cases" title={t("cases.title")} />
         </Reveal>
 
         <div className="case-grid">
           {CASES.map((c, i) => {
             const cover = c.gallery.find((g) => g.kind === "static" || available.includes(g.src))
             return (
-              <Reveal key={c.slug} variant={i % 2 === 0 ? "left" : "right"} delay={80 + i * 90} sweep>
+              <Reveal key={c.slug} delay={80 + i * 90}>
                 <Pane
                   hoverable
                   className="proj-card case-card"

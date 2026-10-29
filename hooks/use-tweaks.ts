@@ -19,14 +19,15 @@ export type Tweaks = {
 
 export const TWEAK_DEFAULTS: Tweaks = {
   accent: "green",
-  scanlines: true,
-  noise: true,
+  scanlines: false,
+  noise: false,
   density: "comfortable",
-  background: "mesh",
+  background: "none",
   scrollFx: "full",
 }
 
-const STORAGE_KEY = "__tweaks_panel_state"
+// v2: the light redesign turned the ambient layers off; older saved states would turn them back on.
+const STORAGE_KEY = "__tweaks_panel_state_v2"
 
 function normalize(value: unknown): Tweaks {
   const v = (value || {}) as Partial<Tweaks>

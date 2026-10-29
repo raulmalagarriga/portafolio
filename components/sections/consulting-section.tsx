@@ -24,15 +24,12 @@ export default function ConsultingSection({ onContact }: Props) {
 
   return (
     <section id="consulting" className="section">
-      <span className="sect-ghost" aria-hidden>
-        06
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="06" file="consulting.tsx" title={t("consulting.title")} sub={t("consulting.sub")} />
+        <Reveal>
+          <SectionHeader id="consulting" title={t("consulting.title")} />
         </Reveal>
 
-        <Reveal variant="rise" delay={80} sweep>
+        <Reveal delay={80}>
           <Pane
             title={
               <>
@@ -78,7 +75,7 @@ export default function ConsultingSection({ onContact }: Props) {
           </Pane>
         </Reveal>
 
-        <Reveal variant="up" delay={140} sweep>
+        <Reveal delay={140}>
           <div style={{ marginTop: 18 }}>
             <Pane
               title={

@@ -17,42 +17,28 @@ export type IconName =
   | "palette"
   | "cpu"
 
-export type SectionId =
-  | "home"
-  | "what-i-do"
-  | "pulse"
-  | "cases"
-  | "experience"
-  | "consulting"
-  | "lab"
-  | "stack"
-  | "links"
-  | "contact"
+export type SectionId = "home" | "pulse" | "cases" | "experience" | "consulting" | "contact"
 
 export type SectionDef = {
   id: SectionId
   labelKey: string
+  /** Path shown in the section header (e.g. "~/casos"). */
+  pathKey: string
   file: string
   num: string
-  /** Lower-priority tabs are hidden on narrow desktop widths (they stay reachable via ⌘K). */
-  secondary?: boolean
 }
 
 export const SECTIONS: SectionDef[] = [
-  { id: "home", labelKey: "nav.home", file: "index.tsx", num: "01" },
-  { id: "what-i-do", labelKey: "nav.what-i-do", file: "what-i-do.tsx", num: "02" },
-  { id: "pulse", labelKey: "nav.pulse", file: "pulse.tsx", num: "03" },
-  { id: "cases", labelKey: "nav.cases", file: "cases.tsx", num: "04" },
-  { id: "experience", labelKey: "nav.experience", file: "experience.tsx", num: "05" },
-  { id: "consulting", labelKey: "nav.consulting", file: "consulting.tsx", num: "06" },
-  { id: "lab", labelKey: "nav.lab", file: "lab.tsx", num: "07", secondary: true },
-  { id: "stack", labelKey: "nav.stack", file: "stack.tsx", num: "08", secondary: true },
-  { id: "links", labelKey: "nav.links", file: "links.tsx", num: "09", secondary: true },
-  { id: "contact", labelKey: "nav.contact", file: "contact.tsx", num: "10" },
+  { id: "home", labelKey: "nav.home", pathKey: "path.home", file: "index.tsx", num: "01" },
+  { id: "pulse", labelKey: "nav.pulse", pathKey: "path.pulse", file: "pulse.tsx", num: "02" },
+  { id: "cases", labelKey: "nav.cases", pathKey: "path.cases", file: "cases/", num: "03" },
+  { id: "experience", labelKey: "nav.experience", pathKey: "path.experience", file: "experience.tsx", num: "04" },
+  { id: "consulting", labelKey: "nav.consulting", pathKey: "path.consulting", file: "consulting.tsx", num: "05" },
+  { id: "contact", labelKey: "nav.contact", pathKey: "path.contact", file: "contact.tsx", num: "06" },
 ]
 
-export function sectionNum(id: SectionId): string {
-  return SECTIONS.find((s) => s.id === id)?.num ?? "00"
+export function sectionDef(id: SectionId): SectionDef {
+  return SECTIONS.find((s) => s.id === id)!
 }
 
 export type LinkDef = {

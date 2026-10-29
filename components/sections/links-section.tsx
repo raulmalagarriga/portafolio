@@ -5,26 +5,22 @@ import { LINKS } from "@/lib/portfolio-data"
 import Icon from "@/components/terminal/icon"
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
-import SectionHeader from "@/components/terminal/section-header"
 
 export default function LinksSection() {
   const { t } = useLanguage()
 
   return (
     <section id="links" className="section">
-      <span className="sect-ghost" aria-hidden>
-        09
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="09" file="links.tsx" title={t("links.title")} sub={t("links.sub")} />
+        <Reveal>
+          <h2 className="sect-h">{t("links.title")}</h2>
         </Reveal>
 
         <div className="links-grid">
           {LINKS.map((link, i) => {
             const linkProps = { href: link.url, target: "_blank", rel: "noreferrer" }
             return (
-              <Reveal key={link.key} variant="scale" delay={80 + i * 80}>
+              <Reveal key={link.key} delay={80 + i * 80}>
                 <a {...linkProps} style={{ textDecoration: "none", color: "inherit", display: "block" }}>
                   <Pane hoverable>
                     <div className="link-card">

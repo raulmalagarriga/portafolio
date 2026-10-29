@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
+import { IBM_Plex_Sans } from "next/font/google"
 import "../globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import { ThemeColorProvider } from "@/contexts/theme-context"
@@ -13,6 +14,14 @@ import { LOCALES, OG_LOCALE, isLocale, pick, type Locale } from "@/lib/i18n"
 import { SEO } from "@/lib/content/seo"
 
 const siteUrl = getSiteUrl()
+
+/** Body face for paragraphs and descriptions; everything else stays in JetBrains Mono. */
+const bodyFont = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-body",
+})
 
 type Params = Promise<{ locale: string }>
 
@@ -126,7 +135,7 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) notFound()
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html lang={locale} className={bodyFont.variable} suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

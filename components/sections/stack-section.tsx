@@ -6,22 +6,18 @@ import { STACK } from "@/lib/content/stack"
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
 import ScrambleText from "@/components/terminal/scramble-text"
-import SectionHeader from "@/components/terminal/section-header"
 
 export default function StackSection() {
   const { t, language } = useLanguage()
 
   return (
     <section id="stack" className="section">
-      <span className="sect-ghost" aria-hidden>
-        08
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="08" file="stack.tsx" title={t("stack.title")} sub={t("stack.sub")} />
+        <Reveal>
+          <h2 className="sect-h">{t("stack.title")}</h2>
         </Reveal>
 
-        <Reveal variant="rise" delay={80} sweep>
+        <Reveal delay={80}>
           <Pane
             title={
               <>

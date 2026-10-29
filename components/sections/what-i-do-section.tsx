@@ -7,7 +7,6 @@ import type { SectionId } from "@/lib/portfolio-data"
 import Icon from "@/components/terminal/icon"
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
-import SectionHeader from "@/components/terminal/section-header"
 
 type Props = { onNav: (id: SectionId) => void }
 
@@ -16,17 +15,14 @@ export default function WhatIDoSection({ onNav }: Props) {
 
   return (
     <section id="what-i-do" className="section">
-      <span className="sect-ghost" aria-hidden>
-        02
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="02" file="what-i-do.tsx" title={t("whatido.title")} sub={t("whatido.sub")} />
+        <Reveal>
+          <h2 className="sect-h">{t("whatido.title")}</h2>
         </Reveal>
 
         <div className="facet-grid">
           {FACETS.map((f, i) => (
-            <Reveal key={f.key} variant="rise" delay={80 + i * 90} sweep>
+            <Reveal key={f.key} delay={80 + i * 90}>
               <Pane
                 hoverable
                 title={
@@ -49,7 +45,7 @@ export default function WhatIDoSection({ onNav }: Props) {
           ))}
         </div>
 
-        <Reveal variant="up" delay={120}>
+        <Reveal delay={120}>
           <div style={{ marginTop: 18 }}>
             <Pane
               title={

@@ -29,9 +29,9 @@ import ContactSection from "@/components/sections/contact-section"
 import FooterSection from "@/components/sections/footer-section"
 
 const DENSITY_PAD: Record<string, string> = {
-  compact: "44px",
-  comfortable: "64px",
-  spacious: "92px",
+  compact: "64px",
+  comfortable: "96px",
+  spacious: "128px",
 }
 
 const ACCENT_KEYS = THEME_COLORS
@@ -67,17 +67,19 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
   }, [tweaks.noise])
 
   useEffect(() => {
-    document.documentElement.style.setProperty("--section-pad", DENSITY_PAD[tweaks.density] || "64px")
+    document.documentElement.style.setProperty("--section-pad", DENSITY_PAD[tweaks.density] || "96px")
   }, [tweaks.density])
 
   useEffect(() => {
     const grid = document.querySelector<HTMLElement>(".bg-grid")
     const dots = document.querySelector<HTMLElement>(".bg-dots")
     const mesh = document.querySelector<HTMLElement>(".bg-mesh")
-    if (!grid || !dots || !mesh) return
+    const vignette = document.querySelector<HTMLElement>(".bg-vignette")
+    if (!grid || !dots || !mesh || !vignette) return
     grid.style.display = tweaks.background === "grid" || tweaks.background === "mesh" ? "" : "none"
     dots.style.display = tweaks.background === "dots" || tweaks.background === "mesh" ? "" : "none"
     mesh.style.display = tweaks.background === "none" ? "none" : ""
+    vignette.style.display = tweaks.background === "none" ? "none" : ""
   }, [tweaks.background])
 
   useScrollFx(tweaks.scrollFx, tweaks.background)
@@ -125,7 +127,7 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
     }
   }, [onNav])
 
-  // ⌘K + ⌘1..9 (0 = contact)
+  // ⌘K + ⌘1..6
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
@@ -133,9 +135,8 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
         setPaletteOpen((v) => !v)
         return
       }
-      if ((e.metaKey || e.ctrlKey) && /^[0-9]$/.test(e.key)) {
-        const idx = e.key === "0" ? 9 : Number(e.key) - 1
-        const s = SECTIONS[idx]
+      if ((e.metaKey || e.ctrlKey) && /^[1-9]$/.test(e.key)) {
+        const s = SECTIONS[Number(e.key) - 1]
         if (s) {
           e.preventDefault()
           onNav(s.id)

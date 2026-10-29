@@ -65,16 +65,13 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
 
   return (
     <section id="contact" className="section">
-      <span className="sect-ghost" aria-hidden>
-        10
-      </span>
       <div className="container">
-        <Reveal variant="up">
-          <SectionHeader num="10" file="contact.tsx" title={t("contact.title")} sub={t("contact.sub")} />
+        <Reveal>
+          <SectionHeader id="contact" title={t("contact.title")} />
         </Reveal>
 
         <div className="contact-grid">
-          <Reveal variant="left" delay={80} sweep>
+          <Reveal delay={80}>
             <Pane
               title={
                 <>
@@ -185,7 +182,7 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
             </Pane>
           </Reveal>
 
-          <Reveal variant="right" delay={140} sweep>
+          <Reveal delay={140}>
             <Pane
               title={
                 <>

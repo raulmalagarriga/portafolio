@@ -54,7 +54,14 @@ export default function HeroSection({ onNav, onContact }: HeroSectionProps) {
 
           <Reveal delay={120} className="hero-profile">
             <div className="hero-photo">
-              <Image src={PROFILE_PHOTO} alt="Raúl Malagarriga" fill sizes="300px" priority />
+              <Image
+                src={PROFILE_PHOTO.src}
+                alt="Raúl Malagarriga"
+                fill
+                sizes="300px"
+                priority
+                style={{ objectPosition: PROFILE_PHOTO.position }}
+              />
             </div>
             <div className="hero-profile-name">
               <p className="name">Raúl Malagarriga</p>

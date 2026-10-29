@@ -1,4 +1,5 @@
-import ProfilePhoto from "@/assets/profile-photo.png"
+import ProfilePhotoStudio from "@/assets/profile-photo.png"
+import ProfilePhotoToledo from "@/assets/profile-photo-toledo.jpg"
 
 export type IconName =
   | "github"
@@ -60,4 +61,11 @@ export const SOCIAL = {
   email: "rjmalagarrigat@gmail.com",
 }
 
-export const PROFILE_PHOTO = ProfilePhoto
+/** Available portraits; `position` frames each one inside the square hero photo. */
+export const PROFILE_PHOTOS = {
+  studio: { src: ProfilePhotoStudio, position: "50% 50%" },
+  toledo: { src: ProfilePhotoToledo, position: "50% 82%" },
+}
+
+/** Portrait shown in the hero. Switch back with `PROFILE_PHOTOS.studio`. */
+export const PROFILE_PHOTO = PROFILE_PHOTOS.toledo

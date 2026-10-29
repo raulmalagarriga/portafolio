@@ -2,7 +2,7 @@ import type { StaticImageData } from "next/image"
 import type { L, LList } from "@/lib/i18n"
 import type { ContactReason } from "@/lib/content/contact"
 
-import InterfazPulse from "@/assets/pulse/pulseinterfaz.png"
+import LandingPulse from "@/assets/pulse/landing.png"
 import PhoneDashboard from "@/assets/pulse/Dashboard.png"
 
 export type GalleryItem =
@@ -56,9 +56,9 @@ export const PULSE = {
     } satisfies L,
     reason: "pulse" as ContactReason,
   },
-  /** Web dashboard with the phone app overlaid at the bottom right (both shown uncropped). */
+  /** Landing page with the phone app overlaid at the bottom right (both shown uncropped). */
   screens: {
-    web: { src: InterfazPulse, alt: { es: "Panel web de PULSE", en: "PULSE web dashboard" } satisfies L },
+    web: { src: LandingPulse, alt: { es: "Landing de PULSE", en: "PULSE landing page" } satisfies L },
     phone: { src: PhoneDashboard, alt: { es: "App móvil de PULSE · panel", en: "PULSE mobile app · dashboard" } satisfies L },
   },
 }

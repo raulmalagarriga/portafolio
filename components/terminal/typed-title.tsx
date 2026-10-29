@@ -45,9 +45,9 @@ export default function TypedTitle({ prompt, prefix, titles }: TypedTitleProps) 
 
   return (
     <div className="hero-h">
-      <div style={{ color: "var(--ink-mute)", fontSize: 13, marginBottom: 14, letterSpacing: ".05em" }}>
-        <span style={{ color: "var(--acc)" }}>$</span> {prompt}
-      </div>
+      <p className="hero-prompt">
+        <span className="acc">$</span> {prompt}
+      </p>
       {/* Grid-stacked: the hidden longest title reserves the height so the page never jumps while typing. */}
       <div className="hero-typed-wrap">
         <p className="hero-typed hero-typed-ghost" aria-hidden>
@@ -56,8 +56,8 @@ export default function TypedTitle({ prompt, prefix, titles }: TypedTitleProps) 
           <span className="caret" />
         </p>
         <p className="hero-typed" aria-live="off">
-          <span style={{ color: "var(--acc)", opacity: 0.85 }}>{prefix}</span>
-          <span style={{ color: "var(--ink)" }}>{text}</span>
+          <span>{prefix}</span>
+          <span className="acc">{text}</span>
           <span className="caret" aria-hidden />
           <span className="sr-only">{titles.join(" · ")}</span>
         </p>

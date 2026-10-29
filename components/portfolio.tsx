@@ -17,7 +17,6 @@ import CommandPalette, { type Command } from "@/components/terminal/command-pale
 import CaseModal from "@/components/terminal/case-modal"
 
 import HeroSection from "@/components/sections/hero-section"
-import WhatIDoSection from "@/components/sections/what-i-do-section"
 import PulseSection from "@/components/sections/pulse-section"
 import CasesSection from "@/components/sections/cases-section"
 import ExperienceSection from "@/components/sections/experience-section"
@@ -266,7 +265,6 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
 
       <main className="app">
         <HeroSection onNav={onNav} onContact={onContact} />
-        <WhatIDoSection onNav={onNav} />
         <PulseSection available={availableScreenshots} onContact={onContact} />
         <CasesSection available={availableScreenshots} onOpen={setCaseItem} onContact={onContact} />
         <ExperienceSection />

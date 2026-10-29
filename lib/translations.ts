@@ -35,19 +35,6 @@ export const translations = {
     "common.switchTo.en": "English",
     "common.switchTo.es": "Español",
 
-    // Hero / profile card
-    "hero.profile.file": "perfil",
-    "hero.kv.role": "rol",
-    "hero.kv.based": "ubicación",
-    "hero.kv.exp": "exp",
-    "hero.kv.status": "estado",
-    "hero.kv.contact": "contacto",
-
-    // What I do
-    "whatido.title": "Lo que hago",
-    "whatido.sub": "Tres formas de resolver problemas con software",
-    "whatido.stats.label": "stats.json",
-
     // PULSE
     "pulse.title": "PULSE",
     "pulse.sub": "Producto destacado · Chokotech LLC",
@@ -211,19 +198,6 @@ export const translations = {
     "common.language": "language",
     "common.switchTo.en": "English",
     "common.switchTo.es": "Español",
-
-    // Hero / profile card
-    "hero.profile.file": "profile",
-    "hero.kv.role": "role",
-    "hero.kv.based": "based",
-    "hero.kv.exp": "exp",
-    "hero.kv.status": "status",
-    "hero.kv.contact": "contact",
-
-    // What I do
-    "whatido.title": "What I do",
-    "whatido.sub": "Three ways I solve problems with software",
-    "whatido.stats.label": "stats.json",
 
     // PULSE
     "pulse.title": "PULSE",

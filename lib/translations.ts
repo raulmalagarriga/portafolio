@@ -43,7 +43,9 @@ export const translations = {
 
     // Cases
     "cases.title": "Casos de estudio",
-    "cases.sub": "Problemas reales de negocio, resueltos con software",
+    "cases.viewCase": "ver caso →",
+    "cases.similar": "¿Tu negocio tiene un problema parecido?",
+    "cases.talk": "Hablemos →",
     "cases.client": "cliente / contexto",
     "cases.problem": "problema",
     "cases.solution": "solución",
@@ -202,7 +204,9 @@ export const translations = {
 
     // Cases
     "cases.title": "Case studies",
-    "cases.sub": "Real business problems, solved with software",
+    "cases.viewCase": "view case →",
+    "cases.similar": "Does your business have a similar problem?",
+    "cases.talk": "Let's talk →",
     "cases.client": "client / context",
     "cases.problem": "problem",
     "cases.solution": "solution",

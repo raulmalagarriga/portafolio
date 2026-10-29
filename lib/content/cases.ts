@@ -17,11 +17,16 @@ export type CaseDef = {
   glyph: string
   name: string
   org: L
+  /** One-line problem shown on the card. */
+  summary: L
+  /** Card impact block: big value + small label. */
+  impactValue: L
+  impactLabel: L
   context: L
   problem: L
   solution: L
   impact: L
-  /** Big highlighted figure shown in the card and the detail view. */
+  /** Big highlighted figure shown in the detail view; on the card it makes the impact value big and accented. */
   impactHighlight?: L
   note?: L
   stack: string[]
@@ -31,6 +36,8 @@ export type CaseDef = {
   url?: string
   cta?: { label: L; reason: ContactReason }
   gallery: GalleryItem[]
+  /** Index in `gallery` used as the card cover (defaults to the first available). */
+  cover?: number
 }
 
 export const CASES: CaseDef[] = [
@@ -39,6 +46,12 @@ export const CASES: CaseDef[] = [
     glyph: "VE",
     name: "Verifica",
     org: { es: "Mega Copias", en: "Mega Copias" },
+    summary: {
+      es: "Conciliar cada pago móvil contra el banco se hacía a mano, todos los días.",
+      en: "Reconciling every mobile payment against the bank was done by hand, every day.",
+    },
+    impactValue: { es: "2h → <10 min", en: "2h → <10 min" },
+    impactLabel: { es: "cierre diario de pagos", en: "daily payment close" },
     context: {
       es: "Mega Copias, papelería y centro de impresión con 25 años de trayectoria, recibe a diario un alto volumen de pagos móviles y transferencias.",
       en: "Mega Copias, a print shop and stationery business with 25 years of history, receives a high daily volume of mobile payments and bank transfers.",
@@ -85,6 +98,12 @@ export const CASES: CaseDef[] = [
     glyph: "WA",
     name: "Gestor de chats de WhatsApp",
     org: { es: "Mega Copias", en: "Mega Copias" },
+    summary: {
+      es: "Un solo número, varias personas atendiendo y nadie sabía quién llevaba cada cliente.",
+      en: "One number, several people answering, and no one knew who owned each customer.",
+    },
+    impactValue: { es: "0 clientes sin atender", en: "0 customers left unattended" },
+    impactLabel: { es: "objetivo · responsables, estados y alertas", en: "goal · owners, statuses and alerts" },
     context: {
       es: "Mega Copias atiende a sus clientes principalmente por WhatsApp Business, con varias personas respondiendo pedidos a la vez.",
       en: "Mega Copias serves its customers mainly through WhatsApp Business, with several people answering orders at once.",
@@ -103,6 +122,7 @@ export const CASES: CaseDef[] = [
     },
     stack: ["Next.js", "MongoDB", "Docker"],
     status: "development",
+    cover: 1,
     gallery: [
       // Customer names, avatars, messages and the linking QR are pixelated in these copies.
       { kind: "file", src: "/cases/whatsapp-1.png", alt: { es: "Gestor de chats · bandeja con tiempos de respuesta", en: "Chat manager · inbox with response timers" } },
@@ -116,6 +136,12 @@ export const CASES: CaseDef[] = [
     glyph: "SL",
     name: "Slive",
     org: { es: "Bigwise", en: "Bigwise" },
+    summary: {
+      es: "Suite retail en la nube: POS, inventario, CRM e IA propia para análisis predictivo.",
+      en: "Cloud retail suite: POS, inventory, CRM and proprietary AI for predictive analytics.",
+    },
+    impactValue: { es: "Backend · microservicios", en: "Backend · microservices" },
+    impactLabel: { es: ".NET Core · PostgreSQL · code-first", en: ".NET Core · PostgreSQL · code-first" },
     context: {
       es: "Desarrollado como parte del equipo de Bigwise. Slive es un sistema administrativo integral en la nube para retail: ventas, inventario, POS e IA propia para análisis predictivo y guía estratégica de negocio.",
       en: "Built as part of the Bigwise team. Slive is a comprehensive cloud-based administrative system for retail: sales, inventory, POS, and proprietary AI for predictive analytics and strategic business guidance.",
@@ -135,6 +161,7 @@ export const CASES: CaseDef[] = [
     stack: [".NET Core", "PostgreSQL", "Next.js", "MongoDB", "Redis", "Docker"],
     status: "production",
     url: "https://slive.ai/",
+    cover: 2,
     gallery: [
       { kind: "static", src: SliveMenu, alt: { es: "Slive · menú", en: "Slive · menu" } },
       { kind: "static", src: SliveChat, alt: { es: "Slive · chat", en: "Slive · chat" } },

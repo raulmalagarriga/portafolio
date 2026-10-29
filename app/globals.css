@@ -302,53 +302,6 @@ body.scrolling-fast .bg-mesh { filter: blur(56px); }
 
 /* ── Project card ────────────────────────────────────────────────────── */
 
-.proj-card { overflow: hidden; }
-.proj-card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 14px; }
-.proj-card .top { display: flex; gap: 14px; align-items: flex-start; }
-.proj-card .glyph {
-  width: 52px; height: 52px; flex: none; border-radius: 10px;
-  display: grid; place-items: center;
-  background: linear-gradient(135deg, rgba(var(--acc-rgb),.12), rgba(var(--acc-rgb),.04));
-  border: 1px solid rgba(var(--acc-rgb),.18);
-  color: var(--acc); font-weight: 700; font-size: 18px; letter-spacing: .04em;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-  transition: transform .35s ease;
-}
-.proj-card:hover .glyph { transform: rotate(-3deg) scale(1.04); }
-.proj-card h3 { font-size: 17px; margin: 0 0 4px; color: var(--ink); font-weight: 600; letter-spacing: -0.01em; }
-.proj-card .desc { font-size: 12.5px; color: var(--ink-mute); line-height: 1.55; margin: 0; }
-
-.proj-card .meta { display: flex; flex-wrap: wrap; gap: 5px; }
-.proj-card .actions { display: flex; gap: 10px; align-items: center; font-size: 12px; margin-top: auto; flex-wrap: wrap; }
-.proj-card .actions a, .proj-card .actions button {
-  display: inline-flex; align-items: center; gap: 6px;
-  color: var(--acc-2); text-decoration: none;
-  padding: 5px 10px; border: 1px solid rgba(var(--acc-rgb),.25); border-radius: 7px;
-  background: rgba(var(--acc-rgb),.04);
-  transition: all .2s ease;
-  font: inherit; cursor: pointer;
-}
-.proj-card .actions a:hover, .proj-card .actions button:hover {
-  background: rgba(var(--acc-rgb),.12);
-  border-color: rgba(var(--acc-rgb),.5);
-  transform: translateY(-1px);
-}
-
-.proj-card .preview {
-  height: 120px; border-radius: 8px; overflow: hidden;
-  border: 1px solid var(--line); position: relative;
-  background: #0a0b0e; cursor: pointer;
-}
-.proj-card .preview img {
-  width: 100%; height: 100%; object-fit: cover; object-position: top center;
-  transition: transform .6s ease;
-}
-.proj-card:hover .preview img { transform: scale(1.05); }
-.proj-card .preview::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(10,11,14,.8) 100%);
-}
-
 /* ── Profile/link card ──────────────────────────────────────────────── */
 .links-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
 @media (min-width: 900px) { .links-grid { grid-template-columns: repeat(4,1fr); } }
@@ -648,20 +601,12 @@ section.section > .container { position: relative; z-index: 1; }
 .status-badge.development .dot { background: var(--warn); box-shadow: 0 0 8px rgba(245,158,11,.4); }
 
 /* ── Cases ───────────────────────────────────────────────────────────── */
-.case-grid { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: stretch; }
-@media (min-width: 880px) { .case-grid { grid-template-columns: 1fr 1fr; } }
-.case-grid > .reveal { height: 100%; display: flex; }
-.case-grid > .reveal > .pane { flex: 1; display: flex; flex-direction: column; }
-.case-grid > .reveal > .pane > .pane-body { flex: 1; display: flex; flex-direction: column; }
-.case-grid .proj-card .body { flex: 1; }
-.case-card .pane-meta { text-transform: none; }
-.case-brief { display: flex; flex-direction: column; gap: 10px; }
-.case-brief-row p { margin: 0; font-size: 12.5px; color: var(--ink-mute); line-height: 1.55; }
+
 .impact-big {
   font-size: clamp(17px, 1.8vw, 22px); font-weight: 600; color: var(--acc-2);
   letter-spacing: -0.015em; line-height: 1.25; margin: 0 0 6px;
 }
-.proj-card .actions button.cta { color: var(--ink); border-color: rgba(var(--acc-rgb),.45); background: rgba(var(--acc-rgb),.1); }
+
 .modal-body { padding: 18px 22px; display: flex; flex-direction: column; gap: 16px; overflow: auto; }
 .case-glyph {
   width: 56px; height: 56px; font-size: 20px; border-radius: 10px; display: grid; place-items: center;
@@ -771,7 +716,6 @@ label.label { cursor: pointer; }
 .modal-body > .gallery { flex: none; }
 @media (max-width: 640px) { .modal { max-height: 92vh; } .modal-body { padding: 14px 16px; } }
 /* Three case cards side by side on wide screens */
-@media (min-width: 1180px) { .case-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* PULSE app rows (trainers / athletes) */
 
@@ -787,10 +731,6 @@ label.label { cursor: pointer; }
 @media (min-width: 640px) { .links-grid { grid-template-columns: repeat(3, 1fr); } }
 
 /* Case cards: uncropped preview with the screenshot's own ratio */
-.proj-card .preview.case-preview { height: auto; aspect-ratio: 2.15; }
-.proj-card .preview.case-preview img { object-fit: contain; object-position: center; }
-.proj-card .preview.case-preview::after { display: none; }
-.proj-card:hover .preview.case-preview img { transform: none; }
 
 /* PULSE layout */
 
@@ -818,12 +758,6 @@ label.label { cursor: pointer; }
 /* PULSE app rows: same structure in every card (name, then store links) */
 
 /* Case cards: one-line file path and a fixed-height title block so previews line up */
-.case-card .pane-head { min-width: 0; }
-.case-card .pane-title { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.case-card .pane-meta { flex: none; }
-.case-card .top { min-height: 68px; align-items: center; }
-.case-card .top h3 { line-height: 1.3; }
-.case-card .preview.case-preview { flex: none; }
 
 /* Consulting step icons */
 .step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -840,11 +774,9 @@ label.label { cursor: pointer; }
 
 /* Grid tracks must be allowed to shrink below their content's min width,
    otherwise a single nowrap line (e.g. a long file path) widens the whole page. */
-.case-grid, .lab-grid, .contact-grid, .consulting-grid, .stepper, .links-grid { min-width: 0; }
-.case-grid { grid-template-columns: minmax(0, 1fr); }
-@media (min-width: 880px)  { .case-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 1180px) { .case-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.case-grid > *, .lab-grid > *, .contact-grid > *, .stepper > *, .links-grid > * { min-width: 0; }
+.lab-grid, .contact-grid, .consulting-grid, .stepper, .links-grid { min-width: 0; }
+
+.lab-grid > *, .contact-grid > *, .stepper > *, .links-grid > * { min-width: 0; }
 .pane, .pane-body, .pane-head { min-width: 0; }
 .pane-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 main.app, section.section { overflow-x: clip; }
@@ -874,7 +806,7 @@ html, body { max-width: 100%; }
 
   .btn { min-height: 44px; }
   .btn.sm { min-height: 40px; padding: 8px 14px; }
-  .proj-card .actions a, .proj-card .actions button { min-height: 40px; padding: 8px 12px; }
+
   .gallery-nav { width: 36px; height: 36px; }
 
   .gallery-dot { position: relative; }
@@ -894,8 +826,7 @@ html, body { max-width: 100%; }
   /* PULSE */
 
   /* Cases: badge stays visible, path truncates */
-  .case-card .pane-head .tl { display: none; }
-  .case-card .top { min-height: 0; }
+
   .case-row { gap: 2px; }
 
   /* Stack rows */
@@ -966,8 +897,6 @@ html, body { max-width: 100%; }
   /* Stats 2×2: aligned cells */
 
   /* Case & lab cards: single inner padding */
-  .proj-card > .pane-body { padding: 0; }
-  .proj-card .body { padding: 16px; }
 
   /* Profiles: compact horizontal cards */
   .links-grid { gap: 10px; }
@@ -1097,4 +1026,33 @@ section.hero-section {
   .pulse-tagline { font-size: 20px; }
   .pulse-actions .btn { width: 100%; }
   .pulse-stores a { display: inline-block; padding: 6px 0; }
+}
+
+/* ── 03 · Cases ──────────────────────────────────────────────────────── */
+.case-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
+.case-grid > .reveal { display: flex; min-width: 0; }
+.case-grid > .reveal > .flat-card { flex: 1; }
+.case-cover {
+  position: relative; display: block; width: 100%; aspect-ratio: 16 / 8; padding: 0; border: 0;
+  border-bottom: 1px solid var(--line); background: var(--bg); cursor: pointer; overflow: hidden;
+}
+.case-cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.case-body { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.card-meta { display: flex; justify-content: space-between; gap: 12px; font-size: 11.5px; color: var(--ink-mute); }
+.card-meta .status.production > span { color: var(--acc); }
+.card-meta .status.development > span { color: #fbbf24; }
+.case-name { margin: 0; font-size: 19px; font-weight: 600; color: var(--ink-strong); }
+.case-org { margin: 4px 0 0; font-size: 12.5px; color: var(--ink-mute); }
+.case-summary { margin: 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+.case-impact { margin-top: auto; padding-top: 14px; border-top: 1px dashed var(--line-2); }
+.case-impact .v { font-size: 16px; font-weight: 600; color: var(--ink-strong); }
+.case-impact .v.big { font-size: 22px; color: var(--acc); }
+.case-impact .k { margin-top: 4px; font-size: 12px; color: var(--ink-mute); }
+.card-links { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; }
+.card-links a, .card-links button { padding: 6px 0; }
+.cases-cta { margin: 28px 0 0; font-size: 15px; color: var(--ink-mute); }
+.cases-cta .acc-link { font-size: 14px; }
+
+@media (max-width: 960px) {
+  .case-grid { grid-template-columns: minmax(0, 1fr); }
 }

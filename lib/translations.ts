@@ -38,13 +38,8 @@ export const translations = {
     // PULSE
     "pulse.title": "PULSE",
     "pulse.sub": "Producto destacado · Chokotech LLC",
-    "pulse.features": "funcionalidades",
-    "pulse.role": "mi rol",
-    "pulse.links": "enlaces",
+    "pulse.role": "mi rol ›",
     "pulse.website": "pulsefit.app",
-    "pulse.appstore": "App Store",
-    "pulse.googleplay": "Google Play",
-    "pulse.gallery": "capturas",
 
     // Cases
     "cases.title": "Casos de estudio",
@@ -54,8 +49,8 @@ export const translations = {
     "cases.solution": "solución",
     "cases.impact": "impacto",
     "cases.note": "nota",
-    "cases.status.production": "En producción",
-    "cases.status.development": "En desarrollo",
+    "cases.status.production": "en producción",
+    "cases.status.development": "en desarrollo",
 
     // Experience
     "experience.title": "Experiencia",
@@ -202,13 +197,8 @@ export const translations = {
     // PULSE
     "pulse.title": "PULSE",
     "pulse.sub": "Featured product · Chokotech LLC",
-    "pulse.features": "features",
-    "pulse.role": "my role",
-    "pulse.links": "links",
+    "pulse.role": "my role ›",
     "pulse.website": "pulsefit.app",
-    "pulse.appstore": "App Store",
-    "pulse.googleplay": "Google Play",
-    "pulse.gallery": "screenshots",
 
     // Cases
     "cases.title": "Case studies",
@@ -218,8 +208,8 @@ export const translations = {
     "cases.solution": "solution",
     "cases.impact": "impact",
     "cases.note": "note",
-    "cases.status.production": "In production",
-    "cases.status.development": "In development",
+    "cases.status.production": "in production",
+    "cases.status.development": "in development",
 
     // Experience
     "experience.title": "Experience",

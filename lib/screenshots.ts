@@ -1,12 +1,10 @@
 import fs from "node:fs"
 import path from "node:path"
 import { CASES } from "@/lib/content/cases"
-import { PULSE } from "@/lib/content/pulse"
 
 /** Public-folder screenshot paths referenced by the content (e.g. "/cases/verifica-1.png"). */
 export function expectedScreenshotPaths(): string[] {
   const paths = new Set<string>()
-  for (const item of PULSE.gallery) if (item.kind === "file") paths.add(item.src)
   for (const c of CASES) for (const item of c.gallery) if (item.kind === "file") paths.add(item.src)
   return Array.from(paths)
 }

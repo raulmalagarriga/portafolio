@@ -265,7 +265,7 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
 
       <main className="app">
         <HeroSection onNav={onNav} onContact={onContact} />
-        <PulseSection available={availableScreenshots} onContact={onContact} />
+        <PulseSection onContact={onContact} />
         <CasesSection available={availableScreenshots} onOpen={setCaseItem} onContact={onContact} />
         <ExperienceSection />
         <ConsultingSection onContact={onContact} />

@@ -3,35 +3,18 @@ import type { ReactNode, CSSProperties } from "react"
 type PaneProps = {
   title?: ReactNode
   meta?: ReactNode
-  corners?: boolean
-  hoverable?: boolean
   children: ReactNode
   className?: string
   style?: CSSProperties
 }
 
-export default function Pane({
-  title,
-  meta,
-  corners = false,
-  hoverable = false,
-  children,
-  className = "",
-  style,
-}: PaneProps) {
+/** Terminal window with a title bar. Only for PULSE and the contact form; everything else is a Card. */
+export default function Pane({ title, meta, children, className = "", style }: PaneProps) {
   return (
-    <div className={`pane${hoverable ? " hoverable" : ""}${className ? " " + className : ""}`} style={style}>
-      {corners && (
-        <>
-          <span className="corner tl" />
-          <span className="corner tr" />
-          <span className="corner bl" />
-          <span className="corner br" />
-        </>
-      )}
+    <div className={`pane${className ? " " + className : ""}`} style={style}>
       {(title || meta) && (
         <div className="pane-head">
-          <div className="tl">
+          <div className="tl" aria-hidden>
             <span />
             <span />
             <span />

@@ -7,7 +7,6 @@ import { pick } from "@/lib/i18n"
 import { CONTACT_REASONS, type ContactReason } from "@/lib/content/contact"
 import { SOCIAL } from "@/lib/portfolio-data"
 import Icon from "@/components/terminal/icon"
-import KV from "@/components/terminal/kv"
 import Pane from "@/components/terminal/pane"
 import Reveal from "@/components/terminal/reveal"
 import SectionHeader from "@/components/terminal/section-header"
@@ -20,10 +19,12 @@ type Props = {
   onReasonChange: (reason: ContactReason) => void
 }
 
+const CV_PATH = "/CV-RaulJMalagarriga.pdf"
+
 export default function ContactSection({ reason, onReasonChange }: Props) {
   const { t, language } = useLanguage()
   const formRef = useRef<HTMLFormElement | null>(null)
-  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" })
+  const [form, setForm] = useState({ name: "", email: "", message: "" })
   const [status, setStatus] = useState<SubmissionStatus>("idle")
   const [flash, setFlash] = useState(false)
 
@@ -51,7 +52,7 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
       if (!formRef.current) throw new Error("missing form")
       await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey)
       setStatus("success")
-      setForm({ name: "", email: "", subject: "", message: "" })
+      setForm({ name: "", email: "", message: "" })
       window.setTimeout(() => setStatus("idle"), 4000)
     } catch (err) {
       console.error("Contact send failed:", err)
@@ -63,53 +64,77 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
   const selected = reason ?? "consulting"
   const selectedLabel = pick(CONTACT_REASONS.find((r) => r.id === selected)!.label, language)
 
-  return (
-    <section id="contact" className="section">
-      <div className="container">
-        <Reveal>
-          <SectionHeader id="contact" title={t("contact.title")} />
-        </Reveal>
+  const rows: { label: string; value: string; href: string; accent?: boolean; download?: boolean }[] = [
+    { label: "email", value: SOCIAL.email, href: `mailto:${SOCIAL.email}` },
+    { label: "linkedin", value: "in/rjmalagarrigat ↗", href: SOCIAL.linkedin },
+    { label: "github", value: "raulmalagarriga ↗", href: SOCIAL.github },
+    { label: "blog", value: "medium ↗", href: SOCIAL.medium },
+    { label: "cv", value: t("contact.cv"), href: CV_PATH, accent: true, download: true },
+  ]
 
+  return (
+    <section id="contact" className="section contact-section">
+      <div className="container">
         <div className="contact-grid">
-          <Reveal delay={80}>
+          <Reveal>
+            <SectionHeader id="contact" title={t("contact.title")} size="lg" />
+            <p className="contact-lead body-text">{t("contact.lead")}</p>
+            <ul className="contact-rows">
+              {rows.map((r) => {
+                const external = r.href.startsWith("http")
+                return (
+                  <li key={r.label}>
+                    <a
+                      href={r.href}
+                      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+                      {...(r.download ? { download: true } : {})}
+                    >
+                      <span className="k">{r.label}</span>
+                      <span className={r.accent ? "v acc" : "v"}>{r.value}</span>
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </Reveal>
+
+          <Reveal delay={100}>
             <Pane
               title={
                 <>
-                  ./contact/<b>send.sh</b>
+                  {t("path.contact")}/<b>{t("contact.file")}</b>
                 </>
               }
-              meta="form"
-              hoverable
             >
-              <form ref={formRef} onSubmit={onSubmit} style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div>
-                  <label className="label" htmlFor="contact-reason">
-                    <span className="b">$</span> {t("contact.form.reason")}
-                  </label>
-                  <select
-                    id="contact-reason"
-                    className={`input select${flash ? " flash" : ""}`}
-                    name="reason"
-                    value={selected}
-                    onChange={(e) => onReasonChange(e.target.value as ContactReason)}
-                  >
+              <form ref={formRef} onSubmit={onSubmit} className="contact-form">
+                <fieldset className={`reason-field${flash ? " flash" : ""}`}>
+                  <legend className="field-label">{t("contact.form.reason")}</legend>
+                  <div className="reason-chips">
                     {CONTACT_REASONS.map((r) => (
-                      <option key={r.id} value={r.id}>
+                      <button
+                        key={r.id}
+                        type="button"
+                        className="chip-btn"
+                        aria-pressed={selected === r.id}
+                        onClick={() => onReasonChange(r.id)}
+                      >
                         {pick(r.label, language)}
-                      </option>
+                      </button>
                     ))}
-                  </select>
-                  {/* Human-readable copy of the reason for the EmailJS template ({{reason_label}}). */}
+                  </div>
+                  {/* Sent to the EmailJS template: reason id, its label, and the subject (= label, no visible input). */}
+                  <input type="hidden" name="reason" value={selected} />
                   <input type="hidden" name="reason_label" value={selectedLabel} />
-                </div>
+                  <input type="hidden" name="subject" value={selectedLabel} />
+                </fieldset>
                 <div className="contact-2col">
                   <div>
-                    <label className="label" htmlFor="contact-name">
-                      <span className="b">$</span> {t("contact.form.name")}
+                    <label className="field-label" htmlFor="contact-name">
+                      {t("contact.form.name")}
                     </label>
                     <input
                       id="contact-name"
-                      className="input"
+                      className="field"
                       name="name"
                       placeholder={t("contact.form.placeholder.name")}
                       value={form.name}
@@ -119,12 +144,12 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
                     />
                   </div>
                   <div>
-                    <label className="label" htmlFor="contact-email">
-                      <span className="b">$</span> {t("contact.form.email")}
+                    <label className="field-label" htmlFor="contact-email">
+                      {t("contact.form.email")}
                     </label>
                     <input
                       id="contact-email"
-                      className="input"
+                      className="field"
                       name="email"
                       type="email"
                       placeholder={t("contact.form.placeholder.email")}
@@ -136,85 +161,33 @@ export default function ContactSection({ reason, onReasonChange }: Props) {
                   </div>
                 </div>
                 <div>
-                  <label className="label" htmlFor="contact-subject">
-                    <span className="b">$</span> {t("contact.form.subject")}
-                  </label>
-                  <input
-                    id="contact-subject"
-                    className="input"
-                    name="subject"
-                    placeholder={t("contact.form.placeholder.subject")}
-                    value={form.subject}
-                    onChange={update("subject")}
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="label" htmlFor="contact-message">
-                    <span className="b">$</span> {t("contact.form.message")}
+                  <label className="field-label" htmlFor="contact-message">
+                    {t("contact.form.message")}
                   </label>
                   <textarea
                     id="contact-message"
-                    className="input"
+                    className="field"
                     name="message"
-                    rows={6}
+                    rows={5}
                     placeholder={t("contact.form.placeholder.message")}
                     value={form.message}
                     onChange={update("message")}
                     required
                   />
                 </div>
-                <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+                <div className="form-actions">
                   <button className="btn" type="submit" disabled={status === "loading"}>
-                    <Icon name="send" size={12} /> {status === "loading" ? t("contact.form.sending") : t("contact.form.send")}
+                    {status === "loading" ? t("contact.form.sending") : t("contact.form.send")} <Icon name="arrow" size={14} />
                   </button>
-                  <span style={{ fontSize: 11.5, color: "var(--ink-dim)" }} role="status" aria-live="polite">
+                  <span className="form-status" role="status" aria-live="polite">
                     {status === "success" ? (
-                      <span style={{ color: "var(--acc)" }}>{t("contact.form.sent")}</span>
+                      <span className="acc">{t("contact.form.sent")}</span>
                     ) : status === "error" ? (
                       <span style={{ color: "var(--danger)" }}>{t("contact.form.error")}</span>
-                    ) : (
-                      t("contact.form.idle")
-                    )}
+                    ) : null}
                   </span>
                 </div>
               </form>
-            </Pane>
-          </Reveal>
-
-          <Reveal delay={140}>
-            <Pane
-              title={
-                <>
-                  ./contact/<b>card.tsx</b>
-                </>
-              }
-              meta="info"
-              hoverable
-            >
-              <div style={{ display: "flex", flexDirection: "column", gap: 12, fontSize: 13 }}>
-                <KV k={t("contact.info.email")} v={<a className="footer-link" href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a>} />
-                <KV k={t("contact.info.linkedin")} v="/in/rjmalagarrigat" />
-                <KV k={t("contact.info.github")} v="@raulmalagarriga" />
-                <KV k={t("contact.info.timezone")} v={t("contact.info.timezone.value")} />
-                <KV k={t("contact.info.languages")} v={t("contact.info.languages.value")} />
-
-                <div
-                  style={{
-                    marginTop: 8,
-                    padding: 14,
-                    borderRadius: 8,
-                    border: "1px dashed var(--line-2)",
-                    background: "rgba(var(--acc-rgb),.03)",
-                    color: "var(--ink-mute)",
-                    fontSize: 12,
-                    lineHeight: 1.6,
-                  }}
-                >
-                  <span style={{ color: "var(--acc)" }}>{t("contact.info.tip.prefix")}</span> {t("contact.info.tip.body")}{" "}
-                  <span className="kbd">⌘ K</span> {t("contact.info.tip.body2")}
-                </div>
-              </div>
             </Pane>
           </Reveal>
         </div>

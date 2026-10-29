@@ -10,6 +10,9 @@ export type ExperienceDef = {
   end?: string
   /** TODO marker: the role title must be confirmed by the owner. */
   roleTodo?: boolean
+  /** One-line summary shown in the list. */
+  summary: L
+  /** Kept in the data; not rendered in the light layout. */
   highlights: LList
   url?: string
 }
@@ -21,6 +24,10 @@ export const EXPERIENCE: ExperienceDef[] = [
     org: { es: "Chokotech LLC · PULSE", en: "Chokotech LLC · PULSE" },
     start: "2026-02",
     url: "https://www.pulsefit.app/",
+    summary: {
+      es: "Lidero el backend, buena parte del frontend y las operaciones y finanzas de la empresa.",
+      en: "I lead the backend, much of the frontend, and the company's operations and finance.",
+    },
     highlights: {
       es: [
         "Lidero el backend (Node.js, MongoDB, Google Cloud Run), buena parte del frontend (React Native, Next.js) y las operaciones y finanzas de la empresa.",
@@ -38,6 +45,10 @@ export const EXPERIENCE: ExperienceDef[] = [
     org: { es: "Mega Copias", en: "Mega Copias" },
     // TODO: add the month once confirmed (YYYY-MM); year-only renders as "2025".
     start: "2025",
+    summary: {
+      es: "Verifica en producción y gestor de chats de WhatsApp en desarrollo.",
+      en: "Verifica in production and a WhatsApp chat manager in development.",
+    },
     highlights: {
       es: [
         "Verifica: la conciliación diaria de pagos pasó de unas 2 horas a menos de 10 minutos.",
@@ -54,6 +65,10 @@ export const EXPERIENCE: ExperienceDef[] = [
     role: { es: "Consultor de software a medida", en: "Custom software consultant" },
     org: { es: "Independiente", en: "Independent" },
     start: "2025-03",
+    summary: {
+      es: "Software a medida, automatización de procesos e integraciones para empresas.",
+      en: "Custom software, process automation and integrations for companies.",
+    },
     highlights: {
       es: [
         "Software a medida, automatización de procesos e integraciones (WhatsApp, pagos, bancos) para empresas.",
@@ -72,6 +87,10 @@ export const EXPERIENCE: ExperienceDef[] = [
     start: "2023-03",
     end: "2026-09",
     url: "https://slive.ai/",
+    summary: {
+      es: "Líder backend de Slive: microservicios con .NET Core, EF Core y PostgreSQL.",
+      en: "Backend lead for Slive: microservices with .NET Core, EF Core and PostgreSQL.",
+    },
     highlights: {
       es: [
         "Líder backend de Slive, sistema integral para retail basado en microservicios con .NET Core, EF Core y PostgreSQL.",
@@ -90,6 +109,10 @@ export const EXPERIENCE: ExperienceDef[] = [
     start: "2019-03",
     end: "2023-03",
     url: "https://saintnet.com/",
+    summary: {
+      es: "Incidencias, pruebas técnicas y documentación del software de gestión.",
+      en: "Incident handling, technical testing and documentation for business software.",
+    },
     highlights: {
       es: [
         "Gestión de incidencias y pruebas técnicas del software de gestión empresarial de Saint.",

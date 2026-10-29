@@ -20,7 +20,7 @@ export const translations = {
     "path.contact": "~/contacto",
 
     // Shared
-    "common.present": "presente",
+    "common.present": "hoy",
     "common.datePending": "fecha por confirmar",
     "common.todo": "por confirmar",
     "common.screenshotSoon": "captura próximamente",
@@ -56,7 +56,6 @@ export const translations = {
 
     // Experience
     "experience.title": "Experiencia",
-    "experience.sub": "Dónde he construido y liderado",
 
     // Consulting
     "consulting.title": "Consultoría · Cómo trabajo",
@@ -66,12 +65,10 @@ export const translations = {
 
     // Lab
     "lab.title": "Laboratorio",
-    "lab.sub": "Proyectos personales para experimentar",
-
-    // Stack
-    "stack.title": "Stack",
-    "stack.sub": "Lo que uso para construir",
-    "stack.label": "ls ./stack",
+    "lab.demo": "demo ↗",
+    "lab.code": "código ↗",
+    "lab.art.sentiment": "Tres caras de negativo a positivo y una barra de polaridad marcando +0.82",
+    "lab.art.battleship": "Tablero de batalla naval con un barco impactado, una mira y mensajes de chat",
 
     // Links
     "links.title": "Perfiles",
@@ -181,7 +178,7 @@ export const translations = {
     "path.contact": "~/contact",
 
     // Shared
-    "common.present": "present",
+    "common.present": "now",
     "common.datePending": "date to be confirmed",
     "common.todo": "to be confirmed",
     "common.screenshotSoon": "screenshot coming soon",
@@ -217,7 +214,6 @@ export const translations = {
 
     // Experience
     "experience.title": "Experience",
-    "experience.sub": "Where I've built and led",
 
     // Consulting
     "consulting.title": "Consulting · How I work",
@@ -227,12 +223,10 @@ export const translations = {
 
     // Lab
     "lab.title": "Lab",
-    "lab.sub": "Side projects for experimenting",
-
-    // Stack
-    "stack.title": "Stack",
-    "stack.sub": "What I build with",
-    "stack.label": "ls ./stack",
+    "lab.demo": "demo ↗",
+    "lab.code": "code ↗",
+    "lab.art.sentiment": "Three faces from negative to positive and a polarity bar at +0.82",
+    "lab.art.battleship": "Battleship board with a hit ship, a crosshair and chat messages",
 
     // Links
     "links.title": "Profiles",

@@ -21,8 +21,6 @@ import PulseSection from "@/components/sections/pulse-section"
 import CasesSection from "@/components/sections/cases-section"
 import ExperienceSection from "@/components/sections/experience-section"
 import ConsultingSection from "@/components/sections/consulting-section"
-import LabSection from "@/components/sections/lab-section"
-import StackSection from "@/components/sections/stack-section"
 import LinksSection from "@/components/sections/links-section"
 import ContactSection from "@/components/sections/contact-section"
 import FooterSection from "@/components/sections/footer-section"
@@ -269,8 +267,6 @@ export default function Portfolio({ availableScreenshots }: PortfolioProps) {
         <CasesSection available={availableScreenshots} onOpen={setCaseItem} onContact={onContact} />
         <ExperienceSection />
         <ConsultingSection onContact={onContact} />
-        <LabSection />
-        <StackSection />
         <LinksSection />
         <ContactSection reason={contactReason} onReasonChange={setContactReason} />
         <FooterSection />

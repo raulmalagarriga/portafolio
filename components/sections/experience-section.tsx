@@ -1,28 +1,21 @@
 "use client"
 
 import { useLanguage } from "@/contexts/language-context"
-import { pick, type Locale } from "@/lib/i18n"
+import { pick } from "@/lib/i18n"
 import { EXPERIENCE } from "@/lib/content/experience"
-import Icon from "@/components/terminal/icon"
-import Pane from "@/components/terminal/pane"
+import { STACK } from "@/lib/content/stack"
+import { LAB, LAB_INTRO } from "@/lib/content/lab"
+import Card from "@/components/terminal/card"
+import { LAB_ILLUSTRATIONS } from "@/components/terminal/lab-illustrations"
 import Reveal from "@/components/terminal/reveal"
 import SectionHeader from "@/components/terminal/section-header"
 
-const MONTHS: Record<Locale, string[]> = {
-  es: ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"],
-  en: ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"],
-}
-
-function fmt(ym: string, locale: Locale): string {
-  const [y, m] = ym.split("-")
-  if (!m) return y
-  const mi = Number(m) - 1
-  const month = MONTHS[locale][mi] ?? ""
-  return month ? `${month} ${y}` : y
-}
+/** "2026-02" → "2026" (the list shows years only). */
+const year = (ym: string) => ym.split("-")[0]
 
 export default function ExperienceSection() {
   const { t, language } = useLanguage()
+  const stackTop = STACK.filter((c) => c.top)
 
   return (
     <section id="experience" className="section">
@@ -31,67 +24,109 @@ export default function ExperienceSection() {
           <SectionHeader id="experience" title={t("experience.title")} />
         </Reveal>
 
-        <Reveal delay={80}>
-          <Pane
-            title={
-              <>
-                ~/<b>experience.log</b>
-              </>
-            }
-            meta="git log --oneline"
-            hoverable
-          >
-            <ol className="timeline">
-              {EXPERIENCE.map((e, i) => {
-                const start = e.start ? fmt(e.start, language) : null
-                const end = e.end ? fmt(e.end, language) : t("common.present")
-                return (
-                  <li key={e.key} className="tl-item" style={{ ["--i" as string]: i }}>
-                    <span className="tl-dot" aria-hidden />
-                    <div className="tl-when">
-                      {start ? (
-                        <span>{start}</span>
-                      ) : (
-                        // TODO: fill `start` in lib/content/experience.ts
-                        <span className="tl-pending" title={t("common.datePending")}>
-                          ····
+        <Reveal>
+          <ol className="exp-list">
+            {EXPERIENCE.map((e) => {
+              const current = !e.end
+              return (
+                <li key={e.key} className="exp">
+                  <span className={`exp-when${current ? " current" : ""}`}>
+                    {e.start ? (
+                      year(e.start)
+                    ) : (
+                      // TODO: fill `start` in lib/content/experience.ts
+                      <span className="tl-pending" title={t("common.datePending")}>
+                        ····
+                      </span>
+                    )}{" "}
+                    — {e.end ? year(e.end) : t("common.present")}
+                  </span>
+                  <div>
+                    <h3 className="exp-role">
+                      {pick(e.role, language)}
+                      {e.roleTodo && (
+                        <span className="tag todo" style={{ marginLeft: 8 }} title="TODO">
+                          {t("common.todo")}
                         </span>
                       )}
-                      <span className="tl-sep">–</span>
-                      <span>{end}</span>
+                    </h3>
+                    <p className="exp-org">{pick(e.org, language)}</p>
+                  </div>
+                  <p className="exp-summary body-text">{pick(e.summary, language)}</p>
+                </li>
+              )
+            })}
+          </ol>
+        </Reveal>
+
+        <Reveal>
+          <Card className="stack-card">
+            <p className="cmd-line">
+              <span className="acc">$</span> stack --top
+            </p>
+            <dl className="stack-grid">
+              {stackTop.map((c) => (
+                <div key={c.key}>
+                  <dt>{pick(c.top!.label, language)}</dt>
+                  <dd>{c.top!.items.join(" · ")}</dd>
+                </div>
+              ))}
+            </dl>
+          </Card>
+        </Reveal>
+
+        <div className="lab">
+          <Reveal>
+            <p className="cmd-line">
+              <span className="acc">$</span> ls lab/
+            </p>
+            <h3 className="lab-title">{t("lab.title")}</h3>
+            <p className="lab-intro body-text">{pick(LAB_INTRO, language)}</p>
+          </Reveal>
+          <div className="lab-grid">
+            {LAB.map((p, i) => {
+              const Art = LAB_ILLUSTRATIONS[p.key]
+              return (
+                <Reveal key={p.key} delay={60 + i * 80}>
+                  <Card as="article" className="lab-card">
+                    <div className="lab-art">
+                      <Art label={t(`lab.art.${p.key}`)} />
                     </div>
-                    <div className="tl-body">
-                      <h3>
-                        {pick(e.role, language)}
-                        {e.roleTodo && (
-                          <span className="tag todo" style={{ marginLeft: 8 }} title="TODO">
-                            {t("common.todo")}
-                          </span>
-                        )}
-                      </h3>
-                      <div className="tl-org">
-                        {e.url ? (
-                          <a href={e.url} target="_blank" rel="noreferrer" className="footer-link">
-                            {pick(e.org, language)} <Icon name="external" size={10} />
-                          </a>
-                        ) : (
-                          pick(e.org, language)
-                        )}
+                    <div className="lab-body">
+                      <div className="card-meta">
+                        <span>
+                          <span className="acc">›</span> lab/{p.key}
+                        </span>
+                        <span>{String(i + 1).padStart(2, "0")}</span>
                       </div>
-                      <ul>
-                        {e.highlights[language].map((h) => (
-                          <li key={h}>
-                            <span className="b">›</span> {h}
+                      <h4 className="lab-name">{p.name}</h4>
+                      <p className="lab-summary body-text">{pick(p.summary, language)}</p>
+                      <ul className="chip-list sm">
+                        {p.tech.map((tech) => (
+                          <li key={tech} className="chip">
+                            {tech}
                           </li>
                         ))}
                       </ul>
+                      <div className="card-links lab-links">
+                        {p.url && (
+                          <a className="acc-link" href={p.url} target="_blank" rel="noreferrer">
+                            {t("lab.demo")}
+                          </a>
+                        )}
+                        {p.github && (
+                          <a className={p.url ? "mute-link" : "acc-link"} href={p.github} target="_blank" rel="noreferrer">
+                            {t("lab.code")}
+                          </a>
+                        )}
+                      </div>
                     </div>
-                  </li>
-                )
-              })}
-            </ol>
-          </Pane>
-        </Reveal>
+                  </Card>
+                </Reveal>
+              )
+            })}
+          </div>
+        </div>
       </div>
     </section>
   )
